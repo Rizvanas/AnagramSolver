@@ -6,8 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AnagramGenerator.Tests\AnagramGenerator.Tests.csproj" />
     <ProjectReference Include="..\Implementation\Implementation.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
   </ItemGroup>
 
 </Project>

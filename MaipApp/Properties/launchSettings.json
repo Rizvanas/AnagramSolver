@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MaipApp": {
+      "commandName": "Project",
+      "commandLineArgs": "ašis"
+    }
+  }
+}
