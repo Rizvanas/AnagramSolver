@@ -19,7 +19,6 @@ namespace Implementation
                 words.TryAdd(lineArr[2], lineArr[1]);
             }
 
-            //var wordGroups = words.GroupBy(wg => wg.Value);
             return words;
         } 
     }
