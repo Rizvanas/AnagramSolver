@@ -14,8 +14,8 @@ namespace Implementation.Extensions
 
             var strLetterTable = src.GetCharFrequencyHist();
             var anagramLetters = str.ToLower()
-                                        .ToCharArray()
-                                        .Where(c => Char.IsLetterOrDigit(c));
+                                    .ToCharArray()
+                                    .Where(c => Char.IsLetterOrDigit(c));
 
             foreach (var letter in anagramLetters)
             {
