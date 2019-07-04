@@ -19,7 +19,7 @@ namespace Implementation.Tests
             (new TxtWordLoader { FilePath = @"..\AnagramGenerator\testzodynas2.txt" }.Load().ToList());
 
         private readonly AnagramSolver _anagramSolver3 = new AnagramSolver
-            (new TxtWordLoader { FilePath = @"..\AnagramGenerator\testzodynas3.txt" }.Load().ToList());
+            (new TxtWordLoader { FilePath = @"..\AnagramGenerator\longestWords.txt" }.Load().ToList());
 
         [Test]
         public void GetAnagrams_WordContainsLithuanianChars_ResultCountIs0()
@@ -71,5 +71,11 @@ namespace Implementation.Tests
             Assert.That(() => _anagramSolver1.GetAnagrams(null), Throws.ArgumentNullException);
         }
 
+        [Test]
+        public void GetAnagrams_WordLengthIsSmallerThanSmallestWordInAList_ResultCount0()
+        {
+            var testAnagrams = _anagramSolver3.GetAnagrams("a");
+            Assert.IsEmpty(testAnagrams);
+        }
     }
 }

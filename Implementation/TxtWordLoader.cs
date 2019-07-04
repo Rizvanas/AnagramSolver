@@ -30,6 +30,6 @@ namespace Implementation
             return words
                 .Where(w => !forbiddenTypes.Contains(w.Type))
                 .ToHashSet();
-        } 
+        }
     }
 }
