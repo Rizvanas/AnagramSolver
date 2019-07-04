@@ -16,9 +16,6 @@ namespace Implementation.Tests
             (new TxtWordLoader { FilePath = @"..\AnagramGenerator\testzodynas1.txt" }.Load().ToList());
 
         private readonly AnagramSolver _anagramSolver2 = new AnagramSolver
-            (new TxtWordLoader { FilePath = @"..\AnagramGenerator\testzodynas2.txt" }.Load().ToList());
-
-        private readonly AnagramSolver _anagramSolver3 = new AnagramSolver
             (new TxtWordLoader { FilePath = @"..\AnagramGenerator\longestWords.txt" }.Load().ToList());
 
         [Test]
@@ -74,7 +71,7 @@ namespace Implementation.Tests
         [Test]
         public void GetAnagrams_WordLengthIsSmallerThanSmallestWordInAList_ResultCount0()
         {
-            var testAnagrams = _anagramSolver3.GetAnagrams("a");
+            var testAnagrams = _anagramSolver2.GetAnagrams("a");
             Assert.IsEmpty(testAnagrams);
         }
     }
