@@ -1,12 +1,13 @@
-﻿using Core.Domain;
+﻿using Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Interfaces
 {
-    public interface IWordRepository
+    public interface IPrinter
     {
-        IEnumerable<Word> GetWords();
+        void Print();
     }
 }
+ 

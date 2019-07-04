@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace Interfaces
 {
     public interface IWordLoader
     {
-        Dictionary<string, string> Load(string filePath);
+        IEnumerable<Word> Load(string filePath);
     }
 }

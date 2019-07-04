@@ -2,29 +2,32 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Core.Domain;
 using Interfaces;
 
 namespace Implementation
 {
     public class TxtWordLoader : IWordLoader
     {
-        public Dictionary<string, string> Load(string filePath)
+        public IEnumerable<Word> Load(string filePath)
         {
             var lines = File.ReadLines(filePath);
-            var words = new Dictionary<string, string>();
+            var words = new HashSet<Word>();
             var regex = new Regex("[.-]|[0-9]");
-
+            var forbiddenTypes = new List<string> { "sutr", "dll", "akronim" }; 
             foreach (var line in lines)
             {
                 var lineArr = line.ToLower().Split('\t');
                 if (!regex.IsMatch(lineArr[0]))
-                    words.TryAdd(lineArr[0], lineArr[1]);
+                    words.Add(new Word { Text = lineArr[0], Type = lineArr[1] });
 
                 if (!regex.IsMatch(lineArr[2]))
-                    words.TryAdd(lineArr[2], lineArr[1]);
+                    words.Add(new Word { Text = lineArr[2], Type = lineArr[1] });
             }
 
-            return words;
+            return words
+                .Where(w => !forbiddenTypes.Contains(w.Type))
+                .ToHashSet();
         } 
     }
 }

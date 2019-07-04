@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Core.Domain;
+using Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ namespace Implementation
 {
     public class WordRepository : IWordRepository
     {
-        private readonly Dictionary<string, string> _words;
+        private readonly IEnumerable<Word> _words;
         public WordRepository(IWordLoader wordLoader)
         {
             _words = wordLoader.Load(@"..\AnagramGenerator\zodynas.txt");
         }
 
-        public Dictionary<string, string> GetWords()
+        public IEnumerable<Word> GetWords()
         {
             return _words;
         }
