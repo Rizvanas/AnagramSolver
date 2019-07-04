@@ -9,6 +9,6 @@ namespace Interfaces
 {
     public interface IWordLoader
     {
-        IEnumerable<Word> Load(string filePath);
+        IEnumerable<Word> Load();
     }
 }

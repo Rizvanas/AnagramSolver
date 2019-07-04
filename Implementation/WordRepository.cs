@@ -12,7 +12,7 @@ namespace Implementation
         private readonly IEnumerable<Word> _words;
         public WordRepository(IWordLoader wordLoader)
         {
-            _words = wordLoader.Load(@"..\AnagramGenerator\zodynas.txt");
+            _words = wordLoader.Load();
         }
 
         public IEnumerable<Word> GetWords()

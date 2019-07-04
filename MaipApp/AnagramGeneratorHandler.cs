@@ -13,7 +13,6 @@ namespace MaipApp
     {
         private readonly IAnagramSolver _anagramSolver;
         private readonly IPrinter _printer;
-        private readonly IWordRepository _wordRepository;
 
         public AnagramGeneratorHandler(IAnagramSolver anagramSolver, IPrinter printer)
         {
@@ -35,7 +34,7 @@ namespace MaipApp
                         .GetAnagrams(inputWords)
                         .Select(a => String.Join(' ', a.Select(t => t.Text)))
                         .ToList();
-                    var pritableAnagrams = new Anagrams(anagrams);
+
                     _printer.Print(new List<IPrintable> { new Anagrams(anagrams) });
                 }
 

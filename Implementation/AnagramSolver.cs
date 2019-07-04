@@ -8,24 +8,29 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Collections.Specialized;
 using Core.Domain;
+using System.Reflection;
 
 namespace Implementation
 {
     public class AnagramSolver : IAnagramSolver
     {
-        private readonly IWordRepository _wordRepository;
-        private readonly NameValueCollection _appSettings;
+        private readonly List<Word> _words;
+        private readonly Configuration _appSettings;
 
-        public AnagramSolver(IWordRepository wordRepository)
+        public AnagramSolver(List<Word> words)
         {
-            _wordRepository = wordRepository;
-            _appSettings = ConfigurationManager.GetSection("ApplicationSettings")
-                        as NameValueCollection;
+            _words = words;
+            //_appSettings = ConfigurationManager.GetSection("ApplicationSettings")
+            //            as NameValueCollection;
+            _appSettings = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
         }
 
         public List<List<Word>> GetAnagrams(string myWords)
         {
-            var resultCount = Convert.ToInt32(_appSettings["ResultCount"]);
+            if (myWords == null)
+                throw new ArgumentNullException("myWords cannot be null");
+
+            var resultCount = 1000;
             myWords = Regex.Replace(myWords, @"\s+", "");
             var words = GetWordsForAnagrams(myWords);
             var searchWord = myWords;
@@ -36,11 +41,10 @@ namespace Implementation
 
         private List<Word> GetWordsForAnagrams(string myWords)
         {
-            var minWordLen = Convert.ToInt32(_appSettings["MinWordLength"]);
+            var minWordLen = Convert.ToInt32(2);
             var searchWord = myWords.GetSearchWord(null);
 
-            return _wordRepository
-                    .GetWords()
+            return _words
                     .Where(w => myWords.GetSearchWord(w.Text) != searchWord
                     && w.Text.Count(c => !Char.IsWhiteSpace(c)) <= searchWord.Length
                     && w.Text.Length >= minWordLen
