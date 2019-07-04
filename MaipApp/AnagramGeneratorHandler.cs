@@ -39,7 +39,6 @@ namespace MaipApp
                     _printer.Print(new List<IPrintable> { new Anagrams(anagrams) });
                 }
 
-                Console.Clear();
             }
 
             return continueRunning;

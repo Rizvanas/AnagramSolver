@@ -23,6 +23,7 @@ namespace MaipApp
             {
                 Console.WriteLine("Press [esc] if you want to exit application.");
                 continueRunning = Console.ReadKey().Key != ConsoleKey.Escape;
+                Console.Clear();
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Core.Domain
 
         public override int GetHashCode()
         {
-            return this.Text.GetHashCode() ^ this.Type.GetHashCode();
+            return this.Text.GetHashCode();
         }
     }
 }
