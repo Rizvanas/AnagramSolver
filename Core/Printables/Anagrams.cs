@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Printables
 {
-    class Anagrams : IPrintable
+    public class Anagrams : IPrintable
     {
         private readonly List<string> _anagrams;
         public Anagrams(List<string> anagrams)

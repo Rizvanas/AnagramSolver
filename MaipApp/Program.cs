@@ -15,23 +15,14 @@ namespace MaipApp
 
             var wordRepository = new WordRepository(new TxtWordLoader());
             var anagramSolver = new AnagramSolver(wordRepository);
+            var printer = new ConsoleWordPrinter();
+            var anagramGeneratorHandler = new AnagramGeneratorHandler(anagramSolver, printer);
 
-            string words = null;
-            bool run = true;
-            while(run)
+            bool continueRunning = true;
+            while(anagramGeneratorHandler.Run(continueRunning))
             {
-                Console.WriteLine("Please enter > 0 and < 11 words");
-                words = Console.ReadLine();
-                var wordCount = words.Split(' ').Length;
-
-                if (wordCount >= 1 && wordCount <= 10)
-                {
-                    var anagrams = anagramSolver.GetAnagrams(words);
-                }
-
                 Console.WriteLine("Press [esc] if you want to exit application.");
-                run = Console.ReadKey().Key != ConsoleKey.Escape;
-                Console.Clear();
+                continueRunning = Console.ReadKey().Key != ConsoleKey.Escape;
             }
         }
     }

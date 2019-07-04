@@ -7,7 +7,7 @@ namespace Interfaces
 {
     public interface IPrinter
     {
-        void Print();
+        void Print(List<IPrintable> Printables);
     }
 }
  

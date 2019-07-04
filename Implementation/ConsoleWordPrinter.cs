@@ -8,13 +8,7 @@ namespace Implementation
 {
     public class ConsoleWordPrinter : IPrinter
     {
-        public List<IPrintable> Printables { get; set; }
-        public ConsoleWordPrinter(List<IPrintable> printables)
-        {
-            Printables = printables;
-        }
-
-        public void Print()
+        public void Print(List<IPrintable> Printables)
         {
             foreach (var printable in Printables)
             {
