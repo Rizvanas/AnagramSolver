@@ -5,19 +5,36 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AnagramGenerator.WebApp.Models;
+using Interfaces;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IAnagramSolver _anagramSolver;
+
+        public HomeController(IAnagramSolver anagramSolver)
         {
-            return View();
+            _anagramSolver = anagramSolver;
         }
 
-        public IActionResult Privacy()
+        [HttpGet("{words}")]
+        public IActionResult Index(string words)
         {
-            return View();
+            if (words == null)
+                return NoContent();
+
+            var anagrams = _anagramSolver
+                            .GetAnagrams(words)
+                            .Select(a => String.Join(' ', a.Select(t => t.Text)))
+                            .ToList();
+
+            return View(
+                new AnagramsViewModel
+                {
+                    InputWords = words,
+                    Anagrams = anagrams
+                });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

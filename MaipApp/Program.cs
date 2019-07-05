@@ -14,8 +14,8 @@ namespace MaipApp
         {
             Console.InputEncoding = Encoding.Unicode;
 
-            var wordRepository = new WordRepository(new TxtWordLoader { FilePath = @"..\AnagramGenerator\zodynas.txt" });
-            var anagramSolver = new AnagramSolver(wordRepository.GetWords().ToList());
+            var wordRepository = new WordRepository(new TxtWordLoader());
+            var anagramSolver = new AnagramSolver(wordRepository);
             var printer = new ConsoleWordPrinter();
             var anagramGeneratorHandler = new AnagramGeneratorHandler(anagramSolver, printer);
 

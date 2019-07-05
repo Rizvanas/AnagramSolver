@@ -14,15 +14,10 @@ namespace Implementation
 {
     public class AnagramSolver : IAnagramSolver
     {
-        private readonly List<Word> _words;
-        private readonly Configuration _appSettings;
-
-        public AnagramSolver(List<Word> words)
+        private readonly IWordRepository _wordRepository;
+        public AnagramSolver(IWordRepository wordRepository)
         {
-            _words = words;
-            //_appSettings = ConfigurationManager.GetSection("ApplicationSettings")
-            //            as NameValueCollection;
-            _appSettings = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
+            _wordRepository = wordRepository;
         }
 
         public List<List<Word>> GetAnagrams(string myWords)
@@ -44,7 +39,8 @@ namespace Implementation
             var minWordLen = Convert.ToInt32(2);
             var searchWord = myWords.GetSearchWord(null);
 
-            return _words
+            return _wordRepository
+                    .GetWords()
                     .Where(w => myWords.GetSearchWord(w.Text) != searchWord
                     && w.Text.Count(c => !Char.IsWhiteSpace(c)) <= searchWord.Length
                     && w.Text.Length >= minWordLen

@@ -9,11 +9,9 @@ namespace Implementation
 {
     public class TxtWordLoader : IWordLoader
     {
-        public string FilePath { get; set; }
-
-        public IEnumerable<Word> Load()
+        public IEnumerable<Word> Load(string filePath)
         {
-            var lines = File.ReadLines(FilePath);
+            var lines = File.ReadLines(filePath);
             var words = new HashSet<Word>();
             var regex = new Regex("[.-]|[0-9]");
             var forbiddenTypes = new List<string> { "sutr", "dll", "akronim" }; 
