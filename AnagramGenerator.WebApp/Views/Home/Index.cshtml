@@ -1,0 +1,30 @@
+﻿@model AnagramGenerator.WebApp.Models.AnagramsViewModel
+
+    <div class="text-center">
+        <h1>Ieškoti Anagramų</h1>
+        @using (Html.BeginForm("Update", "Home"))
+        {
+            <form class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputPassword2" class="sr-only">Word</label>
+                    <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="words" value="@Model.InputWords" />
+                </div>
+                <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
+            </form>
+        }
+        @if (Model.Anagrams.Count != 0)
+        {
+            <h2>Sakinys: @Model.InputWords</h2>
+            <h3>Anagramos</h3>
+            <ul class="list-group">
+                @foreach (var anagram in Model.Anagrams)
+                {
+                <li class="list-group-item">@anagram</li>
+                }
+            </ul>
+        }
+        else if (Model.InputWords != null)
+        {
+            <p>Jūsų įvestas sąkinys [@Model.InputWords] anagramų neturi</p>
+        }
+    </div>
