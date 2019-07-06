@@ -11,7 +11,7 @@ namespace Implementation
     public class WordRepository : IWordRepository
     {
         private readonly IWordLoader _wordLoader;
-        private readonly IEnumerable<Word> _words;
+        private IEnumerable<Word> _words;
 
         public WordRepository(IWordLoader wordLoader)
         {
@@ -36,6 +36,25 @@ namespace Implementation
                 .AsQueryable()
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize);
+        }
+
+        public bool PutWords(string words)
+        {
+            if (words == null)
+                return false;
+
+            var word = _words.FirstOrDefault(w => w.Text == words.Trim().ToLower());
+
+            if (_words.Contains(word))
+                return false;
+
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"..\AnagramGenerator\zodynas.txt", true))
+            {
+                file.WriteLine(words);
+            }
+            _words = _wordLoader.Load(@"..\AnagramGenerator\zodynas.txt");
+
+            return true;
         }
     }
 }

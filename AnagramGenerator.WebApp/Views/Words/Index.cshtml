@@ -1,6 +1,5 @@
 ﻿
 @model AnagramGenerator.WebApp.Models.WordsViewModel
-
     <style>
         .footeris {
             position: fixed;
@@ -8,38 +7,49 @@
             bottom: 0;
             width: 100%;
             text-align: center;
+            margin-left: 15px
         }
     </style>
 
     <div class="text-center">
         <h1>Žodžiai</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Žodis</th>
-                    <th scope="col">Kalbos dalis</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Words.Count != 0)
-                {
-                    foreach (var word in Model.Words)
+        @if (Model.Words.Count == 0)
+        {
+            <p>Žodžių sąraše nėra</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Žodis</th>
+                        <th scope="col">Kalbos dalis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var word in Model.Words)
                     {
                         <tr>
-                            <td class="list-group-flush">@Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)</td>
-                            <td>@word.Type</td>
+                            <td class="list-group-flush">
+                                @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
+                            </td>
+                            <td>
+                                @word.Type
+                            </td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <p>Žodžių sąraše nėra</p>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
+
         <ul class="pagination footeris">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <li class="page-item">
+            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
+            </li>
+
+            <li class="page-item">
+            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
+            </li>
         </ul>
     </div>
 

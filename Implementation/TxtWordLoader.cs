@@ -14,15 +14,21 @@ namespace Implementation
             var lines = File.ReadLines(filePath);
             var words = new HashSet<Word>();
             var regex = new Regex("[.-]|[0-9]");
-            var forbiddenTypes = new List<string> { "sutr", "dll", "akronim" }; 
+            var forbiddenTypes = new List<string> { "sutr", "dll", "akronim" };
+
             foreach (var line in lines)
             {
-                var lineArr = line.ToLower().Split('\t');
-                if (!regex.IsMatch(lineArr[0]))
-                    words.Add(new Word { Text = lineArr[0], Type = lineArr[1] });
+                var lineList = line.ToLower().Split('\t').ToList();
 
-                if (!regex.IsMatch(lineArr[2]))
-                    words.Add(new Word { Text = lineArr[2], Type = lineArr[1] });
+                var firstElem = lineList.ElementAtOrDefault(0);
+                var secondElem = lineList.ElementAtOrDefault(1);
+                var thirdElem = lineList.ElementAtOrDefault(2);
+
+                if (firstElem != null && !regex.IsMatch(firstElem))
+                    words.Add(new Word { Text = firstElem, Type = secondElem });
+
+                if (thirdElem != null && !regex.IsMatch(thirdElem))
+                    words.Add(new Word { Text = thirdElem, Type = secondElem });
             }
 
             return words

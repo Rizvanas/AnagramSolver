@@ -12,5 +12,6 @@ namespace Interfaces
         IEnumerable<Word> GetWords();
         IEnumerable<string> GetWordsText();
         IEnumerable<Word> GetPaginizedWords(PaginationFilter filter);
+        bool PutWords(string words);
     }
 }

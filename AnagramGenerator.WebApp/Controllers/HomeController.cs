@@ -18,16 +18,17 @@ namespace AnagramGenerator.WebApp.Controllers
             _anagramSolver = anagramSolver;
         }
 
-        [HttpGet("{words}")]
+        [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
-            if (words == null)
-                return NoContent();
-
-            var anagrams = _anagramSolver
-                            .GetAnagrams(words)
-                            .Select(a => String.Join(' ', a.Select(t => t.Text)))
-                            .ToList();
+            List<string> anagrams = new List<string>();
+            if(words != null)
+            {
+                anagrams = _anagramSolver
+                                .GetAnagrams(words)
+                                .Select(a => String.Join(' ', a.Select(t => t.Text)))
+                                .ToList();
+            }
 
             return View(
                 new AnagramsViewModel
@@ -35,6 +36,26 @@ namespace AnagramGenerator.WebApp.Controllers
                     InputWords = words,
                     Anagrams = anagrams
                 });
+        }
+
+        [HttpPost("/")]
+        public IActionResult Update(string words)
+        {
+            if (words == null)
+                return NoContent();
+
+            var anagrams = _anagramSolver
+                .GetAnagrams(words)
+                .Select(a => String.Join(' ', a.Select(t => t.Text)))
+                .ToList();
+
+            return View(
+                 "Index",
+                 new AnagramsViewModel
+                 {
+                     InputWords = words,
+                     Anagrams = anagrams
+                 });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
