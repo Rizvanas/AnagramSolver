@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation.Tests", "Implementation.Tests\Implementation.Tests.csproj", "{EB0B773F-F070-4941-898A-B11D8E35F6E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramGenerator.WebApp", "AnagramGenerator.WebApp\AnagramGenerator.WebApp.csproj", "{12783806-A12E-454D-BD49-3E904F3C1722}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.WebApp", "AnagramGenerator.WebApp\AnagramGenerator.WebApp.csproj", "{12783806-A12E-454D-BD49-3E904F3C1722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramGetter", "AnagramGetter\AnagramGetter.csproj", "{E9957871-23A2-4E36-8B44-4BE43618157C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{12783806-A12E-454D-BD49-3E904F3C1722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12783806-A12E-454D-BD49-3E904F3C1722}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12783806-A12E-454D-BD49-3E904F3C1722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9957871-23A2-4E36-8B44-4BE43618157C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9957871-23A2-4E36-8B44-4BE43618157C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9957871-23A2-4E36-8B44-4BE43618157C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9957871-23A2-4E36-8B44-4BE43618157C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

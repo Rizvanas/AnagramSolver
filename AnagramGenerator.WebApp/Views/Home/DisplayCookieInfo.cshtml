@@ -1,0 +1,9 @@
+﻿@model AnagramGenerator.WebApp.Models.CookieInfoViewModel
+
+<h1>DisplayCookieInfo</h1>
+<ul>
+    @foreach (var cookie in Model.Cookies)
+    {
+        <li>@cookie.Key.ToString() @cookie.Value.ToString()</li>
+    }
+</ul>

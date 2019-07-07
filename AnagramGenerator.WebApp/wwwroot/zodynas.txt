@@ -128063,5 +128063,3 @@ Listelis
 Arvydas Baranauskas
 HelloWorld
 Šarvuoto
-AAAAAbbb
-Aaaarrrrr

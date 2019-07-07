@@ -25,12 +25,14 @@ namespace AnagramGenerator.WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            services.ConfigureApplicationCookie(options =>
             {
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.Cookie.Domain = null;
+                options.Cookie.HttpOnly = true;
+                options.SlidingExpiration = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
+                options.Cookie.SameSite = SameSiteMode.None;
             });
-
 
             services.AddScoped<IWordLoader, TxtWordLoader>();
             services.AddScoped<IWordRepository, WordRepository>();
