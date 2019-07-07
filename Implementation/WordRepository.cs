@@ -17,7 +17,7 @@ namespace Implementation
         {
             _wordLoader = wordLoader;
             ///TODO: take filePath from config file
-            _words = _wordLoader.Load(@"..\AnagramGenerator\zodynas.txt");
+            _words = _wordLoader.Load(@"..\AnagramGenerator\zodynas.txt").OrderBy(w => w.Text);
         }
 
         public IEnumerable<Word> GetWords()

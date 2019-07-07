@@ -24,10 +24,7 @@ namespace AnagramGenerator.WebApp.Controllers
             List<string> anagrams = new List<string>();
             if(words != null)
             {
-                anagrams = _anagramSolver
-                                .GetAnagrams(words)
-                                .Select(a => String.Join(' ', a.Select(t => t.Text)))
-                                .ToList();
+                anagrams = _anagramSolver.GetStringAnagrams(words);
             }
 
             return View(
@@ -56,6 +53,13 @@ namespace AnagramGenerator.WebApp.Controllers
                      InputWords = words,
                      Anagrams = anagrams
                  });
+        }
+
+        [HttpGet("cookie")]
+        public IActionResult DisplayCookieInfo()
+        {
+            var cookies = HttpContext.Request.Cookies;
+            return View(new CookieInfoViewModel { Cookies = cookies });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
