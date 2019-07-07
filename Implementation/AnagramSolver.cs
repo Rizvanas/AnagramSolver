@@ -34,6 +34,13 @@ namespace Implementation
             return anagrams.Take(resultCount).ToList();
         }
 
+        public List<string> GetStringAnagrams(string myWords)
+        {
+            return GetAnagrams(myWords)
+                .Select(a => String.Join(' ', a.Select(t => t.Text)))
+                .ToList();
+        }
+
         private List<Word> GetWordsForAnagrams(string myWords)
         {
             var minWordLen = Convert.ToInt32(2);
