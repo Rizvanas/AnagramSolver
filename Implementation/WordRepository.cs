@@ -34,7 +34,7 @@ namespace Implementation
         {
             return _words
                 .AsQueryable()
-                .Skip((filter.Page - 1) * filter.PageSize)
+                .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
                 .Take(filter.PageSize);
         }
 

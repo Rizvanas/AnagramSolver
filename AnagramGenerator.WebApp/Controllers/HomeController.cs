@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AnagramGenerator.WebApp.Models;
 using Interfaces;
+using Microsoft.AspNetCore.Http;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -21,6 +22,7 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
+
             List<string> anagrams = new List<string>();
             if(words != null)
             {
@@ -66,6 +68,13 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private void SetSearchCookie(string word)
+        {
+            var option = new CookieOptions();
+            option.Expires = DateTime.Now.AddMinutes(15);
+            Response.Cookies.Append("CurrentSearchWord", word, option);
         }
     }
 }
