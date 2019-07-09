@@ -31,7 +31,7 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.HttpOnly = true;
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
             services.AddScoped<IWordLoader, TxtWordLoader>();

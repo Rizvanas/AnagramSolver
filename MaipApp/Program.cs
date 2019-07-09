@@ -13,8 +13,11 @@ namespace MaipApp
         static void Main(string[] args)
         {
             Console.InputEncoding = Encoding.Unicode;
+            var txtWordLoader = new TxtWordLoader(new AppConfig());
+            var wordRepository = new WordRepository(txtWordLoader);
+            var words = wordRepository.GetWords().ToList();
+            txtWordLoader.BulkFillWordsTable(words);
 
-            var wordRepository = new WordRepository(new TxtWordLoader());
             var anagramSolver = new AnagramSolver(wordRepository);
             var printer = new ConsoleWordPrinter();
             var anagramGeneratorHandler = new AnagramGeneratorHandler(anagramSolver, printer);

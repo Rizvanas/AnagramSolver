@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Implementation
 {
@@ -18,13 +19,13 @@ namespace Implementation
             _httpClient.BaseAddress = new Uri("http://localhost:55944");
         }
 
-        public List<string> GetAnagrams(string word)
+        public async Task<List<string>> GetAnagramsAsync(string word)
         {
             _httpClient.DefaultRequestHeaders.Add("word", word);
 
-            var anagramsResponse = _httpClient
-                .GetAsync("anagrams").Result.Content
-                .ReadAsStringAsync().Result;
+            var anagramsResponse = await _httpClient
+                .GetAsync($"anagrams").Result.Content
+                .ReadAsStringAsync();
 
             var anagrams = JArray.Parse(anagramsResponse)
                 .Select(jt => jt.ToString())
@@ -32,5 +33,6 @@ namespace Implementation
 
             return anagrams;
         }
+
     }
 }

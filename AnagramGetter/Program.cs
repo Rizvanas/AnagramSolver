@@ -16,7 +16,7 @@ namespace AnagramGetter
             Console.WriteLine("Iveskite dalykus...");
             var words = Console.ReadLine();
             var anagramGetter = new AnagramWebAppClient(new HttpClient());
-            var anagrams = anagramGetter.GetAnagrams(words);
+            var anagrams = anagramGetter.GetAnagramsAsync(words).Result;
 
             var printer = new ConsoleWordPrinter();
             printer.Print(new List<IPrintable> { new Anagrams(anagrams) });
