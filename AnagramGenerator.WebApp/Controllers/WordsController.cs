@@ -30,7 +30,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
                 return View(new WordsViewModel
                 {
-                    Words = _wordRepository.GetPaginizedWords(filter).ToList(),
+                    Words = _wordRepository.GetWords(filter).ToList(),
                     Page = Convert.ToInt32(filter.Page),
                 });
             }
@@ -39,7 +39,7 @@ namespace AnagramGenerator.WebApp.Controllers
             filter = new PaginationFilter { Page = page, PageSize = pageSize };
             var wordsViewModel = new WordsViewModel
             {
-                Words = _wordRepository.GetPaginizedWords(filter).ToList(),
+                Words = _wordRepository.GetWords(filter).ToList(),
                 Page = filter.Page
             };
 
@@ -55,23 +55,6 @@ namespace AnagramGenerator.WebApp.Controllers
             {
                 GotUpdated = true,
                 Word = null
-            });
-        }
-
-        [HttpPost("words/update")]
-        public IActionResult UpdateList(string words)
-        {
-            var updated = _wordRepository.PutWords(words);
-
-            if (updated)
-            {
-                return new RedirectResult($"/{words}");
-            }
-
-            return View("Update", new WordsUpdateViewModel
-            {
-                GotUpdated = updated,
-                Word = words
             });
         }
 

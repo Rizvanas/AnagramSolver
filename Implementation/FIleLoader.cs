@@ -10,16 +10,16 @@ using Interfaces;
 
 namespace Implementation
 {
-    public class TxtWordLoader : IWordLoader
+    public class FileLoader : IWordLoader
     {
-        private readonly AppConfig _appConfig;
+        private readonly IAppConfig _appConfig;
 
-        public TxtWordLoader(AppConfig appConfig)
+        public FileLoader(IAppConfig appConfig)
         {
             _appConfig = appConfig;
         }
 
-        public IEnumerable<Word> Load(string filePath)
+        public IEnumerable<Word> LoadFromFile(string filePath)
         {
             var lines = File.ReadLines(filePath);
             var words = new HashSet<Word>();

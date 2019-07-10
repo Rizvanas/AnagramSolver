@@ -14,10 +14,14 @@ namespace Implementation
 {
     public class AnagramSolver : IAnagramSolver
     {
+
         private readonly IWordRepository _wordRepository;
-        public AnagramSolver(IWordRepository wordRepository)
+        private readonly IAppConfig _appConfig;
+
+        public AnagramSolver(IWordRepository wordRepository, IAppConfig appConfig)
         {
             _wordRepository = wordRepository;
+            _appConfig = appConfig;
         }
 
         public List<List<Word>> GetAnagrams(string myWords)
@@ -27,9 +31,10 @@ namespace Implementation
 
             var resultCount = 1000;
             myWords = Regex.Replace(myWords, @"\s+", "");
-            var words = GetWordsForAnagrams(myWords);
+            var words = _wordRepository.SearchWords(myWords).ToList();
+
             var searchWord = myWords;
-            var anagrams = FindAnagrams(words, searchWord, new List<List<Word>>());
+            var anagrams = FindAnagrams(words, myWords, new List<List<Word>>());
 
             return anagrams.Take(resultCount).ToList();
         }
@@ -39,21 +44,6 @@ namespace Implementation
             return GetAnagrams(myWords)
                 .Select(a => String.Join(' ', a.Select(t => t.Text)))
                 .ToList();
-        }
-
-        private List<Word> GetWordsForAnagrams(string myWords)
-        {
-            var minWordLen = Convert.ToInt32(2);
-            var searchWord = myWords.GetSearchWord(null);
-
-            return _wordRepository
-                    .GetWords()
-                    .Where(w => myWords.GetSearchWord(w.Text) != searchWord
-                    && w.Text.Count(c => !Char.IsWhiteSpace(c)) <= searchWord.Length
-                    && w.Text.Length >= minWordLen
-                    && w.Text.Length >= 1)
-                    .OrderByDescending(w => w.Text.Length)
-                    .ToList();
         }
 
         private List<List<Word>> FindAnagrams(List<Word> words, string searchWord, List<List<Word>> results)

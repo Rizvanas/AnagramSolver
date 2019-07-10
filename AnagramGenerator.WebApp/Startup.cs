@@ -34,8 +34,9 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
-            services.AddScoped<IWordLoader, TxtWordLoader>();
-            services.AddScoped<IWordRepository, WordRepository>();
+            services.AddScoped<IAppConfig, AppConfig>();
+            services.AddScoped<IWordLoader, FileLoader>();
+            services.AddScoped<IWordRepository, SqlWordRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

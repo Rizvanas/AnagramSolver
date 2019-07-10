@@ -9,9 +9,7 @@ namespace Interfaces
 {
     public interface IWordRepository
     {
-        IEnumerable<Word> GetWords();
-        IEnumerable<string> GetWordsText();
-        IEnumerable<Word> GetPaginizedWords(PaginationFilter filter);
-        bool PutWords(string words);
+        IEnumerable<Word> GetWords(PaginationFilter filter);
+        IEnumerable<Word> SearchWords(string phrase);
     }
 }

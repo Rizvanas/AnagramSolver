@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace Implementation
 {
-    public class AppConfig
+    public class AppConfig : IAppConfig
     {
         private readonly IConfigurationRoot _configuration;
         public IConfigurationRoot Configuration
@@ -28,6 +29,11 @@ namespace Implementation
         public string GetConnectionString()
         {
             return _configuration.GetConnectionString("WordDB");
-        } 
+        }
+
+        public IConfigurationRoot GetConfiguration()
+        {
+            return Configuration;
+        }
     }
 }
