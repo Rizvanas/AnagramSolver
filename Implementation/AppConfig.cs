@@ -28,7 +28,7 @@ namespace Implementation
 
         public string GetConnectionString()
         {
-            return _configuration.GetConnectionString("WordDB");
+            return _configuration.GetConnectionString("WordsDB");
         }
 
         public IConfigurationRoot GetConfiguration()

@@ -6,7 +6,7 @@ namespace Interfaces
     public interface ISqlWordRepository : IWordRepository
     {
         bool AddWord(Word word);
-        bool AddCachedWord(Word word);
+        bool AddCachedWord(Word word, List<string> anagrams);
         Word GetCachedWord(string phrase);
     }
 }
