@@ -15,35 +15,35 @@ namespace Implementation
     public class AnagramSolver : IAnagramSolver
     {
 
-        private readonly IWordRepository _wordRepository;
+        private readonly ISqlWordRepository _sqlWordRepository;
         private readonly IAppConfig _appConfig;
 
-        public AnagramSolver(IWordRepository wordRepository, IAppConfig appConfig)
+        public AnagramSolver(ISqlWordRepository sqlWordRepository, IAppConfig appConfig)
         {
-            _wordRepository = wordRepository;
+            _sqlWordRepository = sqlWordRepository;
             _appConfig = appConfig;
         }
 
-        public List<List<Word>> GetAnagrams(string myWords)
+        public List<string> GetAnagrams(string myWords)
         {
             if (myWords == null)
                 throw new ArgumentNullException("myWords cannot be null");
 
+            var anagrams = _sqlWordRepository.GetCachedAnagrams(myWords);
+            if (anagrams.Count() != 0)
+                return anagrams;
+
             var resultCount = 1000;
-            myWords = Regex.Replace(myWords, @"\s+", "");
-            var words = _wordRepository.SearchWords(myWords).ToList();
+            myWords = myWords.Replace(" ", "");
+            var words = _sqlWordRepository.SearchWords(myWords).ToList();
 
-            var searchWord = myWords;
-            var anagrams = FindAnagrams(words, myWords, new List<List<Word>>());
-
-            return anagrams.Take(resultCount).ToList();
-        }
-
-        public List<string> GetStringAnagrams(string myWords)
-        {
-            return GetAnagrams(myWords)
+            anagrams = FindAnagrams(words, myWords, new List<List<Word>>())
+                .Take(resultCount)
                 .Select(a => String.Join(' ', a.Select(t => t.Text)))
                 .ToList();
+
+            _sqlWordRepository.AddCachedWord(new Word { Text = myWords }, anagrams);
+            return anagrams;
         }
 
         private List<List<Word>> FindAnagrams(List<Word> words, string searchWord, List<List<Word>> results)

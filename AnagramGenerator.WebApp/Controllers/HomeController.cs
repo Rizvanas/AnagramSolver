@@ -26,7 +26,7 @@ namespace AnagramGenerator.WebApp.Controllers
             List<string> anagrams = new List<string>();
             if(words != null)
             {
-                anagrams = _anagramSolver.GetStringAnagrams(words);
+                anagrams = _anagramSolver.GetAnagrams(words);
             }
 
             return View(
@@ -44,9 +44,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 return NoContent();
 
             var anagrams = _anagramSolver
-                .GetAnagrams(words)
-                .Select(a => String.Join(' ', a.Select(t => t.Text)))
-                .ToList();
+                .GetAnagrams(words);
 
             return View(
                  "Index",

@@ -25,12 +25,63 @@ namespace Implementation
 
         public bool AddCachedWord(Word word, List<string> anagrams)
         {
-            throw new NotImplementedException();
+            bool success = true;
+            var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
+            var cacheInsertionQuery = new StringBuilder()
+                .Append("INSERT INTO Anagrams(Anagram) VALUES(@anagram);")
+                .Append("INSERT INTO CachedWords(PhraseId, AnagramId)")
+                .Append("VALUES((SELECT Id FROM Phrases WHERE Phrase = @phrase),")
+                .Append("(SELECT Id From Anagrams WHERE Anagram = @anagram));")
+                .ToString();
+
+            using (var command = new SqlCommand(phraseInsertionQuery, _connection)
+            { CommandType = CommandType.Text })
+            {
+                command.Parameters.AddWithValue("@phrase", word.Text);
+
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+
+                command.CommandText = cacheInsertionQuery;
+                foreach (var anagram in anagrams)
+                {
+                    command.Parameters.AddWithValue("@anagram", anagram);
+                    command.ExecuteNonQuery();
+                    command.Parameters.RemoveAt(command.Parameters.Count - 1);
+                }
+                command.Connection.Close();
+            }
+
+            return success;
         }
 
-        public Word GetCachedWord(string phrase)
+        public List<string> GetCachedAnagrams(string phrase)
         {
-            throw new NotImplementedException();
+            var cachedWordsSelectQuery = new StringBuilder()
+                .Append("SELECT Phrase ")
+                .Append("FROM CachedWords ")
+                .Append("JOIN Phrases ON PhraseId = Phrases.Id ")
+                .Append("JOIN Anagrams ON AnagramId = Anagrams.Id ")
+                .Append("WHERE Phrase = @phrase;")
+                .ToString();
+                                         
+            using (var command = new SqlCommand(cachedWordsSelectQuery, _connection)
+            { CommandType = CommandType.Text })
+            {
+                command.Parameters.AddWithValue("@phrase", phrase);
+                command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    var anagrams = new List<string>();
+                    while (reader.Read())
+                        anagrams.Add(reader.GetString(0));
+
+                    command.Connection.Close();
+
+                    return anagrams;
+                }
+            }
         }
 
         public IEnumerable<Word> GetWords(PaginationFilter filter)
@@ -52,6 +103,7 @@ namespace Implementation
                     while (reader.Read())
                         words.Add(new Word { Text = reader.GetString(1) });
 
+                    command.Connection.Close();
                     return words;
                 }
             }
@@ -75,9 +127,11 @@ namespace Implementation
                     while (reader.Read())
                         searchWords.Add(new Word { Text = reader.GetString(1) });
 
+                    command.Connection.Close();
+
                     return searchWords
                         .Where(w => phrase.GetSearchWord(w.Text) != phrase)
-                        .OrderByDescending(w => w.Text.Length);
+                        .OrderByDescending(w => w.Text.Length).ToList();
                 }
             }
         }

@@ -7,7 +7,6 @@ namespace Interfaces
 {
     public interface IAnagramSolver
     {
-        List<List<Word>> GetAnagrams(string myWords);
-        List<string> GetStringAnagrams(string myWords);
+        List<string> GetAnagrams(string myWords);
     }
 }

@@ -7,6 +7,6 @@ namespace Interfaces
     {
         bool AddWord(Word word);
         bool AddCachedWord(Word word, List<string> anagrams);
-        Word GetCachedWord(string phrase);
+        List<string> GetCachedAnagrams(string phrase);
     }
 }

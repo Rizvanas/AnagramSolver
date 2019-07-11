@@ -37,6 +37,7 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
             services.AddScoped<IWordRepository, SqlWordRepository>();
+            services.AddScoped<ISqlWordRepository, SqlWordRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

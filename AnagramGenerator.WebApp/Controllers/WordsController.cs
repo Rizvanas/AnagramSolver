@@ -12,10 +12,10 @@ namespace AnagramGenerator.WebApp.Controllers
 {
     public class WordsController : Controller
     {
-        private readonly IWordRepository _wordRepository;
-        public WordsController(IWordRepository wordRepository)
+        private readonly ISqlWordRepository _sqlWordRepository;
+        public WordsController(ISqlWordRepository sqlWordRepository)
         {
-            _wordRepository = wordRepository;
+            _sqlWordRepository = sqlWordRepository;
         }
 
         [HttpGet("words")]
@@ -30,7 +30,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
                 return View(new WordsViewModel
                 {
-                    Words = _wordRepository.GetWords(filter).ToList(),
+                    Words = _sqlWordRepository.GetWords(filter).ToList(),
                     Page = Convert.ToInt32(filter.Page),
                 });
             }
@@ -39,7 +39,7 @@ namespace AnagramGenerator.WebApp.Controllers
             filter = new PaginationFilter { Page = page, PageSize = pageSize };
             var wordsViewModel = new WordsViewModel
             {
-                Words = _wordRepository.GetWords(filter).ToList(),
+                Words = _sqlWordRepository.GetWords(filter).ToList(),
                 Page = filter.Page
             };
 

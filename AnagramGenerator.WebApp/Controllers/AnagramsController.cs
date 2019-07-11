@@ -26,7 +26,7 @@ namespace AnagramGenerator.WebApp.Controllers
             if (word == null)
                 return BadRequest();
 
-            return Ok(_anagramSolver.GetStringAnagrams(word));
+            return Ok(_anagramSolver.GetAnagrams(word));
         }
     }
 }
