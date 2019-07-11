@@ -34,6 +34,7 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
+            services.AddScoped<IUserLogRepository, UserLogRepository>();   
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
             services.AddScoped<IWordRepository, SqlWordRepository>();

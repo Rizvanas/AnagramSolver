@@ -1,12 +1,5 @@
-﻿using Core.Domain;
-using Interfaces;
+﻿using Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.Design.OperationExecutor;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -26,7 +19,8 @@ namespace AnagramGenerator.WebApp.Controllers
             if (word == null)
                 return BadRequest();
 
-            return Ok(_anagramSolver.GetAnagrams(word));
+            var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
+            return Ok(_anagramSolver.GetAnagrams(word, IpAdress));
         }
     }
 }

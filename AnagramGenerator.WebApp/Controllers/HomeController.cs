@@ -22,12 +22,11 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
-
+            var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             List<string> anagrams = new List<string>();
+
             if(words != null)
-            {
-                anagrams = _anagramSolver.GetAnagrams(words);
-            }
+                anagrams =  _anagramSolver.GetAnagrams(words, IpAddress);
 
             return View(
                 new AnagramsViewModel
@@ -40,11 +39,12 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpPost("/")]
         public IActionResult Update(string words)
         {
+            var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             if (words == null)
                 return NoContent();
 
             var anagrams = _anagramSolver
-                .GetAnagrams(words);
+                .GetAnagrams(words, IpAddress);
 
             return View(
                  "Index",

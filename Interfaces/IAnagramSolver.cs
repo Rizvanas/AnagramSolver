@@ -7,6 +7,6 @@ namespace Interfaces
 {
     public interface IAnagramSolver
     {
-        List<string> GetAnagrams(string myWords);
+        List<string> GetAnagrams(string myWords, string IpAddress);
     }
 }

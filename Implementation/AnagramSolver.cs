@@ -9,6 +9,9 @@ using System.Configuration;
 using System.Collections.Specialized;
 using Core.Domain;
 using System.Reflection;
+using System.Diagnostics;
+using Core.DTO;
+using Microsoft.AspNetCore.Http;
 
 namespace Implementation
 {
@@ -17,21 +20,33 @@ namespace Implementation
 
         private readonly ISqlWordRepository _sqlWordRepository;
         private readonly IAppConfig _appConfig;
+        private readonly IUserLogRepository _userLogRepository;
 
-        public AnagramSolver(ISqlWordRepository sqlWordRepository, IAppConfig appConfig)
+        public AnagramSolver(ISqlWordRepository sqlWordRepository, IAppConfig appConfig, IUserLogRepository userLogRepository)
         {
             _sqlWordRepository = sqlWordRepository;
             _appConfig = appConfig;
+            _userLogRepository = userLogRepository;
         }
 
-        public List<string> GetAnagrams(string myWords)
+        public List<string> GetAnagrams(string myWords, string IpAdress)
         {
+            var stopWatch = new Stopwatch();
+            var timeElapsed = 0L;
+
+            stopWatch.Start();
             if (myWords == null)
                 throw new ArgumentNullException("myWords cannot be null");
 
             var anagrams = _sqlWordRepository.GetCachedAnagrams(myWords);
             if (anagrams.Count() != 0)
+            {
+                stopWatch.Stop();
+                timeElapsed = stopWatch.ElapsedMilliseconds;
+                LogUserInfo(myWords, IpAdress, timeElapsed);
+
                 return anagrams;
+            }
 
             var resultCount = 1000;
             myWords = myWords.Replace(" ", "");
@@ -43,6 +58,11 @@ namespace Implementation
                 .ToList();
 
             _sqlWordRepository.AddCachedWord(new Word { Text = myWords }, anagrams);
+
+            stopWatch.Stop();
+            timeElapsed = stopWatch.ElapsedMilliseconds;
+            LogUserInfo(myWords, IpAdress, timeElapsed);
+
             return anagrams;
         }
 
@@ -75,6 +95,16 @@ namespace Implementation
             }
 
             return results;
+        }
+
+        private void LogUserInfo(string phrase, string ip, long searchTime)
+        {
+            _userLogRepository.AddUserLog(new UserLog
+            {
+                SearchPhrase = phrase,
+                SearchTime = searchTime,
+                UserIP = ip
+            });
         }
     }
 }
