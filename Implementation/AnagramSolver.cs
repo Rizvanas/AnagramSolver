@@ -33,6 +33,7 @@ namespace Implementation
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
+            myWords = myWords.Replace(" ", "");
 
             stopWatch.Start();
             if (myWords == null)
@@ -49,7 +50,6 @@ namespace Implementation
             }
 
             var resultCount = 1000;
-            myWords = myWords.Replace(" ", "");
             var words = _sqlWordRepository.SearchWords(myWords).ToList();
 
             anagrams = FindAnagrams(words, myWords, new List<List<Word>>())

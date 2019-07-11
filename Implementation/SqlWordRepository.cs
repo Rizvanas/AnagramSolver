@@ -58,7 +58,7 @@ namespace Implementation
         public List<string> GetCachedAnagrams(string phrase)
         {
             var cachedWordsSelectQuery = new StringBuilder()
-                .Append("SELECT Phrase ")
+                .Append("SELECT Anagram ")
                 .Append("FROM CachedWords ")
                 .Append("JOIN Phrases ON PhraseId = Phrases.Id ")
                 .Append("JOIN Anagrams ON AnagramId = Anagrams.Id ")
