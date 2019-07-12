@@ -22,7 +22,12 @@ namespace Implementation
 
         public bool AddUserLog(UserLog userLog)
         {
-            var logInsertionQuery = "INSERT INTO UserLog(SearchPhrase, SearchTime, UserIp) VALUES(@searchPhrase, @searchTime, @userIP);";
+            var logInsertionQuery = new StringBuilder()
+                .Append("INSERT INTO UserLog(SearchPhraseId, SearchTime, UserIp) ")
+                .Append("VALUES((SELECT Id FROM Phrases WHERE LOWER(REPLACE(Phrase, ' ', '')) = LOWER(REPLACE(@searchPhrase, ' ', ''))), ")
+                .Append("@searchTime, @userIP);")
+                .ToString();
+
             using (var command = new SqlCommand(logInsertionQuery, _connection) { CommandType = CommandType.Text })
             {
                 command.Parameters.AddWithValue("@searchPhrase", userLog.SearchPhrase);
@@ -35,6 +40,26 @@ namespace Implementation
             }
 
             return true;
+        }
+
+        public List<UserLog> GetUserLogs()
+        {
+            var logInsertionQuery = "SELECT FROM ";
+            using (var command = new SqlCommand(logInsertionQuery, _connection) { CommandType = CommandType.Text })
+            {
+                command.Connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    var userLogs = new List<UserLog>();
+                    while (reader.Read())
+                    {
+                        userLogs.Add(new UserLog { });
+                    }
+
+                    command.Connection.Close();
+                    return userLogs;
+                }
+            }
         }
     }
 }

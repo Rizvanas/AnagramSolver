@@ -31,7 +31,7 @@ namespace Implementation
                 .Append("INSERT INTO Anagrams(Anagram) VALUES(@anagram);")
                 .Append("INSERT INTO CachedWords(PhraseId, AnagramId)")
                 .Append("VALUES((SELECT Id FROM Phrases WHERE Phrase = @phrase),")
-                .Append("(SELECT Id From Anagrams WHERE Anagram = @anagram));")
+                .Append("(SELECT Id From Anagrams WHERE LOWER(REPLACE(Anagram, ' ', '')) = LOWER(REPLACE(@anagram, ' ', ''))));")
                 .ToString();
 
             using (var command = new SqlCommand(phraseInsertionQuery, _connection)
@@ -41,6 +41,7 @@ namespace Implementation
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
+
 
                 command.CommandText = cacheInsertionQuery;
                 foreach (var anagram in anagrams)
