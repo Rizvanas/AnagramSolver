@@ -62,7 +62,7 @@ namespace Implementation
                 .Append("FROM CachedWords ")
                 .Append("JOIN Phrases ON PhraseId = Phrases.Id ")
                 .Append("JOIN Anagrams ON AnagramId = Anagrams.Id ")
-                .Append("WHERE Phrase = @phrase;")
+                .Append("WHERE LOWER(REPLACE(Phrase, ' ', '')) = LOWER(REPLACE(@phrase, ' ', ''));")
                 .ToString();
                                          
             using (var command = new SqlCommand(cachedWordsSelectQuery, _connection)
@@ -144,6 +144,33 @@ namespace Implementation
         public bool AddWord(Word word)
         {
             throw new NotImplementedException();
+        }
+
+        public List<Word> GetWords(string searchPhrase)
+        {
+            var wordsQuery = new StringBuilder()
+                .Append("SELECT Word ")
+                .Append("FROM Words ")
+                .Append("WHERE LOWER(Word) LIKE @searchPhrase + '%';")
+                .ToString();
+
+            using (var command = new SqlCommand(wordsQuery, _connection)
+            { CommandType = CommandType.Text })
+            {
+                command.Parameters.AddWithValue("@searchPhrase", searchPhrase);
+                command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    var words = new List<Word>();
+                    while (reader.Read())
+                        words.Add(new Word { Text = reader.GetString(0) });
+
+                    command.Connection.Close();
+
+                    return words;
+                }
+            }
         }
     }
 }

@@ -58,6 +58,13 @@ namespace AnagramGenerator.WebApp.Controllers
             });
         }
 
+        [HttpPost("words/search")]
+        public IActionResult Search(string searchPhrase)
+        {
+            var words = _sqlWordRepository.GetWords(searchPhrase);
+            return View("Index", new WordsViewModel { Words = words });
+        }
+
         private void SetPagingCookie(int? page)
         {
             page = page ?? 1;

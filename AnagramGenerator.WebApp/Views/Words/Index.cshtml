@@ -12,6 +12,16 @@
     </style>
 
     <div class="text-center">
+        @using (Html.BeginForm("Search", "Words"))
+        {
+            <form class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputPassword2" class="sr-only">Word</label>
+                    <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="searchPhrase" />
+                </div>
+                <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
+            </form>
+        }
         <h1>Žodžiai</h1>
         @if (Model.Words.Count == 0)
         {
@@ -44,11 +54,11 @@
 
         <ul class="pagination footeris">
             <li class="page-item">
-            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
+                <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
             </li>
 
             <li class="page-item">
-            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
+                <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
             </li>
         </ul>
     </div>

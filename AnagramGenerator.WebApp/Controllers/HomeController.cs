@@ -43,8 +43,7 @@ namespace AnagramGenerator.WebApp.Controllers
             if (words == null)
                 return NoContent();
 
-            var anagrams = _anagramSolver
-                .GetAnagrams(words, IpAddress);
+            var anagrams = _anagramSolver.GetAnagrams(words, IpAddress);
 
             return View(
                  "Index",

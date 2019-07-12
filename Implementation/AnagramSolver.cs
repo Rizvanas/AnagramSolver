@@ -33,7 +33,6 @@ namespace Implementation
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
-            myWords = myWords.Replace(" ", "");
 
             stopWatch.Start();
             if (myWords == null)
