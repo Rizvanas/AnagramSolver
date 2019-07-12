@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
+    [Route("queries")]
     public class ExecutedQueriesController : Controller
     {
         private readonly IUserLogRepository _userLogRepository;
@@ -22,8 +23,10 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            var userLogs = _userLogRepository.GetUserLogs();
             return View(new ExecutedQueryViewModel
             {
+                
             });
         }
     }
