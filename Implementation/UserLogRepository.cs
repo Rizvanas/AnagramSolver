@@ -69,10 +69,10 @@ namespace Implementation
                             UserIp = reader.GetString(0),
                             SearchTime = reader.GetInt32(1),
                             SearchPhrase = reader.GetString(2),
+                            Anagram = new Word { Text = reader.GetString(3) }
                         });
                     }
                     command.Connection.Close();
-                    var groupingas = userLogs.GroupBy(ul => ul.SearchPhrase).Select(gr => gr.Select(g => g));  
 
                     return userLogs;
                 }

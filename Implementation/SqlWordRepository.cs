@@ -23,7 +23,7 @@ namespace Implementation
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public bool AddCachedWord(Word word, List<string> anagrams)
+        public bool AddCachedWord(Word word, List<Word> anagrams)
         {
             bool success = true;
             var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
@@ -46,7 +46,7 @@ namespace Implementation
                 command.CommandText = cacheInsertionQuery;
                 foreach (var anagram in anagrams)
                 {
-                    command.Parameters.AddWithValue("@anagram", anagram);
+                    command.Parameters.AddWithValue("@anagram", anagram.Text);
                     command.ExecuteNonQuery();
                     command.Parameters.RemoveAt(command.Parameters.Count - 1);
                 }
@@ -56,7 +56,7 @@ namespace Implementation
             return success;
         }
 
-        public List<string> GetCachedAnagrams(string phrase)
+        public List<Word> GetCachedAnagrams(string phrase)
         {
             var cachedWordsSelectQuery = new StringBuilder()
                 .Append("SELECT Anagram ")
@@ -74,9 +74,9 @@ namespace Implementation
 
                 using (var reader = command.ExecuteReader())
                 {
-                    var anagrams = new List<string>();
+                    var anagrams = new List<Word>();
                     while (reader.Read())
-                        anagrams.Add(reader.GetString(0));
+                        anagrams.Add(new Word { Text = reader.GetString(0) });
 
                     command.Connection.Close();
 
@@ -137,16 +137,6 @@ namespace Implementation
             }
         }
 
-        public bool PutWords(string words)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool AddWord(Word word)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Word> GetWords(string searchPhrase)
         {
             var wordsQuery = new StringBuilder()
@@ -172,6 +162,24 @@ namespace Implementation
                     return words;
                 }
             }
+        }
+
+        public bool AddWord(Word word)
+        {
+            var wordInsertRequest = "INSERT INTO Words(Word) VALUES(@word)";
+            var affectedLinesCount = 0;
+
+            using (var command = new SqlCommand(wordInsertRequest, _connection)
+            { CommandType = CommandType.Text })
+            {
+                command.Parameters.AddWithValue("@word", word.Text);
+
+                command.Connection.Open();
+                affectedLinesCount = command.ExecuteNonQuery();
+                command.Connection.Close();
+            }
+
+            return affectedLinesCount != 0;
         }
     }
 }

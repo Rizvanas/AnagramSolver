@@ -1,4 +1,5 @@
 ﻿using AnagramGenerator.WebApp.Models;
+using Core.Domain;
 using Core.DTO;
 using Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,21 @@ namespace AnagramGenerator.WebApp.Controllers
             {
                 GotUpdated = true,
                 Word = null
+            });
+        }
+
+        [HttpPost("words/update")]
+        public IActionResult UpdateList(string word)
+        {
+            var updated = _sqlWordRepository.AddWord(new Word { Text = word });
+
+            if (updated)
+                return new RedirectResult($"/{word}");
+
+            return View("Update", new WordsUpdateViewModel
+            {
+                GotUpdated = updated,
+                Word = word
             });
         }
 

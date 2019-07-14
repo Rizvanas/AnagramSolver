@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,6 @@ namespace AnagramGenerator.WebApp.Models
 {
     public class ExecutedQueryViewModel
     {
-        public string UserIp { get; set; }
-        public int SearchTime { get; set; }
-        public string SearchPhrase { get; set; }
-        public List<Word> Anagrams { get; set; }
+        public List<UserLogResponse> UserLogs { get; set; }
     }
 }

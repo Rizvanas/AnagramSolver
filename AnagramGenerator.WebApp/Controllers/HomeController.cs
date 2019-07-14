@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AnagramGenerator.WebApp.Models;
 using Interfaces;
 using Microsoft.AspNetCore.Http;
+using Core.Domain;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -22,7 +23,7 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Index(string words)
         {
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            List<string> anagrams = new List<string>();
+            List<Word> anagrams = new List<Word>();
 
             if(words != null)
                 anagrams =  _anagramSolver.GetAnagrams(words, IpAddress);

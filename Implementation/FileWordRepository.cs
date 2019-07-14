@@ -23,7 +23,11 @@ namespace Implementation
 
         public IEnumerable<Word> GetWords(PaginationFilter filter)
         {
+            if (filter == null)
+                return _words.DistinctBy(w => w.Text);
+
             return _words
+                .DistinctBy(w => w.Text)
                 .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
                 .Take(filter.PageSize);
         }

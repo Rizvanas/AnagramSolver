@@ -12,7 +12,7 @@ namespace Core.Domain
         public override bool Equals(object obj)
         {
             Word w = obj as Word;
-            return w != null && w.Text.Equals(this.Text);
+            return w != null && w.Text.ToLower() == (this.Text.ToLower());
         }
 
         public override int GetHashCode()

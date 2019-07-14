@@ -26,7 +26,7 @@ namespace AnagramGenerator.WebApp.Controllers
             var userLogs = _userLogRepository.GetUserLogs();
             return View(new ExecutedQueryViewModel
             {
-                
+                UserLogs = userLogs
             });
         }
     }

@@ -18,11 +18,12 @@ namespace MaipApp
             var fileLoader = new FileLoader(configuration);
             var fileWordRepository = new FileWordRepository(fileLoader);
             //var words = wordRepository.GetWords().ToList();
-            var sqlWordRepository = new SqlWordRepository(configuration);
+            //var sqlWordRepository = new SqlWordRepository(configuration);
 
+            var words = fileWordRepository.GetWords(null).ToList();
+            fileLoader.BulkFillWordsTable(words);
+            
             //txtWordLoader.BulkFillWordsTable(wordRepository.GetWords().ToList());
-            var wordai = fileWordRepository.GetWords();
-            var words = sqlWordRepository.GetWords();
             //var anagramSolver = new AnagramSolver(wordRepository);
             var printer = new ConsoleWordPrinter();
             //var anagramGeneratorHandler = new AnagramGeneratorHandler(anagramSolver, printer);

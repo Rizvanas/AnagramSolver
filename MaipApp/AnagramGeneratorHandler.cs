@@ -30,7 +30,7 @@ namespace MaipApp
 
                 if (wordCount >= 1 && wordCount <= 10)
                 {
-                    var anagrams = _anagramSolver.GetStringAnagrams(inputWords);
+                    var anagrams = _anagramSolver.GetAnagrams(inputWords, null);
                     _printer.Print(new List<IPrintable> { new Anagrams(anagrams) });
                 }
             }

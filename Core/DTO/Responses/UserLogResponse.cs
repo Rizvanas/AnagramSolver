@@ -10,6 +10,6 @@ namespace Core.DTO.Responses
         public string UserIp { get; set; }
         public int SearchTime { get; set; }
         public string SearchPhrase { get; set; }
-        public List<Word> Anagrams { get; set; }
+        public Word Anagram { get; set; }
     }
 }

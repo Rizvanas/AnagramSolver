@@ -8,8 +8,8 @@ namespace Core.Printables
 {
     public class Anagrams : IPrintable
     {
-        private readonly List<string> _anagrams;
-        public Anagrams(List<string> anagrams)
+        private readonly List<Word> _anagrams;
+        public Anagrams(List<Word> anagrams)
         {
             _anagrams = anagrams;
         }
@@ -18,7 +18,7 @@ namespace Core.Printables
         {
             foreach(var anagram in _anagrams)
             {
-                Console.WriteLine(anagram);
+                Console.WriteLine(anagram.Text);
             }
         }
     }
