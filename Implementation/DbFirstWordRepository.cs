@@ -41,7 +41,7 @@ namespace Implementation
 
         public IEnumerable<Word> GetCachedAnagrams(string phrase)
         {
-            throw new NotImplementedException();
+            return _wordsDBContext.CachedWords.Select(a => new Word { Text = a.Anagram.Anagram });
         }
 
         public IEnumerable<Word> GetWords(string searchPhrase)
@@ -50,12 +50,7 @@ namespace Implementation
                 .Where(w => w.Word.StartsWith(searchPhrase))
                 .Select(w => new Word { Text = w.Word });
         }
-        /*.Append("SELECT Anagram ")
-                .Append("FROM CachedWords ")
-                .Append("JOIN Phrases ON PhraseId = Phrases.Id ")
-                .Append("JOIN Anagrams ON AnagramId = Anagrams.Id ")
-                .Append("WHERE LOWER(REPLACE(Phrase, ' ', '')) = LOWER(REPLACE(@phrase, ' ', ''));")
-                .ToString();*/
+
         public IEnumerable<Word> GetWords(PaginationFilter filter)
         {
             return filter == null
