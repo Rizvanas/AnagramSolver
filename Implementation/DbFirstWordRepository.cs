@@ -58,7 +58,7 @@ namespace Implementation
                 .ToString();*/
         public IEnumerable<Word> GetWords(PaginationFilter filter)
         {
-            return filter == null 
+            return filter == null
                 ? _wordsDBContext.Set<Words>()
                     .Select(w => new Word { Text = w.Word })
 
@@ -83,3 +83,4 @@ namespace Implementation
         }
     }
 }
+

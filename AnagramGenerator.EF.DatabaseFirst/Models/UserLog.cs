@@ -10,6 +10,6 @@ namespace AnagramGenerator.EF.DatabaseFirst.Models
         public int SearchTime { get; set; }
         public int Id { get; set; }
 
-        public Phrases SearchPhrase { get; set; }
+        public virtual Phrases SearchPhrase { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Models
         public int AnagramId { get; set; }
         public int Id { get; set; }
 
-        public ICollection<Anagrams> Anagrams { get; set; }
-        public ICollection<Phrases> Phrases { get; set; }
+        public virtual Anagrams Anagram { get; set; }
+        public virtual Phrases Phrase { get; set; }
     }
 }

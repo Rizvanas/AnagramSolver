@@ -1,14 +1,12 @@
-﻿using System;
-using AnagramGenerator.EF.DatabaseFirst.Configurations;
+﻿using AnagramGenerator.EF.DatabaseFirst.Configurations;
 using AnagramGenerator.EF.DatabaseFirst.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Persistence
 {
     public partial class WordsDBContext : DbContext
     {
-        public WordsDBContext(DbContextOptions<WordsDBContext> options) 
+        public WordsDBContext(DbContextOptions<WordsDBContext> options)
             : base(options)
         { }
 

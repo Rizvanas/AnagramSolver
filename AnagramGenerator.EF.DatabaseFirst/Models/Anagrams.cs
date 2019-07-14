@@ -13,6 +13,6 @@ namespace AnagramGenerator.EF.DatabaseFirst.Models
         public int Id { get; set; }
         public string Anagram { get; set; }
 
-        public ICollection<CachedWords> CachedWords { get; set; }
+        public virtual ICollection<CachedWords> CachedWords { get; set; }
     }
 }
