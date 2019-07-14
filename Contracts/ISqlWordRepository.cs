@@ -1,7 +1,7 @@
 ﻿using Core.Domain;
 using System.Collections.Generic;
 
-namespace Interfaces
+namespace Contracts
 {
     public interface ISqlWordRepository : IWordRepository
     {

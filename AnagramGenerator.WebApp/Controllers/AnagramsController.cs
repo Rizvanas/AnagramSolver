@@ -1,4 +1,4 @@
-﻿using Interfaces;
+﻿using Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnagramGenerator.WebApp.Controllers

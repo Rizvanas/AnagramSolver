@@ -1,5 +1,5 @@
 ﻿using Core.Interfaces;
-using Interfaces;
+using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;

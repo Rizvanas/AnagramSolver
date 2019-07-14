@@ -1,7 +1,7 @@
 ﻿using AnagramGenerator.WebApp.Models;
 using Core.Domain;
 using Core.DTO;
-using Interfaces;
+using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -1,5 +1,5 @@
 ﻿using Core.Domain;
-using Interfaces;
+using Contracts;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Implementation
             _httpClient.BaseAddress = new Uri("http://localhost:55944");
         }
 
-        public async Task<List<string>> GetAnagramsAsync(string word)
+        public async Task<List<Word>> GetAnagramsAsync(string word)
         {
             _httpClient.DefaultRequestHeaders.Add("word", word);
 
@@ -28,7 +28,7 @@ namespace Implementation
                 .ReadAsStringAsync();
 
             var anagrams = JArray.Parse(anagramsResponse)
-                .Select(jt => jt.ToString())
+                .Select(jt => new Word { Text = jt.ToString() })
                 .ToList();
 
             return anagrams;

@@ -1,7 +1,7 @@
 ﻿using Core.Domain;
 using Core.DTO;
 using Core.DTO.Responses;
-using Interfaces;
+using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Data;

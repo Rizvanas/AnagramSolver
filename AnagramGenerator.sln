@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MaipApp", "MaipApp\MaipApp.csproj", "{7E85B5EE-5BAA-4E82-BFB9-FB4712FC8457}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interfaces", "Interfaces\Interfaces.csproj", "{0441F525-C7FE-4D76-82A7-FD27F51B672B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{0441F525-C7FE-4D76-82A7-FD27F51B672B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation", "Implementation\Implementation.csproj", "{B38E14A0-F7D2-4EB6-8270-B453B9D8AAEA}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation.Tests", "Imp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.WebApp", "AnagramGenerator.WebApp\AnagramGenerator.WebApp.csproj", "{12783806-A12E-454D-BD49-3E904F3C1722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramGetter", "AnagramGetter\AnagramGetter.csproj", "{E9957871-23A2-4E36-8B44-4BE43618157C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGetter", "AnagramGetter\AnagramGetter.csproj", "{E9957871-23A2-4E36-8B44-4BE43618157C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,7 +40,6 @@ Global
 		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12783806-A12E-454D-BD49-3E904F3C1722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

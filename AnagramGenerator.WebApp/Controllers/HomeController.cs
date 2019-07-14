@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AnagramGenerator.WebApp.Models;
-using Interfaces;
+using Contracts;
 using Microsoft.AspNetCore.Http;
 using Core.Domain;
 

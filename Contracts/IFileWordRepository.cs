@@ -2,7 +2,7 @@
 using Core.DTO;
 using System.Collections.Generic;
 
-namespace Interfaces
+namespace Contracts
 {
     public interface IFileWordRepository : IWordRepository
     {

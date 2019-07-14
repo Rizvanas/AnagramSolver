@@ -1,5 +1,5 @@
 ﻿using AnagramGenerator.WebApp.Models;
-using Interfaces;
+using Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

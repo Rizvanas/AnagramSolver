@@ -1,5 +1,5 @@
 ﻿using Core.Domain;
-using Interfaces;
+using Contracts;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ namespace Implementation.Tests
     {
 
         private readonly AnagramSolver _anagramSolver1 = new AnagramSolver
-            (new TxtWordLoader { FilePath = @"..\AnagramGenerator\testzodynas1.txt" }.Load().ToList());
+            (new FileLoader { FilePath = @"..\AnagramGenerator\testzodynas1.txt" }.Load().ToList());
 
         private readonly AnagramSolver _anagramSolver2 = new AnagramSolver
-            (new TxtWordLoader { FilePath = @"..\AnagramGenerator\longestWords.txt" }.Load().ToList());
+            (new FileLoader { FilePath = @"..\AnagramGenerator\longestWords.txt" }.Load().ToList());
 
         [Test]
         public void GetAnagrams_WordContainsLithuanianChars_ResultCountIs0()
