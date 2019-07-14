@@ -24,7 +24,9 @@ namespace Implementation
 
         public bool AddCachedWord(Word word, List<Word> anagrams)
         {
-            throw new NotImplementedException();
+            _wordsDBContext.Phrases.Add(new Phrases {   CachedWords = _wordsDBContext.CachedWords.ToList(), Phrase = word.Text });
+            //_wordsDBContext.CachedWords.Add(new CachedWords { });
+            return true;
         }
         /* var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
          var cacheInsertionQuery = new StringBuilder()
@@ -41,7 +43,9 @@ namespace Implementation
 
         public IEnumerable<Word> GetCachedAnagrams(string phrase)
         {
-            return _wordsDBContext.CachedWords.Select(a => new Word { Text = a.Anagram.Anagram });
+            return _wordsDBContext.CachedWords
+                .Where(p => p.Phrase.Phrase == phrase)
+                .Select(a => new Word { Text = a.Anagram.Anagram });
         }
 
         public IEnumerable<Word> GetWords(string searchPhrase)
