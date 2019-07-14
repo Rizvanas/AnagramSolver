@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using AnagramGenerator.EF.DatabaseFirst.Persistence;
 
 namespace AnagramGenerator.WebApp
 {
@@ -34,11 +36,14 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
+            services.AddDbContext<WordsDBContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));
+
             services.AddScoped<IUserLogRepository, UserLogRepository>();   
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
             services.AddScoped<IWordRepository, SqlWordRepository>();
-            services.AddScoped<ISqlWordRepository, SqlWordRepository>();
+            services.AddScoped<ISqlWordRepository, DbFirstWordRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

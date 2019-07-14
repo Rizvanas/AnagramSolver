@@ -23,10 +23,10 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Index(string words)
         {
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            List<Word> anagrams = new List<Word>();
+            var anagrams = new List<Word>();
 
             if(words != null)
-                anagrams =  _anagramSolver.GetAnagrams(words, IpAddress);
+                anagrams =  _anagramSolver.GetAnagrams(words, IpAddress).ToList();
 
             return View(
                 new AnagramsViewModel
@@ -50,7 +50,7 @@ namespace AnagramGenerator.WebApp.Controllers
                  new AnagramsViewModel
                  {
                      InputWords = words,
-                     Anagrams = anagrams
+                     Anagrams = anagrams.ToList()
                  });
         }
 

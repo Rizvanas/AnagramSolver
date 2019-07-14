@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AnagramGenerator.EF.DatabaseFirst\AnagramGenerator.EF.DatabaseFirst.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>

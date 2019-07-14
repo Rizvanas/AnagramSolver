@@ -56,7 +56,7 @@ namespace Implementation
             return success;
         }
 
-        public List<Word> GetCachedAnagrams(string phrase)
+        public IEnumerable<Word> GetCachedAnagrams(string phrase)
         {
             var cachedWordsSelectQuery = new StringBuilder()
                 .Append("SELECT Anagram ")
@@ -137,7 +137,7 @@ namespace Implementation
             }
         }
 
-        public List<Word> GetWords(string searchPhrase)
+        public IEnumerable<Word> GetWords(string searchPhrase)
         {
             var wordsQuery = new StringBuilder()
                 .Append("SELECT Word ")

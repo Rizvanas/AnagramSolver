@@ -29,7 +29,7 @@ namespace Implementation
             _userLogRepository = userLogRepository;
         }
 
-        public List<Word> GetAnagrams(string myWords, string IpAdress)
+        public IEnumerable<Word> GetAnagrams(string myWords, string IpAdress)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
@@ -57,7 +57,7 @@ namespace Implementation
                 .Where(a => a.Text != myWords)
                 .ToList();
 
-            _sqlWordRepository.AddCachedWord(new Word { Text = myWords }, anagrams);
+            _sqlWordRepository.AddCachedWord(new Word { Text = myWords }, anagrams.ToList());
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;

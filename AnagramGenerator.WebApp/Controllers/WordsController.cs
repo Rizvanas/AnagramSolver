@@ -78,7 +78,7 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Search(string searchPhrase)
         {
             var words = _sqlWordRepository.GetWords(searchPhrase);
-            return View("Index", new WordsViewModel { Words = words });
+            return View("Index", new WordsViewModel { Words = words.ToList() });
         }
 
         private void SetPagingCookie(int? page)
