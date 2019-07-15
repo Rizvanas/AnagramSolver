@@ -1,4 +1,4 @@
-﻿using AnagramGenerator.EF.DatabaseFirst.Models;
+﻿using Contracts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,9 +7,9 @@ using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {
-    public class UserLogConfiguration : IEntityTypeConfiguration<UserLog>
+    public class UserLogConfiguration : IEntityTypeConfiguration<UserLogEntity>
     {
-        public void Configure(EntityTypeBuilder<UserLog> builder)
+        public void Configure(EntityTypeBuilder<UserLogEntity> builder)
         {
             builder.Property(e => e.UserIp)
                 .IsRequired()

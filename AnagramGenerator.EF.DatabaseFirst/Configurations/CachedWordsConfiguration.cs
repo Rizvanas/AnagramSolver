@@ -1,12 +1,12 @@
-﻿using AnagramGenerator.EF.DatabaseFirst.Models;
+﻿using Contracts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {
-    public class CachedWordsConfiguration : IEntityTypeConfiguration<CachedWords>
+    public class CachedWordsConfiguration : IEntityTypeConfiguration<CachedWordEntity>
     {
-        public void Configure(EntityTypeBuilder<CachedWords> builder)
+        public void Configure(EntityTypeBuilder<CachedWordEntity> builder)
         {
             builder.HasIndex(e => e.PhraseId)
                 .HasName("IX_CachedWords");

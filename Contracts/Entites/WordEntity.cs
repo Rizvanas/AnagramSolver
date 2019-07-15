@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AnagramGenerator.EF.DatabaseFirst.Models
+namespace Contracts.Entities
 {
-    public partial class Words
+    public partial class WordEntity
     {
         public int WordId { get; set; }
         public string Word { get; set; }

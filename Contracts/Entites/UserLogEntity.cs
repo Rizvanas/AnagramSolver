@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AnagramGenerator.EF.DatabaseFirst.Models
+namespace Contracts.Entities
 {
-    public partial class UserLog
+    public partial class UserLogEntity
     {
         public string UserIp { get; set; }
         public int SearchPhraseId { get; set; }
         public int SearchTime { get; set; }
         public int Id { get; set; }
 
-        public virtual Phrases SearchPhrase { get; set; }
+        public virtual PhraseEntity SearchPhrase { get; set; }
     }
 }

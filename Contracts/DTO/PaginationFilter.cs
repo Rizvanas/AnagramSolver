@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.DTO
+namespace Contracts.DTO
 {
     public class PaginationFilter
     {

@@ -1,8 +1,9 @@
 ﻿using AnagramGenerator.EF.DatabaseFirst.Configurations;
-using AnagramGenerator.EF.DatabaseFirst.Models;
+using AnagramGenerator.EF.DatabaseFirst;
 using Microsoft.EntityFrameworkCore;
+using Contracts.Entities;
 
-namespace AnagramGenerator.EF.DatabaseFirst.Persistence
+namespace AnagramGenerator.EF.DatabaseFirst
 {
     public partial class WordsDBContext : DbContext
     {
@@ -10,11 +11,11 @@ namespace AnagramGenerator.EF.DatabaseFirst.Persistence
             : base(options)
         { }
 
-        public virtual DbSet<Anagrams> Anagrams { get; set; }
-        public virtual DbSet<CachedWords> CachedWords { get; set; }
-        public virtual DbSet<Phrases> Phrases { get; set; }
-        public virtual DbSet<UserLog> UserLog { get; set; }
-        public virtual DbSet<Words> Words { get; set; }
+        public virtual DbSet<AnagramEntity> Anagrams { get; set; }
+        public virtual DbSet<CachedWordEntity> CachedWords { get; set; }
+        public virtual DbSet<PhraseEntity> Phrases { get; set; }
+        public virtual DbSet<UserLogEntity> UserLogs { get; set; }
+        public virtual DbSet<WordEntity> Words { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

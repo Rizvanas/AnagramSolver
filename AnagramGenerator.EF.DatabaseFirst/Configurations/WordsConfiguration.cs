@@ -1,15 +1,12 @@
-﻿using AnagramGenerator.EF.DatabaseFirst.Models;
+﻿using Contracts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {
-    public class WordsConfiguration : IEntityTypeConfiguration<Words>
+    public class WordsConfiguration : IEntityTypeConfiguration<WordEntity>
     {
-        public void Configure(EntityTypeBuilder<Words> builder)
+        public void Configure(EntityTypeBuilder<WordEntity> builder)
         {
             builder.HasKey(e => e.WordId);
 

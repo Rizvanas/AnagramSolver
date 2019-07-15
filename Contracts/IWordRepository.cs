@@ -1,4 +1,5 @@
-﻿using Core.Domain;
+﻿using Contracts.DTO;
+using Core.Domain;
 using Core.DTO;
 using System;
 using System.Collections.Generic;

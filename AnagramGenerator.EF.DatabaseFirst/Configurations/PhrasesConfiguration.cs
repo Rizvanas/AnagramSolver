@@ -1,12 +1,12 @@
-﻿using AnagramGenerator.EF.DatabaseFirst.Models;
+﻿using Contracts.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {
-    public class PhrasesConfiguration : IEntityTypeConfiguration<Phrases>
+    public class PhrasesConfiguration : IEntityTypeConfiguration<PhraseEntity>
     {
-        public void Configure(EntityTypeBuilder<Phrases> builder)
+        public void Configure(EntityTypeBuilder<PhraseEntity> builder)
         {
             builder.HasIndex(e => e.Phrase)
                 .HasName("IX_Phrases")

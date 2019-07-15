@@ -1,6 +1,4 @@
-﻿using AnagramGenerator.EF.DatabaseFirst.Models;
-using AnagramGenerator.EF.DatabaseFirst.Persistence;
-using Contracts;
+﻿using Contracts;
 using Core.Domain;
 using Core.DTO;
 using Implementation.Extensions;
@@ -24,20 +22,22 @@ namespace Implementation
 
         public bool AddCachedWord(Word word, List<Word> anagrams)
         {
-            _wordsDBContext.Phrases.Add(new Phrases {   CachedWords = _wordsDBContext.CachedWords.ToList(), Phrase = word.Text });
+            _wordsDBContext.Phrases.Add(new Phrases { Phrase = word.Text, CachedWords =  });
+
             //_wordsDBContext.CachedWords.Add(new CachedWords { });
             return true;
         }
-        /* var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
-         var cacheInsertionQuery = new StringBuilder()
-             .Append("INSERT INTO Anagrams(Anagram) VALUES(@anagram);")
-             .Append("INSERT INTO CachedWords(PhraseId, AnagramId)")
-             .Append("VALUES((SELECT Id FROM Phrases WHERE Phrase = @phrase),")
-             .Append("(SELECT Id From Anagrams WHERE LOWER(REPLACE(Anagram, ' ', '')) = LOWER(REPLACE(@anagram, ' ', ''))));")
-             .ToString();*/
+        /*var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
+        var cacheInsertionQuery = new StringBuilder()
+            .Append("INSERT INTO Anagrams(Anagram) VALUES(@anagram);")
+            .Append("INSERT INTO CachedWords(PhraseId, AnagramId)")
+            .Append("VALUES((SELECT Id FROM Phrases WHERE Phrase = @phrase),")
+            .Append("(SELECT Id From Anagrams WHERE LOWER(REPLACE(Anagram, ' ', '')) = LOWER(REPLACE(@anagram, ' ', ''))));")
+            .ToString();*/
+
         public bool AddWord(Word word)
         {
-            _wordsDBContext.Words.Add(new Words { Word = word.Text });
+            _wordsDBContext.Words.Add(new  { Word = word.Text });
             return true;
         }
 

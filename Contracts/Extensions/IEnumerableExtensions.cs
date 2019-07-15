@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Implementation.Extensions
+namespace Contracts.Extensions
 {
     public static class IEnumerableExtensions
     {
