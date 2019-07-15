@@ -1,5 +1,4 @@
 ﻿using Contracts.Entities;
-using Core.Domain;
 using System.Collections.Generic;
 
 namespace AnagramGenerator.WebApp.Models

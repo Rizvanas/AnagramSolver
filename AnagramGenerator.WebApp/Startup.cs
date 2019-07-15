@@ -37,13 +37,12 @@ namespace AnagramGenerator.WebApp
             services.AddDbContext<WordsDBContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));
 
-            services.AddScoped<IUserLogRepository, UserLogRepository>();   
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
             services.AddScoped<IAnagramsRepository, AnagramsRepository>();
             services.AddScoped<ICachedWordsRepository, CachedWordsRepository>();
             services.AddScoped<IPhrasesRepository, PhrasesRepository>();
-            services.AddScoped<IUserLogRepository, UserLogRepository>();
+            services.AddScoped<IUserLogsRepository, UserLogsRepository>();
             services.AddScoped<IWordsRepository, WordsRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 

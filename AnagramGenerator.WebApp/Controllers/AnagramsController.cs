@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnagramGenerator.WebApp.Controllers
@@ -19,8 +20,10 @@ namespace AnagramGenerator.WebApp.Controllers
             if (word == null)
                 return BadRequest();
 
+            var phrase = new PhraseEntity { Phrase = word };
             var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
-            return Ok(_anagramSolver.GetAnagrams(word, IpAdress));
+
+            return Ok(_anagramSolver.GetAnagrams(phrase, IpAdress));
         }
     }
 }

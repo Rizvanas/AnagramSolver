@@ -35,16 +35,15 @@ namespace Implementation
             _appConfig = appConfig;
         }
 
-        public IEnumerable<AnagramEntity> GetAnagrams(string myWords, string IpAdress)
+        public IEnumerable<AnagramEntity> GetAnagrams(PhraseEntity phrase, string IpAdress)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
 
             stopWatch.Start();
-            if (myWords == null)
+            if (phrase == null)
                 throw new ArgumentNullException("myWords cannot be null");
 
-            var phrase = _phrasesRepository.GetPhrase(myWords);
             var anagrams = _anagramsRepository.GetAnagrams(phrase);
 
             if (anagrams.Count() != 0)
@@ -59,7 +58,7 @@ namespace Implementation
             var resultCount = 1000;
             var words = _wordRepository.GetSearchWords(phrase).ToList();
 
-            anagrams = FindAnagrams(words, myWords, new List<List<AnagramEntity>>())
+            anagrams = FindAnagrams(words, phrase.Phrase, new List<List<AnagramEntity>>())
                 .Take(resultCount)
                 .Select(a => new AnagramEntity { Anagram = String.Join(' ', a.Select(t => t.Anagram)) })
                 .Where(a => a.Anagram.Replace(" ", "").ToLower() 

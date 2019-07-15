@@ -1,4 +1,4 @@
-﻿using Core.Domain;
+﻿using Contracts.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +8,6 @@ namespace Contracts
 {
     public interface IAnagramWebAppClient
     {
-        Task<List<Word>> GetAnagramsAsync (string word);
+        Task<List<WordEntity>> GetAnagramsAsync (string word);
     }
 }

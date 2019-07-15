@@ -1,5 +1,4 @@
 ﻿using AnagramGenerator.WebApp.Models;
-using Core.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Contracts.Repositories;
 using Contracts.DTO;
+using Contracts.Entities;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -22,7 +22,6 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet("words")]
         public IActionResult Index(int? page, int pageSize)
         {
-
             var cookie = Request.Cookies["CurrentPage"];
             PaginationFilter filter = null;
 
@@ -31,7 +30,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
                 return View(new WordsViewModel
                 {
-                    Words = _wordsRepository.GetWords(filter)
+                    Words = _wordsRepository.GetWords(filter).ToList(),
                     Page = Convert.ToInt32(filter.Page),
                 });
             }
@@ -40,7 +39,7 @@ namespace AnagramGenerator.WebApp.Controllers
             filter = new PaginationFilter { Page = page, PageSize = pageSize };
             var wordsViewModel = new WordsViewModel
             {
-                Words = _sqlWordRepository.GetWords(filter).ToList(),
+                Words = _wordsRepository.GetWords(filter).ToList(),
                 Page = filter.Page
             };
 
@@ -62,7 +61,7 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpPost("words/update")]
         public IActionResult UpdateList(string word)
         {
-            var updated = _sqlWordRepository.AddWord(new Word { Text = word });
+            var updated = _wordsRepository.AddWord(new WordEntity { Word = word });
 
             if (updated)
                 return new RedirectResult($"/{word}");
@@ -70,14 +69,15 @@ namespace AnagramGenerator.WebApp.Controllers
             return View("Update", new WordsUpdateViewModel
             {
                 GotUpdated = updated,
-                Word = word
+                Word = new WordEntity { Word = word }
             });
         }
 
         [HttpPost("words/search")]
         public IActionResult Search(string searchPhrase)
         {
-            var words = _sqlWordRepository.GetWords(searchPhrase);
+            var phrase = new PhraseEntity { Phrase = searchPhrase };
+            var words = _wordsRepository.GetWords(phrase);
             return View("Index", new WordsViewModel { Words = words.ToList() });
         }
 

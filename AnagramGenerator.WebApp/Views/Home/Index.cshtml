@@ -7,24 +7,24 @@
             <form class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="inputPassword2" class="sr-only">Word</label>
-                    <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="words" value="@Model.InputWords" />
+                    <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="words" value="@Model.InputWords.Phrase" />
                 </div>
                 <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
             </form>
         }
         @if (Model.Anagrams.Count != 0)
         {
-            <h2>Sakinys: @Model.InputWords</h2>
+            <h2>Sakinys: @Model.InputWords.Phrase</h2>
             <h3>Anagramos</h3>
             <ul class="list-group">
                 @foreach (var anagram in Model.Anagrams)
                 {
-                <li class="list-group-item">@anagram.Text</li>
+                <li class="list-group-item">@anagram.Anagram</li>
                 }
             </ul>
         }
         else if (Model.InputWords != null)
         {
-            <p>Jūsų įvestas sąkinys [@Model.InputWords] anagramų neturi</p>
+            <p>Jūsų įvestas sąkinys [@Model.InputWords.Phrase] anagramų neturi</p>
         }
     </div>

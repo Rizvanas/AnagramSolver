@@ -33,20 +33,12 @@
                 <thead>
                     <tr>
                         <th scope="col">Žodis</th>
-                        <th scope="col">Kalbos dalis</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var word in Model.Words)
                     {
-                        <tr>
-                            <td class="list-group-flush">
-                                @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
-                            </td>
-                            <td>
-                                @word.Type
-                            </td>
-                        </tr>
+                        <tr><td class="list-group-flush">@Html.ActionLink(word.Word, "Index", "Home", new { words = word.Word }, null)</td></tr>
                     }
                 </tbody>
             </table>
@@ -55,7 +47,7 @@
         <ul class="pagination footeris">
             <li class="page-item">
                 <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
-            </li>
+            </li>s
 
             <li class="page-item">
                 <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>

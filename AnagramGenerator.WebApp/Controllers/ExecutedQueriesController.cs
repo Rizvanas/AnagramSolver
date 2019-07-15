@@ -1,5 +1,6 @@
 ﻿using AnagramGenerator.WebApp.Models;
 using Contracts;
+using Contracts.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,20 @@ namespace AnagramGenerator.WebApp.Controllers
     [Route("queries")]
     public class ExecutedQueriesController : Controller
     {
-        private readonly IUserLogRepository _userLogRepository;
-        private readonly ISqlWordRepository _sqlWordReposiotry;
+        private readonly IUserLogsRepository _userLogsRepository;
 
-        public ExecutedQueriesController(IUserLogRepository userLogRepository, ISqlWordRepository sqlWordRepository)
+        public ExecutedQueriesController(IUserLogsRepository userLogRepository)
         {
-            _userLogRepository = userLogRepository;
-            _sqlWordReposiotry = sqlWordRepository;
+            _userLogsRepository = userLogRepository;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var userLogs = _userLogRepository.GetUserLogs();
+            var userLogs = _userLogsRepository.GetUserLogs();
             return View(new ExecutedQueryViewModel
             {
-                UserLogs = userLogs
+                UserLogs = userLogs.ToList()
             });
         }
     }

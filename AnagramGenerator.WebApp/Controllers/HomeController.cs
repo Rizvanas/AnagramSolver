@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using AnagramGenerator.WebApp.Models;
 using Contracts;
 using Microsoft.AspNetCore.Http;
-using Core.Domain;
+using Contracts.Entities;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -22,16 +22,17 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
+            var phrase = new PhraseEntity { Phrase = words };
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            var anagrams = new List<Word>();
+            var anagrams = new List<AnagramEntity>();
 
             if(words != null)
-                anagrams =  _anagramSolver.GetAnagrams(words, IpAddress).ToList();
+                anagrams =  _anagramSolver.GetAnagrams(phrase, IpAddress).ToList();
 
             return View(
                 new AnagramsViewModel
                 {
-                    InputWords = words,
+                    InputWords = phrase,
                     Anagrams = anagrams
                 });
         }
@@ -42,14 +43,14 @@ namespace AnagramGenerator.WebApp.Controllers
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             if (words == null)
                 return NoContent();
-
-            var anagrams = _anagramSolver.GetAnagrams(words, IpAddress);
+            var phrase = new PhraseEntity { Phrase = words };
+            var anagrams = _anagramSolver.GetAnagrams(phrase, IpAddress);
 
             return View(
                  "Index",
                  new AnagramsViewModel
                  {
-                     InputWords = words,
+                     InputWords = phrase,
                      Anagrams = anagrams.ToList()
                  });
         }
