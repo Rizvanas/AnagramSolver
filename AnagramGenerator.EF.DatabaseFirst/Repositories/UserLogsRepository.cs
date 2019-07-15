@@ -18,21 +18,21 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public UserLogEntity GetUserLog(int id)
         {
-            return _wordsDBContext.UserLogs
+            return _wordsDBContext.UserLog
                 .FirstOrDefault(userLog => userLog.Id == id);
         }
 
         public IEnumerable<UserLogEntity> GetUserLogs()
         {
-            return _wordsDBContext.UserLogs;
+            return _wordsDBContext.UserLog;
         }
 
         public bool AddUserLog(UserLogEntity userLog)
         {
-            if (_wordsDBContext.UserLogs.Contains(userLog))
+            if (_wordsDBContext.UserLog.Contains(userLog))
                 return false;
 
-            _wordsDBContext.UserLogs.Add(userLog);
+            _wordsDBContext.UserLog.Add(userLog);
             return true;
         }
     }

@@ -32,14 +32,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public IEnumerable<AnagramEntity> GetAnagrams(PhraseEntity phrase)
         {
-            return _wordsDBContext.CachedWords
-                .Where(p => p.Phrase.Id == phrase.Id)
-                .Select(p => new AnagramEntity
-                {
-                    Id = p.AnagramId,
-                    Anagram = p.Anagram.Anagram,
-                    CachedWords = _wordsDBContext.CachedWords.ToList()
-                });
+            return _wordsDBContext.Anagrams
+                .Where(a => a.CachedWords.Any(cw => cw.PhraseId == phrase.Id));
         }
 
         public AnagramEntity GetAnagram(int id)

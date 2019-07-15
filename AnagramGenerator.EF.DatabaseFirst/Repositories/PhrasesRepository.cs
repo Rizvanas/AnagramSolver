@@ -44,7 +44,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         {
             if (_wordsDBContext.Phrases.Contains(phrase))
                 return false;
-            phrase.Id = 72;
+
             _wordsDBContext.Add(phrase);
             return true;
         }

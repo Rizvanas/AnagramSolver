@@ -14,7 +14,7 @@ namespace AnagramGenerator.EF.DatabaseFirst
         public virtual DbSet<AnagramEntity> Anagrams { get; set; }
         public virtual DbSet<CachedWordEntity> CachedWords { get; set; }
         public virtual DbSet<PhraseEntity> Phrases { get; set; }
-        public virtual DbSet<UserLogEntity> UserLogs { get; set; }
+        public virtual DbSet<UserLogEntity> UserLog { get; set; }
         public virtual DbSet<WordEntity> Words { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
