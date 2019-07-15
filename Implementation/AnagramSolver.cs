@@ -35,17 +35,20 @@ namespace Implementation
             _appConfig = appConfig;
         }
 
-        public IEnumerable<AnagramEntity> GetAnagrams(PhraseEntity phrase, string IpAdress)
+        public IEnumerable<AnagramEntity> GetAnagrams(string word, string IpAdress)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
-
             stopWatch.Start();
+
+            var phrase = _phrasesRepository.GetPhrase(word);
             if (phrase == null)
-                throw new ArgumentNullException("myWords cannot be null");
+            {
+                _phrasesRepository.AddPhrase(new PhraseEntity { Phrase = word });
+                phrase = _phrasesRepository.GetPhrase(word); 
+            }
 
             var anagrams = _anagramsRepository.GetAnagrams(phrase);
-
             if (anagrams.Count() != 0)
             {
                 stopWatch.Stop();

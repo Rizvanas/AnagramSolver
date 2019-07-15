@@ -30,16 +30,21 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public PhraseEntity GetPhrase(string phrase)
         {
-            return _wordsDBContext.Phrases
-                .FirstOrDefault(ph => ph.Phrase.Replace(" ", "").ToLower() 
-                == phrase.Replace(" ", "").ToLower());
+            if (phrase == null)
+                return null;
+
+            var phrases = _wordsDBContext.Phrases
+                .FirstOrDefault(ph => ph.Phrase.ToLower()
+                == phrase.ToLower());
+
+            return phrases;
         }
 
         public bool AddPhrase(PhraseEntity phrase)
         {
             if (_wordsDBContext.Phrases.Contains(phrase))
                 return false;
-
+            phrase.Id = 72;
             _wordsDBContext.Add(phrase);
             return true;
         }

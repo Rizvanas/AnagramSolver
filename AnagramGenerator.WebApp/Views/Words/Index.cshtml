@@ -30,11 +30,6 @@
         else
         {
             <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Žodis</th>
-                    </tr>
-                </thead>
                 <tbody>
                     @foreach (var word in Model.Words)
                     {
@@ -47,7 +42,7 @@
         <ul class="pagination footeris">
             <li class="page-item">
                 <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
-            </li>s
+            </li>
 
             <li class="page-item">
                 <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>

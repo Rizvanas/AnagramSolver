@@ -8,31 +8,35 @@ using AnagramGenerator.WebApp.Models;
 using Contracts;
 using Microsoft.AspNetCore.Http;
 using Contracts.Entities;
+using Contracts.Repositories;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IAnagramSolver _anagramSolver;
-        public HomeController(IAnagramSolver anagramSolver)
+        private readonly IPhrasesRepository _phrasesRepository;
+
+        public HomeController(IAnagramSolver anagramSolver, IPhrasesRepository phrasesRepository)
         {
             _anagramSolver = anagramSolver;
+            _phrasesRepository = phrasesRepository;
         }
 
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
-            var phrase = new PhraseEntity { Phrase = words };
+            var phrase = new PhraseEntity();
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var anagrams = new List<AnagramEntity>();
 
             if(words != null)
-                anagrams =  _anagramSolver.GetAnagrams(phrase, IpAddress).ToList();
+                anagrams = _anagramSolver.GetAnagrams(words, IpAddress).ToList();
 
             return View(
                 new AnagramsViewModel
                 {
-                    InputWords = phrase,
+                    InputWords = _phrasesRepository.GetPhrase(words),
                     Anagrams = anagrams
                 });
         }
@@ -43,9 +47,9 @@ namespace AnagramGenerator.WebApp.Controllers
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             if (words == null)
                 return NoContent();
-            var phrase = new PhraseEntity { Phrase = words };
-            var anagrams = _anagramSolver.GetAnagrams(phrase, IpAddress);
+            var anagrams = _anagramSolver.GetAnagrams(words, IpAddress);
 
+            var phrase = _phrasesRepository.GetPhrase(words);
             return View(
                  "Index",
                  new AnagramsViewModel

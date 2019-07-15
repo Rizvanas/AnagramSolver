@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Contracts.Entities;
+using Contracts.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnagramGenerator.WebApp.Controllers
@@ -8,10 +9,12 @@ namespace AnagramGenerator.WebApp.Controllers
     public class AnagramsController : ControllerBase
     {
         private readonly IAnagramSolver _anagramSolver;
+        private readonly IPhrasesRepository _phrasesRepository;
 
-        public AnagramsController(IAnagramSolver anagramSolver)
+        public AnagramsController(IAnagramSolver anagramSolver , IPhrasesRepository phrasesRepository)
         {
             _anagramSolver = anagramSolver;
+            _phrasesRepository = phrasesRepository;
         }
         
         [HttpGet]
@@ -20,10 +23,9 @@ namespace AnagramGenerator.WebApp.Controllers
             if (word == null)
                 return BadRequest();
 
-            var phrase = new PhraseEntity { Phrase = word };
             var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
 
-            return Ok(_anagramSolver.GetAnagrams(phrase, IpAdress));
+            return Ok(_anagramSolver.GetAnagrams(word, IpAdress));
         }
     }
 }

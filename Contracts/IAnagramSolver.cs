@@ -5,6 +5,6 @@ namespace Contracts
 {
     public interface IAnagramSolver
     {
-        IEnumerable<AnagramEntity> GetAnagrams(PhraseEntity phrase, string IpAddress);
+        IEnumerable<AnagramEntity> GetAnagrams(string word, string IpAddress);
     }
 }
