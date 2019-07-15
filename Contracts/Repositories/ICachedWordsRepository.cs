@@ -11,5 +11,6 @@ namespace Contracts.Repositories
         IEnumerable<CachedWordEntity> GetCachedWords(PhraseEntity phrase);
         IEnumerable<CachedWordEntity> GetCachedWords(AnagramEntity anagram);
         bool AddCachedWord(CachedWordEntity cachedWord);
+        bool AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams);
     }
 }

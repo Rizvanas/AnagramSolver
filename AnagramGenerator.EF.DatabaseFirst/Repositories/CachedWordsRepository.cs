@@ -49,7 +49,13 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
             foreach(var anagram in anagrams)
             {
-
+                _wordsDBContext.CachedWords.Add(new CachedWordEntity
+                {
+                    Phrase = phrase,
+                    PhraseId = phrase.Id,
+                    Anagram = anagram,
+                    AnagramId = anagram.Id,
+                });
             }
             return true;
         }

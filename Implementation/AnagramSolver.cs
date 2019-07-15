@@ -2,15 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Configuration;
-using System.Collections.Specialized;
-using System.Reflection;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Contracts.Entities;
 using Contracts.Repositories;
+using Contracts.Extensions;
 
 namespace Implementation
 {
@@ -56,7 +51,7 @@ namespace Implementation
             {
                 stopWatch.Stop();
                 timeElapsed = stopWatch.ElapsedMilliseconds;
-                LogUserInfo(myWords, IpAdress, timeElapsed);
+                LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
 
                 return anagrams;
             }
@@ -71,11 +66,11 @@ namespace Implementation
                 != phrase.Phrase.Replace(" ", "").ToLower())
                 .ToList();
 
-            _cachedWordsRepository.AddCachedWord(new CachedWordEntity {Phrase = phrase });
+            _cachedWordsRepository.AddCachedWord(phrase, anagrams);
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;
-            LogUserInfo(myWords, IpAdress, timeElapsed);
+            LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
 
             return anagrams;
         }
@@ -89,13 +84,13 @@ namespace Implementation
             foreach(var word in words)
             {
                 prevSearchWord = tempSearchWord;
-                tempSearchWord = tempSearchWord.GetSearchWord(word.Text);
+                tempSearchWord = tempSearchWord.GetSearchWord(word.Word);
 
                 if (prevSearchWord != tempSearchWord)
-                    currentAnagram.Add(word);
+                    currentAnagram.Add(new AnagramEntity { Anagram = word.Word });
 
                 if (tempSearchWord.Length == 0 
-                    || word.Text.Length > tempSearchWord.Length)
+                    || word.Word.Length > tempSearchWord.Length)
                     break;
             }
 
@@ -111,13 +106,14 @@ namespace Implementation
             return results;
         }
 
-        private void LogUserInfo(string phrase, string ip, long searchTime)
+        private void LogUserInfo(PhraseEntity phrase, string ip, int searchTime)
         {
-            _userLogRepository.AddUserLog(new UserLog
+            _userLogsRepository.AddUserLog(new UserLogEntity
             {
+                UserIp = ip,
                 SearchPhrase = phrase,
-                SearchTime = searchTime,
-                UserIP = ip
+                SearchPhraseId = phrase.Id,
+                SearchTime = searchTime
             });
         }
     }
