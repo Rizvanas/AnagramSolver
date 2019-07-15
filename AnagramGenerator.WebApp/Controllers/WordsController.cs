@@ -1,22 +1,22 @@
 ﻿using AnagramGenerator.WebApp.Models;
 using Core.Domain;
-using Core.DTO;
-using Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.Repositories;
+using Contracts.DTO;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class WordsController : Controller
     {
-        private readonly ISqlWordRepository _sqlWordRepository;
-        public WordsController(ISqlWordRepository sqlWordRepository)
+        private readonly IWordsRepository _wordsRepository;
+        public WordsController(IWordsRepository wordsRepository)
         {
-            _sqlWordRepository = sqlWordRepository;
+            _wordsRepository = wordsRepository;
         }
 
         [HttpGet("words")]
@@ -28,10 +28,11 @@ namespace AnagramGenerator.WebApp.Controllers
 
             if (cookie != null && !String.IsNullOrEmpty(cookie) && page == null)
             {
+                _wordsRepository
                 filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
                 return View(new WordsViewModel
                 {
-                    Words = _sqlWordRepository.GetWords(filter).ToList(),
+                    Words = _wordsRepository
                     Page = Convert.ToInt32(filter.Page),
                 });
             }

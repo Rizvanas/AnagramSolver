@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Implementation;
 using Contracts;
+using Contracts.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AnagramGenerator.EF.DatabaseFirst.Persistence;
+using AnagramGenerator.EF.DatabaseFirst;
+using AnagramGenerator.EF.DatabaseFirst.Repositories;
 
 namespace AnagramGenerator.WebApp
 {
@@ -42,8 +44,11 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IUserLogRepository, UserLogRepository>();   
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
-            services.AddScoped<IWordRepository, SqlWordRepository>();
-            services.AddScoped<ISqlWordRepository, DbFirstWordRepository>();
+            services.AddScoped<IAnagramsRepository, AnagramsRepository>();
+            services.AddScoped<ICachedWordsRepository, CachedWordsRepository>();
+            services.AddScoped<IPhrasesRepository, PhrasesRepository>();
+            services.AddScoped<IUserLogRepository, UserLogRepository>();
+            services.AddScoped<IWordsRepository, WordsRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

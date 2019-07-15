@@ -1,4 +1,5 @@
-﻿using Contracts.Entities;
+﻿using Contracts.Repositories;
+using Contracts.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
-    public class UserLogsRepository
+    public class UserLogsRepository : IUserLogsRepository
     {
         private readonly WordsDBContext _wordsDBContext;
 

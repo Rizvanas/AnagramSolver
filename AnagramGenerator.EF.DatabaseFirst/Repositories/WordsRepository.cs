@@ -2,6 +2,7 @@
 using Contracts.DTO;
 using Contracts.Entities;
 using Contracts.Extensions;
+using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
-    public class WordsRepository
+    public class WordsRepository : IWordsRepository
     {
         private readonly WordsDBContext _wordsDBContext;
         private readonly IAppConfig _appConfig;
