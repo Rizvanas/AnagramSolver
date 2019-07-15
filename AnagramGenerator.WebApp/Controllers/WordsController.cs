@@ -28,11 +28,10 @@ namespace AnagramGenerator.WebApp.Controllers
 
             if (cookie != null && !String.IsNullOrEmpty(cookie) && page == null)
             {
-                _wordsRepository
                 filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
                 return View(new WordsViewModel
                 {
-                    Words = _wordsRepository
+                    Words = _wordsRepository.GetWords(filter)
                     Page = Convert.ToInt32(filter.Page),
                 });
             }

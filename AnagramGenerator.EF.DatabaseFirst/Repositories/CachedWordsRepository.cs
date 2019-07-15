@@ -41,5 +41,17 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext.CachedWords.Add(cachedWord);    
             return true;
         }
+
+        public bool AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
+        {
+            if (_wordsDBContext.CachedWords.FirstOrDefault(cw => cw.PhraseId == phrase.Id) != null)
+                return false;
+
+            foreach(var anagram in anagrams)
+            {
+
+            }
+            return true;
+        }
     }
 }

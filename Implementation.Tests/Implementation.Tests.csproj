@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Implementation\Implementation.csproj" />
     <ProjectReference Include="..\MaipApp\MaipApp.csproj" />
     <PackageReference Include="nunit" Version="3.11.0" />

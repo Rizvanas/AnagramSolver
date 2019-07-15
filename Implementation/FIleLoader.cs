@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Contracts;
-using Core.Domain;
+using Contracts.Entities;
 
 namespace Implementation
 {
@@ -19,10 +19,10 @@ namespace Implementation
             _appConfig = appConfig;
         }
 
-        public IEnumerable<Word> LoadFromFile(string filePath)
+        public IEnumerable<WordEntity> LoadFromFile(string filePath)
         {
             var lines = File.ReadLines(filePath);
-            var words = new HashSet<Word>();
+            var words = new HashSet<WordEntity>();
             var regex = new Regex("[.-]|[0-9]");
             var forbiddenTypes = new List<string> { "sutr", "dll", "akronim" };
 
@@ -35,18 +35,16 @@ namespace Implementation
                 var thirdElem = lineList.ElementAtOrDefault(2);
 
                 if (firstElem != null && !regex.IsMatch(firstElem))
-                    words.Add(new Word { Text = firstElem, Type = secondElem });
+                    words.Add(new WordEntity { Word = firstElem });
 
                 if (thirdElem != null && !regex.IsMatch(thirdElem))
-                    words.Add(new Word { Text = thirdElem, Type = secondElem });
+                    words.Add(new WordEntity { Word = thirdElem });
             }
 
-            return words
-                .Where(w => !forbiddenTypes.Contains(w.Type))
-                .ToHashSet();
+            return words.ToHashSet();
         }
 
-        public void BulkFillWordsTable(List<Word> words)
+        public void BulkFillWordsTable(List<WordEntity> words)
         {
             BulkCopyToDB(GetDataTable(words, "Words", new DataColumn[]
             {
@@ -67,7 +65,7 @@ namespace Implementation
             }));
         }
 
-        private DataTable GetDataTable(List<Word> words, string name, DataColumn[] columns)
+        private DataTable GetDataTable(List<WordEntity> words, string name, DataColumn[] columns)
         {
             var table = new DataTable(name);
             DataRow row;
@@ -81,7 +79,7 @@ namespace Implementation
             {
                 row = table.NewRow();
                 row["WordId"] = item.i + 1;
-                row["Word"] = item.value.Text;
+                row["Word"] = item.value.Word;
                 table.Rows.Add(row);
             }
 

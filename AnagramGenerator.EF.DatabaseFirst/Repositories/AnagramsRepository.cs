@@ -1,6 +1,5 @@
 ﻿using Contracts.Entities;
 using Contracts.Repositories;
-using Core.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,5 @@
-﻿using Core.Interfaces;
-using System;
+﻿using Contracts.DTO;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Contracts
 {

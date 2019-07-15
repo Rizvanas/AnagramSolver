@@ -28,6 +28,13 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 .FirstOrDefault(phrase => phrase.Id == id);
         }
 
+        public PhraseEntity GetPhrase(string phrase)
+        {
+            return _wordsDBContext.Phrases
+                .FirstOrDefault(ph => ph.Phrase.Replace(" ", "").ToLower() 
+                == phrase.Replace(" ", "").ToLower());
+        }
+
         public bool AddPhrase(PhraseEntity phrase)
         {
             if (_wordsDBContext.Phrases.Contains(phrase))

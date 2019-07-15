@@ -1,8 +1,6 @@
-﻿using Core.Interfaces;
-using Contracts;
-using System;
+﻿using Contracts;
 using System.Collections.Generic;
-using System.Text;
+using Contracts.DTO;
 
 namespace Implementation
 {

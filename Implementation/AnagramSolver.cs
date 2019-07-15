@@ -3,33 +3,44 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Implementation.Extensions;
 using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Collections.Specialized;
-using Core.Domain;
 using System.Reflection;
 using System.Diagnostics;
-using Core.DTO;
 using Microsoft.AspNetCore.Http;
+using Contracts.Entities;
+using Contracts.Repositories;
 
 namespace Implementation
 {
     public class AnagramSolver : IAnagramSolver
     {
 
-        private readonly ISqlWordRepository _sqlWordRepository;
-        private readonly IAppConfig _appConfig;
-        private readonly IUserLogRepository _userLogRepository;
+        private readonly IWordsRepository _wordRepository;
+        private readonly IAnagramsRepository _anagramsRepository;
+        private readonly IPhrasesRepository _phrasesRepository;
+        private readonly IUserLogsRepository _userLogsRepository;
+        private readonly ICachedWordsRepository _cachedWordsRepository;
 
-        public AnagramSolver(ISqlWordRepository sqlWordRepository, IAppConfig appConfig, IUserLogRepository userLogRepository)
+        private readonly IAppConfig _appConfig;
+
+        public AnagramSolver(IWordsRepository wordsRepository,
+            IAnagramsRepository anagramsRepository,
+            IPhrasesRepository phrasesRepository,
+            IUserLogsRepository userLogsRepository,
+            ICachedWordsRepository cachedWordsRepository,
+            IAppConfig appConfig)
         {
-            _sqlWordRepository = sqlWordRepository;
+            _wordRepository = wordsRepository;
+            _anagramsRepository = anagramsRepository;
+            _phrasesRepository = phrasesRepository;
+            _userLogsRepository = userLogsRepository;
+            _cachedWordsRepository = cachedWordsRepository;
             _appConfig = appConfig;
-            _userLogRepository = userLogRepository;
         }
 
-        public IEnumerable<Word> GetAnagrams(string myWords, string IpAdress)
+        public IEnumerable<AnagramEntity> GetAnagrams(string myWords, string IpAdress)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
@@ -38,7 +49,9 @@ namespace Implementation
             if (myWords == null)
                 throw new ArgumentNullException("myWords cannot be null");
 
-            var anagrams = _sqlWordRepository.GetCachedAnagrams(myWords);
+            var phrase = _phrasesRepository.GetPhrase(myWords);
+            var anagrams = _anagramsRepository.GetAnagrams(phrase);
+
             if (anagrams.Count() != 0)
             {
                 stopWatch.Stop();
@@ -49,15 +62,16 @@ namespace Implementation
             }
 
             var resultCount = 1000;
-            var words = _sqlWordRepository.SearchWords(myWords).ToList();
+            var words = _wordRepository.GetSearchWords(phrase).ToList();
 
-            anagrams = FindAnagrams(words, myWords, new List<List<Word>>())
+            anagrams = FindAnagrams(words, myWords, new List<List<AnagramEntity>>())
                 .Take(resultCount)
-                .Select(a => new Word { Text = String.Join(' ', a.Select(t => t.Text)) })
-                .Where(a => a.Text != myWords)
+                .Select(a => new AnagramEntity { Anagram = String.Join(' ', a.Select(t => t.Anagram)) })
+                .Where(a => a.Anagram.Replace(" ", "").ToLower() 
+                != phrase.Phrase.Replace(" ", "").ToLower())
                 .ToList();
 
-            _sqlWordRepository.AddCachedWord(new Word { Text = myWords }, anagrams.ToList());
+            _cachedWordsRepository.AddCachedWord(new CachedWordEntity {Phrase = phrase });
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;
@@ -66,9 +80,9 @@ namespace Implementation
             return anagrams;
         }
 
-        private List<List<Word>> FindAnagrams(List<Word> words, string searchWord, List<List<Word>> results)
+        private List<List<AnagramEntity>> FindAnagrams(List<WordEntity> words, string searchWord, List<List<AnagramEntity>> results)
         {
-            var currentAnagram = new List<Word>();
+            var currentAnagram = new List<AnagramEntity>();
             string tempSearchWord = searchWord;
             string prevSearchWord = null;
 

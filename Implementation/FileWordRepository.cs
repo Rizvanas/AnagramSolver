@@ -1,62 +1,66 @@
-﻿using Core.Domain;
-using Core.DTO;
-using Implementation.Extensions;
-using Contracts;
+﻿using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using Contracts.Repositories;
+using Contracts.Entities;
+using Contracts.DTO;
+using Contracts.Extensions;
 
 namespace Implementation
 {
-    public class FileWordRepository : IFileWordRepository
+    public class FileWordRepository : IWordsRepository
     {
         private readonly IWordLoader _wordLoader;
-        private IEnumerable<Word> _words;
+        private IEnumerable<WordEntity> _words;
         private const string filePath = @"..\AnagramGenerator\zodynas.txt";
         public FileWordRepository(IWordLoader wordLoader)
         {
             _wordLoader = wordLoader;
-            ///TODO: take filePath from config file
-            _words = _wordLoader.LoadFromFile(filePath).OrderBy(w => w.Text);
+            _words = _wordLoader
+                .LoadFromFile(filePath)
+                .OrderBy(w => w.Word);
         }
 
-        public IEnumerable<Word> GetWords(PaginationFilter filter)
+        public IEnumerable<WordEntity> GetWords()
         {
-            if (filter == null)
-                return _words.DistinctBy(w => w.Text);
+            return _words;
+        }
 
+        public IEnumerable<WordEntity> GetWords(PaginationFilter filter)
+        {
             return _words
-                .DistinctBy(w => w.Text)
                 .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
                 .Take(filter.PageSize);
         }
 
-            public IEnumerable<string> GetWordsText()
+        public IEnumerable<WordEntity> GetWords(PhraseEntity phrase)
         {
-            return _words.Select(w => w.Text);
+             return _words .Where(w => w.Word.StartsWith(phrase.Phrase));
         }
 
-        public IEnumerable<Word> GetPaginizedWords(PaginationFilter filter)
+        public WordEntity GetWord(int id)
         {
-            return _words
-                .AsQueryable()
-                .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
-                .Take(filter.PageSize);
+            return _words.FirstOrDefault(w => w.WordId == id);
         }
 
-        public IEnumerable<Word> SearchWords(string phrase)
+        public IEnumerable<WordEntity> GetSearchWords(PhraseEntity phrase)
         {
-            phrase = phrase.Replace(" ", "");
-            var searchWord = phrase.GetSearchWord(null);
+            var normalizedPhrase = phrase.Phrase.Replace(" ", "");
+            var searchWord = normalizedPhrase.GetSearchWord(null);
 
             return _words
-                    .Where(w => phrase.GetSearchWord(w.Text) != searchWord
-                    && w.Text.Count(c => !Char.IsWhiteSpace(c)) <= searchWord.Length
-                    && w.Text.Length >= 2
-                    && w.Text.Length >= 1)
-                    .OrderByDescending(w => w.Text.Length)
-                    .ToList();
+                .Where(w => normalizedPhrase.GetSearchWord(w.Word) != searchWord
+                    && w.Word.Count(c => !Char.IsWhiteSpace(c)) <= searchWord.Length
+                    && w.Word.Length >= 2
+                    && w.Word.Length >= 1)
+                .OrderByDescending(w => w.Word.Length)
+                .ToList();
+        }
+
+        public bool AddWord(WordEntity word)
+        {
+            return true;
         }
     }
 }

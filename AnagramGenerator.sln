@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Cont
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation", "Implementation\Implementation.csproj", "{B38E14A0-F7D2-4EB6-8270-B453B9D8AAEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{3E52373D-55D7-440A-9789-A47A990DF1F7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Implementation.Tests", "Implementation.Tests\Implementation.Tests.csproj", "{EB0B773F-F070-4941-898A-B11D8E35F6E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.WebApp", "AnagramGenerator.WebApp\AnagramGenerator.WebApp.csproj", "{12783806-A12E-454D-BD49-3E904F3C1722}"
@@ -36,10 +34,6 @@ Global
 		{B38E14A0-F7D2-4EB6-8270-B453B9D8AAEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B38E14A0-F7D2-4EB6-8270-B453B9D8AAEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B38E14A0-F7D2-4EB6-8270-B453B9D8AAEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E52373D-55D7-440A-9789-A47A990DF1F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB0B773F-F070-4941-898A-B11D8E35F6E2}.Release|Any CPU.Build.0 = Release|Any CPU
