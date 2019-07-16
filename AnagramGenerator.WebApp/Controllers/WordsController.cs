@@ -19,21 +19,16 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Index(int? page, int pageSize)
         {
             var cookie = Request.Cookies["CurrentPage"];
+            if (cookie != null)
+                SetPagingCookie(page);
 
-            if (cookie != null && !String.IsNullOrEmpty(cookie) && page == null)
-            {
-                var pageFromCookie = Convert.ToInt32(cookie);
-                return View(new WordsViewModel
-                {
-                    Words = _wordsService.GetWords(pageFromCookie, pageSize).ToList(),
-                    Page = pageFromCookie
-                });
-            }
+            page = (cookie != null && !String.IsNullOrEmpty(cookie) && page == null)
+                ? Convert.ToInt32(cookie)
+                : page;
 
-            SetPagingCookie(page);
             return View(new WordsViewModel
             {
-                Words = _wordsService.GetWords(page, pageSize, cookie).ToList(),
+                Words = _wordsService.GetWords(page, pageSize).ToList(),
                 Page = page
             });
         }

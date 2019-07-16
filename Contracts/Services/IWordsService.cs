@@ -7,8 +7,8 @@ namespace Contracts.Services
 {
     public interface IWordsService
     {
-        IEnumerable<Word> GetWords(string word);
-        IEnumerable<Word> GetWords(int? page, int pageSize, string pagingCookie);
+        List<Word> GetWords(string word);
+        List<Word> GetWords(int? page, int pageSize);
         void AddWord(string word);
     }
 }
