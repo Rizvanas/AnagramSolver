@@ -73,8 +73,7 @@ namespace AnagramGenerator.WebApp.Controllers
 
         private void SetSearchCookie(string word)
         {
-            var option = new CookieOptions();
-            option.Expires = DateTime.Now.AddMinutes(15);
+            var option = new CookieOptions { Expires = DateTime.Now.AddMinutes(15) }; 
             Response.Cookies.Append("CurrentSearchWord", word, option);
         }
     }
