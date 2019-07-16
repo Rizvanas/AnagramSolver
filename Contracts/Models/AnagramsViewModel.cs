@@ -1,14 +1,11 @@
-﻿using Contracts.Entities;
-using System;
+﻿using Contracts.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AnagramGenerator.WebApp.Models
+namespace Contracts.Models
 {
     public class AnagramsViewModel
     {
-        public PhraseEntity InputWords { get; set; }
-        public List<AnagramEntity> Anagrams { get; set; }
+        public Phrase Phrase { get; set; }
+        public List<Anagram> Anagrams { get; set; }
     }
 }

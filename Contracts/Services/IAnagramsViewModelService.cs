@@ -1,12 +1,9 @@
-﻿using Contracts.DTO;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Contracts.Models;
 
 namespace Contracts.Services
 {
     public interface IAnagramsViewModelService
     {
-        List<Anagram> GetAnagrams(string phrase, string ip);
+        AnagramsViewModel GetAnagramsViewModel(string phrase, string ip);
     }
 }

@@ -1,68 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using AnagramGenerator.WebApp.Models;
-using Contracts;
 using Microsoft.AspNetCore.Http;
-using Contracts.Entities;
-using Contracts.Repositories;
+using Contracts.Services;
+using Contracts.Models;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAnagramSolver _anagramSolver;
-        private readonly IPhrasesRepository _phrasesRepository;
+        private readonly IAnagramsViewModelService _anagramsViewModelService;
 
-        public HomeController(IAnagramSolver anagramSolver, IPhrasesRepository phrasesRepository)
+        public HomeController(IAnagramsViewModelService anagramsViewModelService)
         {
-            _anagramSolver = anagramSolver;
-            _phrasesRepository = phrasesRepository;
+            _anagramsViewModelService = anagramsViewModelService;
         }
 
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
-            var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            var anagrams = new List<AnagramEntity>();
-
-            if(words != null)
-                anagrams = _anagramSolver.GetAnagrams(words, IpAddress).ToList();
-
-            return View(
-                new AnagramsViewModel
-                {
-                    InputWords = _phrasesRepository.GetPhrase(words),
-                    Anagrams = anagrams
-                });
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            return View(_anagramsViewModelService.GetAnagramsViewModel(words, ipAddress));
         }
 
         [HttpPost("/")]
         public IActionResult Update(string words)
         {
-            var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             if (words == null)
                 return NoContent();
-            var anagrams = _anagramSolver.GetAnagrams(words, IpAddress);
 
-            var phrase = _phrasesRepository.GetPhrase(words);
-            return View(
-                 "Index",
-                 new AnagramsViewModel
-                 {
-                     InputWords = phrase,
-                     Anagrams = anagrams.ToList()
-                 });
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            return View("Index", _anagramsViewModelService.GetAnagramsViewModel(words, ipAddress));
         }
 
         [HttpGet("cookie")]
         public IActionResult DisplayCookieInfo()
         {
-            var cookies = HttpContext.Request.Cookies;
-            return View(new CookieInfoViewModel { Cookies = cookies });
+            return View(new CookieInfoViewModel { Cookies = HttpContext.Request.Cookies });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

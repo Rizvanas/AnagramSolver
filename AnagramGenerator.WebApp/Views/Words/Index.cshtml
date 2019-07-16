@@ -1,5 +1,6 @@
 ﻿
-@model AnagramGenerator.WebApp.Models.WordsViewModel
+@model Contracts.Models.WordsViewModel
+
     <style>
         .footeris {
             position: fixed;
@@ -32,7 +33,11 @@
                 <tbody>
                     @foreach (var word in Model.Words)
                     {
-                        <tr><td class="list-group-flush">@Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)</td></tr>
+                        <tr>
+                            <td class="list-group-flush">
+                                @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

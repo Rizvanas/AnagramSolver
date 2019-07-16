@@ -49,6 +49,7 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IAnagramSolver, AnagramSolver>();
             services.AddScoped<IUserLogsService, UserLogsService>();
             services.AddScoped<IWordsService, WordsService>();
+            services.AddScoped<IAnagramsViewModelService, AnagramsViewModelService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

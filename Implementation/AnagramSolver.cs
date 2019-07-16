@@ -40,12 +40,12 @@ namespace Implementation
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
             stopWatch.Start();
+            if (word == null)
+                return new List<AnagramEntity>();
 
             var phrase = _phrasesRepository.GetPhrase(word);
             if (phrase == null)
-            {
                 phrase = new PhraseEntity { Phrase = word };
-            }
 
             var anagrams = _anagramsRepository.GetAnagrams(phrase);
             if (anagrams.Count() != 0)

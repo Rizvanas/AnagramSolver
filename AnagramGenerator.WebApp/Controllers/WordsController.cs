@@ -1,4 +1,4 @@
-﻿using AnagramGenerator.WebApp.Models;
+﻿using Contracts.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;

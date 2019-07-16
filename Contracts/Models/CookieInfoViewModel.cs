@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace AnagramGenerator.WebApp.Models
+namespace Contracts.Models
 {
     public class CookieInfoViewModel
     {

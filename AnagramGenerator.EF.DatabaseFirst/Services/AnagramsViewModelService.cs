@@ -1,10 +1,8 @@
 ﻿using Contracts;
 using Contracts.DTO;
+using Contracts.Models;
 using Contracts.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Services
 {
@@ -17,12 +15,17 @@ namespace AnagramGenerator.EF.DatabaseFirst.Services
             _anagramSolver = anagramsSolver;
         }
 
-        public List<Anagram> GetAnagrams(string phrase, string ip)
+        public AnagramsViewModel GetAnagramsViewModel(string phrase, string ip)
         {
-            return _anagramSolver
+            return new AnagramsViewModel
+            {
+                Phrase = new Phrase { Text = phrase ?? "" },
+                Anagrams = _anagramSolver
                 .GetAnagrams(phrase, ip)
                 .Select(a => new Anagram { Text = a.Anagram })
-                .ToList();
+                .ToList(),
+            };
         }
+        
     }
 }

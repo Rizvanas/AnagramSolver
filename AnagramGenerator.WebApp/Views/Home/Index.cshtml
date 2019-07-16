@@ -1,4 +1,4 @@
-﻿@model AnagramGenerator.WebApp.Models.AnagramsViewModel
+﻿@model Contracts.Models.AnagramsViewModel
 
     <div class="text-center">
         <h1>Ieškoti Anagramų</h1>
@@ -14,17 +14,17 @@
         }
         @if (Model.Anagrams.Count != 0)
         {
-            <h2>Sakinys: @Model.InputWords.Phrase</h2>
+            <h2>Sakinys: @Model.Phrase.Text</h2>
             <h3>Anagramos</h3>
             <ul class="list-group">
                 @foreach (var anagram in Model.Anagrams)
                 {
-                    <li class="list-group-item">@anagram.Anagram</li>
+                    <li class="list-group-item">@anagram.Text</li>
                 }
             </ul>
         }
-        else if (Model.InputWords != null)
+        else if (Model.Phrase != null)
         {
-            <p>Jūsų įvestas sąkinys [@Model.InputWords.Phrase] anagramų neturi</p>
+            <p>Jūsų įvestas sąkinys [@Model.Phrase.Text] anagramų neturi</p>
         }
     </div>
