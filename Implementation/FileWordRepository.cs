@@ -44,6 +44,11 @@ namespace Implementation
             return _words.FirstOrDefault(w => w.WordId == id);
         }
 
+        public WordEntity GetWord(string word)
+        {
+            return _words.FirstOrDefault(w => w.Word.ToLower() == word.ToLower());
+        }
+
         public IEnumerable<WordEntity> GetSearchWords(PhraseEntity phrase)
         {
             var normalizedPhrase = phrase.Phrase.Replace(" ", "");
@@ -58,9 +63,9 @@ namespace Implementation
                 .ToList();
         }
 
-        public bool AddWord(WordEntity word)
+        void IWordsRepository.AddWord(WordEntity word)
         {
-            return true;
+            throw new NotImplementedException();
         }
     }
 }

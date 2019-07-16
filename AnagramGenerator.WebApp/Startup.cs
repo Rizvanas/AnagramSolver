@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using AnagramGenerator.EF.DatabaseFirst;
 using AnagramGenerator.EF.DatabaseFirst.Repositories;
+using AnagramGenerator.EF.DatabaseFirst.Services;
+using Contracts.Services;
 
 namespace AnagramGenerator.WebApp
 {
@@ -45,6 +47,8 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IUserLogsRepository, UserLogsRepository>();
             services.AddScoped<IWordsRepository, WordsRepository>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
+            services.AddScoped<IUserLogsService, UserLogsService>();
+            services.AddScoped<IWordsService, WordsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

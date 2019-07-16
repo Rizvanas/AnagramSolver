@@ -27,13 +27,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             return _wordsDBContext.UserLog;
         }
 
-        public bool AddUserLog(UserLogEntity userLog)
+        public void AddUserLog(UserLogEntity userLog)
         {
-            if (_wordsDBContext.UserLog.Contains(userLog))
-                return false;
-
             _wordsDBContext.UserLog.Add(userLog);
-            return true;
+            _wordsDBContext.SaveChanges();
         }
     }
 }

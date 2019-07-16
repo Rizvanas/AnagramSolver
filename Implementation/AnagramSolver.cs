@@ -44,8 +44,7 @@ namespace Implementation
             var phrase = _phrasesRepository.GetPhrase(word);
             if (phrase == null)
             {
-                _phrasesRepository.AddPhrase(new PhraseEntity { Phrase = word });
-                phrase = _phrasesRepository.GetPhrase(word); 
+                phrase = new PhraseEntity { Phrase = word };
             }
 
             var anagrams = _anagramsRepository.GetAnagrams(phrase);

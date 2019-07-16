@@ -1,51 +1,41 @@
 ﻿using AnagramGenerator.WebApp.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Contracts.Repositories;
 using Contracts.DTO;
-using Contracts.Entities;
+using Contracts.Services;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class WordsController : Controller
     {
-        private readonly IWordsRepository _wordsRepository;
-        public WordsController(IWordsRepository wordsRepository)
+        private readonly IWordsService _wordsService;
+        public WordsController(IWordsService wordsService)
         {
-            _wordsRepository = wordsRepository;
+            _wordsService = wordsService;
         }
 
         [HttpGet("words")]
         public IActionResult Index(int? page, int pageSize)
         {
             var cookie = Request.Cookies["CurrentPage"];
-            PaginationFilter filter = null;
 
             if (cookie != null && !String.IsNullOrEmpty(cookie) && page == null)
             {
-                filter = new PaginationFilter { Page = Convert.ToInt32(cookie), PageSize = pageSize };
+                var pageFromCookie = Convert.ToInt32(cookie);
                 return View(new WordsViewModel
                 {
-                    Words = _wordsRepository.GetWords(filter).ToList(),
-                    Page = Convert.ToInt32(filter.Page),
+                    Words = _wordsService.GetWords(pageFromCookie, pageSize).ToList(),
+                    Page = pageFromCookie
                 });
             }
 
-            if (page < 1) page = 1;
-            filter = new PaginationFilter { Page = page, PageSize = pageSize };
-            var wordsViewModel = new WordsViewModel
+            SetPagingCookie(page);
+            return View(new WordsViewModel
             {
-                Words = _wordsRepository.GetWords(filter).ToList(),
-                Page = filter.Page
-            };
-
-            SetPagingCookie(filter.Page);
-
-            return View(wordsViewModel);
+                Words = _wordsService.GetWords(page, pageSize, cookie).ToList(),
+                Page = page
+            });
         }
 
         [HttpGet("words/update")]
@@ -61,24 +51,19 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpPost("words/update")]
         public IActionResult UpdateList(string word)
         {
-            var updated = _wordsRepository.AddWord(new WordEntity { Word = word });
-
-            if (updated)
-                return new RedirectResult($"/{word}");
-
+            _wordsService.AddWord(word);
             return View("Update", new WordsUpdateViewModel
             {
-                GotUpdated = updated,
-                Word = new WordEntity { Word = word }
+                GotUpdated = true,
+                Word = new Word { Text = word }
             });
         }
 
         [HttpPost("words/search")]
         public IActionResult Search(string searchPhrase)
         {
-            var phrase = new PhraseEntity { Phrase = searchPhrase };
-            var words = _wordsRepository.GetWords(phrase);
-            return View("Index", new WordsViewModel { Words = words.ToList() });
+            var words = _wordsService.GetWords(searchPhrase).ToList();
+            return View("Index", new WordsViewModel { Words = words });
         }
 
         private void SetPagingCookie(int? page)

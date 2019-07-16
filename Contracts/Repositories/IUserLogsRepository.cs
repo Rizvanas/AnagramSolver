@@ -7,6 +7,6 @@ namespace Contracts.Repositories
     {
         UserLogEntity GetUserLog(int id);
         IEnumerable<UserLogEntity> GetUserLogs();
-        bool AddUserLog(UserLogEntity userLog);
+        void AddUserLog(UserLogEntity userLog);
     }
 }

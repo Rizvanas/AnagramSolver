@@ -10,6 +10,6 @@ namespace Contracts.Repositories
         IEnumerable<PhraseEntity> GetPhrases();
         PhraseEntity GetPhrase(int id);
         PhraseEntity GetPhrase(string phrase);
-        bool AddPhrase(PhraseEntity phrase);
+        void AddPhrase(PhraseEntity phrase);
     }
 }

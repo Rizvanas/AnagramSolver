@@ -26,7 +26,6 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
-            var phrase = new PhraseEntity();
             var IpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var anagrams = new List<AnagramEntity>();
 

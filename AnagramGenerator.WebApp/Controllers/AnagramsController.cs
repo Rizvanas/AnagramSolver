@@ -9,12 +9,10 @@ namespace AnagramGenerator.WebApp.Controllers
     public class AnagramsController : ControllerBase
     {
         private readonly IAnagramSolver _anagramSolver;
-        private readonly IPhrasesRepository _phrasesRepository;
 
-        public AnagramsController(IAnagramSolver anagramSolver , IPhrasesRepository phrasesRepository)
+        public AnagramsController(IAnagramSolver anagramSolver)
         {
             _anagramSolver = anagramSolver;
-            _phrasesRepository = phrasesRepository;
         }
         
         [HttpGet]

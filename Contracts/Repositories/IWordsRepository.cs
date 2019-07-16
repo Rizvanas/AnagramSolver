@@ -12,7 +12,8 @@ namespace Contracts.Repositories
         IEnumerable<WordEntity> GetWords(PaginationFilter filter);
         IEnumerable<WordEntity> GetWords(PhraseEntity phrase);
         WordEntity GetWord(int id);
+        WordEntity GetWord(string word);
         IEnumerable<WordEntity> GetSearchWords(PhraseEntity phrase);
-        bool AddWord(WordEntity word);
+        void AddWord(WordEntity word);
     }
 }

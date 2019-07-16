@@ -33,20 +33,14 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 .Where(cw => cw.AnagramId == anagram.Id);
         }
 
-        public bool AddCachedWord(CachedWordEntity cachedWord)
+        public void AddCachedWord(CachedWordEntity cachedWord)
         {
-            if (_wordsDBContext.CachedWords.Contains(cachedWord))
-                return false;
-
-            _wordsDBContext.CachedWords.Add(cachedWord);    
-            return true;
+            _wordsDBContext.CachedWords.Add(cachedWord);
+            _wordsDBContext.SaveChanges();
         }
 
-        public bool AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
+        public void AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
         {
-            if (_wordsDBContext.CachedWords.FirstOrDefault(cw => cw.PhraseId == phrase.Id) != null)
-                return false;
-
             foreach(var anagram in anagrams)
             {
                 _wordsDBContext.CachedWords.Add(new CachedWordEntity
@@ -57,7 +51,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     AnagramId = anagram.Id,
                 });
             }
-            return true;
+            _wordsDBContext.SaveChanges();
         }
     }
 }

@@ -16,7 +16,6 @@
         {
             <form class="form-inline">
                 <div class="form-group mx-sm-3 mb-2">
-                    <label for="inputPassword2" class="sr-only">Word</label>
                     <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="searchPhrase" />
                 </div>
                 <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
@@ -33,7 +32,7 @@
                 <tbody>
                     @foreach (var word in Model.Words)
                     {
-                        <tr><td class="list-group-flush">@Html.ActionLink(word.Word, "Index", "Home", new { words = word.Word }, null)</td></tr>
+                        <tr><td class="list-group-flush">@Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)</td></tr>
                     }
                 </tbody>
             </table>
@@ -41,7 +40,7 @@
 
         <ul class="pagination footeris">
             <li class="page-item">
-                <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100}, null)">Previous</a>
+                <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100},  null)">Previous</a>
             </li>
 
             <li class="page-item">

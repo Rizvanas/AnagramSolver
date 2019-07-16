@@ -40,13 +40,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             return phrases;
         }
 
-        public bool AddPhrase(PhraseEntity phrase)
+        public void AddPhrase(PhraseEntity phrase)
         {
-            if (_wordsDBContext.Phrases.Contains(phrase))
-                return false;
-
-            _wordsDBContext.Add(phrase);
-            return true;
+            _wordsDBContext.Phrases.Add(phrase);
+            _wordsDBContext.SaveChanges();
         }
     }
 }
