@@ -8,12 +8,12 @@ namespace Contracts.Repositories
 {
     public interface IWordsRepository
     {
-        IEnumerable<WordEntity> GetWords();
-        IEnumerable<WordEntity> GetWords(PaginationFilter filter);
-        IEnumerable<WordEntity> GetWords(PhraseEntity phrase);
-        WordEntity GetWord(int id);
-        WordEntity GetWord(string word);
-        IEnumerable<WordEntity> GetSearchWords(PhraseEntity phrase);
-        void AddWord(WordEntity word);
+        IEnumerable<Word> GetWords();
+        IEnumerable<Word> GetWords(PaginationFilter filter);
+        IEnumerable<Word> GetWords(Phrase phrase);
+        Word GetWord(int id);
+        Word GetWord(string word);
+        IEnumerable<Word> GetSearchWords(Phrase phrase);
+        void AddWord(Word word);
     }
 }

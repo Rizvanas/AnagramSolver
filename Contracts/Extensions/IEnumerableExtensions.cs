@@ -20,14 +20,19 @@ namespace Contracts.Extensions
             }
         }
 
-        public static List<Anagram> ToAnagramsList(this IEnumerable<AnagramEntity> anagramEntities)
+        public static IEnumerable<Anagram> ToAnagramsList(this IEnumerable<AnagramEntity> anagramEntities)
         {
-            return anagramEntities.Select(a => new Anagram { Text = a.Anagram }).ToList();
+            return anagramEntities.Select(a => new Anagram { Text = a.Anagram });
         }
 
-        public static List<Word> ToWordsList(this IEnumerable<WordEntity> wordEntities)
+        public static IEnumerable<Word> ToWordsList(this IEnumerable<WordEntity> wordEntities)
         {
-            return wordEntities.Select(w => new Word { Text = w.Word }).ToList();
+            return wordEntities.Select(w => new Word { Text = w.Word });
+        }
+
+        public static IEnumerable<Phrase> ToPhrasesList(this IEnumerable<PhraseEntity> phraseEntities)
+        {
+            return phraseEntities.Select(p => p)
         }
     }
 }

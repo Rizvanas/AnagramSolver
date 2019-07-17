@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Contracts.Entities
+﻿
+namespace AnagramGenerator.EF.CodeFirst.Entities
 {
     public partial class WordEntity
     {

@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.DTO;
 using Contracts.Entities;
 using Contracts.Repositories;
 using System;
@@ -17,18 +18,18 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public IEnumerable<PhraseEntity> GetPhrases()
+        public IEnumerable<Phrase> GetPhrases()
         {
             return _wordsDBContext.Phrases;
         }
 
-        public PhraseEntity GetPhrase(int id)
+        public Phrase GetPhrase(int id)
         {
             return _wordsDBContext.Phrases
                 .FirstOrDefault(phrase => phrase.Id == id);
         }
 
-        public PhraseEntity GetPhrase(string phrase)
+        public Phrase GetPhrase(string phrase)
         {
             if (phrase == null)
                 return null;
@@ -40,7 +41,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             return phrases;
         }
 
-        public void AddPhrase(PhraseEntity phrase)
+        public void AddPhrase(Phrase phrase)
         {
             _wordsDBContext.Phrases.Add(phrase);
             _wordsDBContext.SaveChanges();

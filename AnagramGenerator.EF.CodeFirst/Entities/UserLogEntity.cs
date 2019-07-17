@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Contracts.Entities
+﻿
+namespace AnagramGenerator.EF.CodeFirst.Entities
 {
     public partial class UserLogEntity
     {
