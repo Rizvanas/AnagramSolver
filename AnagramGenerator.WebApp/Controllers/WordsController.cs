@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using Contracts.DTO;
 using Contracts.Services;
+using Contracts.Extensions;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -50,7 +50,7 @@ namespace AnagramGenerator.WebApp.Controllers
             return View("Update", new WordsUpdateViewModel
             {
                 GotUpdated = true,
-                Word = new Word { Text = word }
+                Word = word.ToWordModel()
             });
         }
 

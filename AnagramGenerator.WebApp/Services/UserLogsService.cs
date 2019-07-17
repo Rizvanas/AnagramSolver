@@ -1,12 +1,10 @@
 ﻿using Contracts.DTO;
 using Contracts.Repositories;
 using Contracts.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace AnagramGenerator.EF.DatabaseFirst.Services
+namespace AnagramGenerator.WebApp.Services
 {
     public class UserLogsService : IUserLogsService
     {

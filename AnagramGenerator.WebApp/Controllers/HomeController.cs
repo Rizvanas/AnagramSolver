@@ -2,25 +2,30 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using Contracts.Services;
 using Contracts.Models;
+using Contracts;
+using Contracts.Extensions;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAnagramsViewModelService _anagramsViewModelService;
+        private readonly IAnagramSolver _anagramSolver;
 
-        public HomeController(IAnagramsViewModelService anagramsViewModelService)
+        public HomeController(IAnagramSolver anagramSolver)
         {
-            _anagramsViewModelService = anagramsViewModelService;
+            _anagramSolver = anagramSolver;
         }
 
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            return View(_anagramsViewModelService.GetAnagramsViewModel(words, ipAddress));
+            return View(new AnagramsViewModel
+            {
+                Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToAnagramsList(),
+                Phrase = words.ToPhraseModel() 
+            });; 
         }
 
         [HttpPost("/")]
@@ -30,7 +35,14 @@ namespace AnagramGenerator.WebApp.Controllers
                 return NoContent();
 
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            return View("Index", _anagramsViewModelService.GetAnagramsViewModel(words, ipAddress));
+            return View(
+                "Index",
+                new AnagramsViewModel
+                {
+                    Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToAnagramsList(),
+                    Phrase = words.ToPhraseModel()
+                });
+                
         }
 
         [HttpGet("cookie")]

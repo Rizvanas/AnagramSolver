@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Contracts.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -80,6 +81,16 @@ namespace Contracts.Extensions
             }
 
             return word.ToString();
+        }
+
+        public static Phrase ToPhraseModel(this string word)
+        {
+            return new Phrase { Text = word };
+        }
+
+        public static Word ToWordModel(this string word)
+        {
+            return new Word { Text = word };
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using Contracts;
-using Contracts.Entities;
-using Contracts.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnagramGenerator.WebApp.Controllers
@@ -22,7 +20,6 @@ namespace AnagramGenerator.WebApp.Controllers
                 return BadRequest();
 
             var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
-
             return Ok(_anagramSolver.GetAnagrams(word, IpAdress));
         }
     }
