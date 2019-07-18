@@ -8,12 +8,17 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class WordsRepository : IWordsRepository
     {
-        public bool AddWord(Word word)
+        public void AddWord(Word word)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddWords(params Word[] words)
+        public void AddWords(params Word[] words)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteWord(int id)
         {
             throw new NotImplementedException();
         }

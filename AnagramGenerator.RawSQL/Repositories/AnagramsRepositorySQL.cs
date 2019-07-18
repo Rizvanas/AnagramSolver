@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Entities;
+using Contracts.DTO;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,27 +21,27 @@ namespace AnagramGenerator.RawSQL.Repositories
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public void AddAnagram(AnagramEntity anagram)
-        {
-
-        }
-
-        public void AddAnagrams(params AnagramEntity[] anagrams)
+        public void AddAnagram(Anagram anagram)
         {
             throw new NotImplementedException();
         }
 
-        public AnagramEntity GetAnagram(int id)
+        public void AddAnagrams(params Anagram[] anagrams)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AnagramEntity> GetAnagrams()
+        public void DeleteAnagram(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AnagramEntity> GetAnagrams(PhraseEntity phrase)
+        public Anagram GetAnagram(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Anagram> GetAnagrams(Phrase phrase)
         {
             var anagramsSelectionQuery = new StringBuilder()
                 .Append("SELECT Anagram ")
@@ -54,21 +54,26 @@ namespace AnagramGenerator.RawSQL.Repositories
             using (var command = new SqlCommand(anagramsSelectionQuery, _connection)
             { CommandType = CommandType.Text })
             {
-                command.Parameters.AddWithValue("@phrase", phrase.Phrase);
+                command.Parameters.AddWithValue("@phrase", phrase.Text);
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
 
-                var anagrams = new List<AnagramEntity>();
+                var anagrams = new List<Anagram>();
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-                        anagrams.Add(new AnagramEntity { Anagram = reader.GetString(0) });
+                        anagrams.Add(new Anagram { Text = reader.GetString(0) });
 
                     command.Connection.Close();
                     return anagrams;
                 }
             }
+        }
+
+        public IList<Anagram> GetAnagrams()
+        {
+            throw new NotImplementedException();
         }
     }
 }

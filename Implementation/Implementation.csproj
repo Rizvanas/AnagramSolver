@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AnagramWebAppClient.cs" />
+    <Compile Remove="FileWordRepository.cs" />
     <Compile Remove="SqlWordRepository.cs" />
     <Compile Remove="UserLogRepository.cs" />
   </ItemGroup>

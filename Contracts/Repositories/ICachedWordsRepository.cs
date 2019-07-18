@@ -7,7 +7,7 @@ namespace Contracts.Repositories
     {
         IList<CachedWord> GetCachedWords();
         CachedWord GetCachedWord(int id);
-        void AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams);
+        void AddCachedWord(int phraseId, IEnumerable<Anagram> anagrams);
         void DeleteCachedWord(int id);
     }
 }

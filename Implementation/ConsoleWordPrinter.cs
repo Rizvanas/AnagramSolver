@@ -6,7 +6,7 @@ namespace Implementation
 {
     public class ConsoleWordPrinter : IPrinter
     {
-        public void Print(List<IPrintable> Printables)
+        public void Print(IList<IPrintable> Printables)
         {
             foreach (var printable in Printables)
             {

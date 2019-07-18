@@ -13,6 +13,7 @@ using AnagramGenerator.EF.DatabaseFirst;
 using AnagramGenerator.EF.DatabaseFirst.Repositories;
 using Contracts.Services;
 using AnagramGenerator.WebApp.Services;
+using AnagramGenerator.EF.CodeFirst;
 
 namespace AnagramGenerator.WebApp
 {
@@ -36,19 +37,28 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
-            services.AddDbContext<WordsDBContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));
+            /*services.AddDbContext<WordsDBContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));*/
+
+            services.AddDbContext<WordsDB_CFContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB_CF")));
 
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
+
             services.AddScoped<IAnagramsRepository, AnagramsRepository>();
             services.AddScoped<ICachedWordsRepository, CachedWordsRepository>();
             services.AddScoped<IPhrasesRepository, PhrasesRepository>();
             services.AddScoped<IUserLogsRepository, UserLogsRepository>();
             services.AddScoped<IWordsRepository, WordsRepository>();
-            services.AddScoped<IAnagramSolver, AnagramSolver>();
+
+            services.AddScoped<IAnagramsService, AnagramsService>();
+            services.AddScoped<ICachedWordsService, CachedWordsService>();
+            services.AddScoped<IPhrasesService, PhrasesService>();
             services.AddScoped<IUserLogsService, UserLogsService>();
             services.AddScoped<IWordsService, WordsService>();
+            services.AddScoped<IAnagramSolver, AnagramSolver>();
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

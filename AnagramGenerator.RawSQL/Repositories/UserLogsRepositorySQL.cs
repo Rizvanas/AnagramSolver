@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Entities;
+using Contracts.DTO;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace AnagramGenerator.RawSQL.Repositories
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public void AddUserLog(UserLogEntity userLog)
+        public void AddUserLog(UserLog userLog)
         {
             var logInsertionQuery = new StringBuilder()
                 .Append("INSERT INTO UserLog(SearchPhraseId, SearchTime, UserIp) ")
@@ -42,12 +42,22 @@ namespace AnagramGenerator.RawSQL.Repositories
             }
         }
 
-        public UserLogEntity GetUserLog(int id)
+        public void AddUserLogs(params UserLog[] userLogs)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserLogEntity> GetUserLogs()
+        public void DeleteUserLog(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserLog GetUserLog(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<UserLog> GetUserLogs()
         {
             var logInsertionQuery = new StringBuilder()
                 .Append("SELECT UserLog.UserIp, SearchTime, Phrase, Id ")
@@ -62,15 +72,13 @@ namespace AnagramGenerator.RawSQL.Repositories
                 command.Connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
-                    var userLogs = new List<UserLogEntity>();
+                    var userLogs = new List<UserLog>();
                     while (reader.Read())
                     {
-                        userLogs.Add(new UserLogEntity
+                        userLogs.Add(new UserLog
                         {
                             UserIp = reader.GetString(0),
                             SearchTime = reader.GetInt32(1),
-                            SearchPhrase = new PhraseEntity { Phrase = reader.GetString(2) },
-                            SearchPhraseId = reader.GetInt32(3),
                         });
                     }
                     command.Connection.Close();

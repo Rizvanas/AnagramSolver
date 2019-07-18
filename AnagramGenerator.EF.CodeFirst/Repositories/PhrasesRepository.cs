@@ -7,17 +7,17 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class PhrasesRepository : IPhrasesRepository
     {
-        public bool AddPhrase(Phrase phrase)
+        public void AddPhrase(Phrase phrase)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddPhrases(params Phrase[] phrases)
+        public void AddPhrases(params Phrase[] phrases)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeletePhrase(int id)
+        public void DeletePhrase(int id)
         {
             throw new NotImplementedException();
         }

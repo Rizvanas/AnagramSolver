@@ -1,6 +1,5 @@
 ﻿using Contracts;
 using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Extensions;
 using Contracts.Repositories;
 using System;
@@ -24,14 +23,14 @@ namespace AnagramGenerator.RawSQL.Repositories
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public void AddWord(WordEntity word)
+        public void AddWord(Word word)
         {
             var wordInsertRequest = "INSERT INTO Words VALUES(@word)";
 
             using (var command = new SqlCommand(wordInsertRequest, _connection)
             { CommandType = CommandType.Text })
             {
-                command.Parameters.AddWithValue("@word", word.Word);
+                command.Parameters.AddWithValue("@word", word.Text);
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
@@ -39,7 +38,17 @@ namespace AnagramGenerator.RawSQL.Repositories
             }
         }
 
-        public IEnumerable<WordEntity> GetSearchWords(PhraseEntity phrase)
+        public void AddWords(params Word[] words)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteWord(int id)
+        {
+            throw new NotImplementedException();
+        }
+        
+        /*public IList<Word> GetSearchWords(PhraseEntity phrase)
         {
             var wordsQuery = new StringBuilder()
                 .Append("SELECT Word ")
@@ -70,8 +79,8 @@ namespace AnagramGenerator.RawSQL.Repositories
                         .OrderByDescending(w => w.Word.Length).ToList();
                 }
             }
-        }
-
+        }*/
+/*
         public WordEntity GetWord(int id)
         {
             var wordsQuery = new StringBuilder()
@@ -189,6 +198,16 @@ namespace AnagramGenerator.RawSQL.Repositories
                 }
             }
 
+        }*/
+
+        Word IWordsRepository.GetWord(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IList<Word> IWordsRepository.GetWords()
+        {
+            throw new NotImplementedException();
         }
     }
 }

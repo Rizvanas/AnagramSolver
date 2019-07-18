@@ -7,17 +7,17 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class AnagramsRepository : IAnagramsRepository
     {
-        public bool AddAnagram(Anagram anagram)
+        public void AddAnagram(Anagram anagram)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddAnagrams(params Anagram[] anagrams)
+        public void AddAnagrams(params Anagram[] anagrams)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteAnagram(int id)
+        public void DeleteAnagram(int id)
         {
             throw new NotImplementedException();
         }

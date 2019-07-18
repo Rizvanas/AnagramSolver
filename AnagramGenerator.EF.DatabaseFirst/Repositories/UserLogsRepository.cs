@@ -24,16 +24,13 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 Id = userLog.Id,
                 UserIp = userLog.UserIp,
                 SearchPhraseId = userLog.SearchPhrase.Id,
-                SearchPhrase = new PhraseEntity
-                {
-                    Id = userLog.Id,
-                    Phrase = userLog.SearchPhrase.Text
-                },
                 SearchTime = userLog.SearchTime
             });
 
             if (result.State != EntityState.Added)
                 throw new InvalidOperationException("Failed to add UserLog");
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void AddUserLogs(params UserLog[] userLogs)
@@ -51,6 +48,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     SearchTime = ul.SearchTime,
                     SearchPhraseId = ul.SearchPhrase.Id
                 }));
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void DeleteUserLog(int id)
@@ -60,7 +59,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             if (userLogEntity == null)
                 throw new InvalidOperationException($"UserLogEntity with id:{id} was not found");
 
-            var result = _wordsDBContext.UserLog.Remove(userLogEntity);
+            _wordsDBContext.UserLog.Remove(userLogEntity);
+
+            _wordsDBContext.SaveChanges();
         }
 
         public UserLog GetUserLog(int id)

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Contracts.Repositories;
-using Contracts.Entities;
 using Contracts.DTO;
 using Contracts.Extensions;
 
@@ -12,17 +11,17 @@ namespace Implementation
     public class FileWordRepository : IWordsRepository
     {
         private readonly IWordLoader _wordLoader;
-        private IEnumerable<WordEntity> _words;
+        private IList<Word> _words;
         private const string filePath = @"..\AnagramGenerator\zodynas.txt";
         public FileWordRepository(IWordLoader wordLoader)
         {
             _wordLoader = wordLoader;
             _words = _wordLoader
                 .LoadFromFile(filePath)
-                .OrderBy(w => w.Word);
+                .OrderBy(w => w.Text);
         }
 
-        public IEnumerable<WordEntity> GetWords()
+        public IList<Word> GetWords()
         {
             return _words;
         }

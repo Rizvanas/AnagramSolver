@@ -8,5 +8,6 @@ namespace Contracts.Services
     public interface IPhrasesService
     {
         Phrase GetPhrase(string word);
+        void AddPhrase(string phrase);
     }
 }

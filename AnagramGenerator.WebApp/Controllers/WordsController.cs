@@ -27,9 +27,7 @@ namespace AnagramGenerator.WebApp.Controllers
             SetPagingCookie(page);
             return View(new WordsViewModel
             {
-                Words = _wordsService
-                .GetWords(page, pageSize)
-                .ToList(),
+                Words = _wordsService.GetWords(page, pageSize).ToList(),
                 Page = page
             });
         }
@@ -58,9 +56,7 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpPost("words/search")]
         public IActionResult Search(string searchPhrase)
         {
-            var words = _wordsService
-                .GetWords(searchPhrase)
-                .ToList();
+            var words = _wordsService.GetWords(searchPhrase).ToList();
             return View("Index", new WordsViewModel { Words = words });
         }
 

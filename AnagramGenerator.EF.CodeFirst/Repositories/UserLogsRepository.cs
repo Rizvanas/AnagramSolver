@@ -7,17 +7,17 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class UserLogsRepository : IUserLogsRepository
     {
-        public bool AddUserLog(UserLog userLog)
+        public void AddUserLog(UserLog userLog)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddUserLogs(params UserLog[] userLogs)
+        public void AddUserLogs(params UserLog[] userLogs)
         {
             throw new NotImplementedException();
         }
 
-        public bool DeleteUserLog(int id)
+        public void DeleteUserLog(int id)
         {
             throw new NotImplementedException();
         }

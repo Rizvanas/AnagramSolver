@@ -17,29 +17,26 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public void AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
+        public void AddCachedWord(int phraseId, IEnumerable<Anagram> anagrams)
         {
             foreach(var anagram in anagrams)
             {
                 var result = _wordsDBContext.CachedWords.Add(new CachedWordEntity
                 {
                     AnagramId = anagram.Id,
-                    PhraseId = phrase.Id,
+                    PhraseId = phraseId,
                     Anagram = new AnagramEntity
                     {
                         Id = anagram.Id,
                         Anagram = anagram.Text
                     },
-                    Phrase = new PhraseEntity
-                    {
-                        Id = phrase.Id,
-                        Phrase = phrase.Text
-                    }
                 });
 
                 if (result.State != EntityState.Added)
                     throw new InvalidOperationException("Failed to add CahcedWords");
             }
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void DeleteCachedWord(int id)
@@ -50,6 +47,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 throw new InvalidOperationException($"CachedWordEntity with id:{id} was not found");
 
             var result = _wordsDBContext.CachedWords.Remove(cachedWordEntity);
+            _wordsDBContext.SaveChanges();
         }
 
         public CachedWord GetCachedWord(int id)

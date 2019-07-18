@@ -29,6 +29,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 WordId = word.Id,
                 Word = word.Text
             });
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void AddWords(params Word[] words)
@@ -42,6 +44,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     WordId = w.Id,
                     Word = w.Text
                 }));
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void DeleteWord(int id)
@@ -51,7 +55,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             if (wordEntity == null)
                 throw new InvalidOperationException($"WordEntity with id:{id} was not found");
 
-            var result = _wordsDBContext.Words.Remove(wordEntity);
+            _wordsDBContext.Words.Remove(wordEntity);
+
+            _wordsDBContext.SaveChanges();
         }
 
         public Word GetWord(int id)

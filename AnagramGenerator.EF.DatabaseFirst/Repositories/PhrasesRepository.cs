@@ -29,6 +29,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
             if (result.State != EntityState.Added)
                 throw new InvalidOperationException("Phrase was not added");
+            _wordsDBContext.SaveChanges();
         }
 
         public void AddPhrases(params Phrase[] phrases)
@@ -39,6 +40,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     Id = a.Id,
                     Phrase = a.Text
                 }));
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void DeletePhrase(int id)
@@ -49,6 +52,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 throw new InvalidOperationException($"PhraseEntity with id:{id} was not found");
 
             var result = _wordsDBContext.Phrases.Remove(phraseEntity);
+
+            _wordsDBContext.SaveChanges();
         }
 
         public Phrase GetPhrase(int id)

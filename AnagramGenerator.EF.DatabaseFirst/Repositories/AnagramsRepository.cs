@@ -23,11 +23,13 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var result = _wordsDBContext.Anagrams.Add(new AnagramEntity
             {
                 Id = anagram.Id,
-                Anagram =anagram.Text,
+                Anagram = anagram.Text,
             });
 
             if (result.State != EntityState.Added)
                 throw new InvalidOperationException("Anagram was not added");
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void AddAnagrams(params Anagram[] anagrams)
@@ -38,6 +40,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     Id = a.Id,
                     Anagram = a.Text
                 }));
+
+            _wordsDBContext.SaveChanges();
         }
 
         public void DeleteAnagram(int id)
@@ -47,7 +51,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             if (anagramEntity == null)
                 throw new InvalidOperationException($"AnagramEntity with id:{id} was not found");
 
-            var result = _wordsDBContext.Anagrams.Remove(anagramEntity);
+            _wordsDBContext.Anagrams.Remove(anagramEntity);
+            _wordsDBContext.SaveChanges();
         }
 
         public Anagram GetAnagram(int id)

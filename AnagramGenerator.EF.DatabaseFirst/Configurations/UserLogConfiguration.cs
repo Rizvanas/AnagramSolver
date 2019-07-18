@@ -1,9 +1,6 @@
-﻿using Contracts.Entities;
+﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {

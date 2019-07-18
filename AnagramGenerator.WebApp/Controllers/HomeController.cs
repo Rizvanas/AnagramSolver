@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Contracts.Models;
 using Contracts;
 using Contracts.Extensions;
+using System.Linq;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -23,7 +24,7 @@ namespace AnagramGenerator.WebApp.Controllers
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             return View(new AnagramsViewModel
             {
-                Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToAnagramsList(),
+                Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToList(),
                 Phrase = words.ToPhraseModel() 
             });; 
         }
@@ -39,7 +40,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 "Index",
                 new AnagramsViewModel
                 {
-                    Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToAnagramsList(),
+                    Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToList(),
                     Phrase = words.ToPhraseModel()
                 });
                 
@@ -55,12 +56,6 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        private void SetSearchCookie(string word)
-        {
-            var option = new CookieOptions { Expires = DateTime.Now.AddMinutes(15) }; 
-            Response.Cookies.Append("CurrentSearchWord", word, option);
         }
     }
 }

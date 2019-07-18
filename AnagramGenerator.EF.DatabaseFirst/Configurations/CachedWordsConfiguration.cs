@@ -1,4 +1,4 @@
-﻿using Contracts.Entities;
+﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

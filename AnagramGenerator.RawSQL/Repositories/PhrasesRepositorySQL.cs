@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Entities;
+using Contracts.DTO;
 using Contracts.Extensions;
 using Contracts.Repositories;
 using System;
@@ -22,14 +22,14 @@ namespace AnagramGenerator.RawSQL.Repositories
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public void AddPhrase(PhraseEntity phrase)
+        public void AddPhrase(Phrase phrase)
         {
             var phrasesQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
 
             using (var command = new SqlCommand(phrasesQuery, _connection)
             { CommandType = CommandType.Text })
             {
-                command.Parameters.AddWithValue("@phrase", phrase.Phrase);
+                command.Parameters.AddWithValue("@phrase", phrase.Text);
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
@@ -37,23 +37,33 @@ namespace AnagramGenerator.RawSQL.Repositories
             }
         }
 
-        public PhraseEntity GetPhrase(int id)
+        public void AddPhrases(params Phrase[] phrases)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePhrase(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Phrase GetPhrase(int id)
         {
             var phrasesQuery = "SELECT * FROM Phrases WHERE Phrases.Id == @id";
             using (var command = new SqlCommand(phrasesQuery, _connection)
             { CommandType = CommandType.Text })
             {
                 command.Parameters.AddWithValue("@id", id);
-                var phrase = new PhraseEntity();
+                var phrase = new Phrase();
 
                 command.Connection.Open();
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
-                        phrase = new PhraseEntity
+                        phrase = new Phrase
                         {
                             Id = Convert.ToInt32(reader.GetString(0)),
-                            Phrase = reader.GetString(1)
+                            Text = reader.GetString(1)
                         };
                 }
                 command.Connection.Close();
@@ -62,12 +72,13 @@ namespace AnagramGenerator.RawSQL.Repositories
             }
         }
 
-        public PhraseEntity GetPhrase(string phrase)
+        public IEnumerable<Phrase> GetPhrases()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<PhraseEntity> GetPhrases()
+
+        IList<Phrase> IPhrasesRepository.GetPhrases()
         {
             throw new NotImplementedException();
         }

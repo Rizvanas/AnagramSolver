@@ -21,5 +21,10 @@ namespace AnagramGenerator.WebApp.Services
                 .GetPhrases()
                 .FirstOrDefault(p => p.Text == word);
         }
+
+        public void AddPhrase(string phrase)
+        {
+            _phrasesRepository.AddPhrase(new Phrase { Text = phrase });
+        }
     }
 }

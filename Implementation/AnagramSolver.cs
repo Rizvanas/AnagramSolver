@@ -17,21 +17,21 @@ namespace Implementation
         private readonly IAnagramsService _anagramsService;
         private readonly IPhrasesService _phrasesService;
         private readonly IUserLogsService _userLogsService;
-        private readonly ICachedWordsRepository _cachedWordsRepository;
+        private readonly ICachedWordsService _cachedWordsService;
         private readonly IAppConfig _appConfig;
 
         public AnagramSolver(IWordsService wordsService,
             IAnagramsService anagramsService,
             IPhrasesService phrasesService,
             IUserLogsService userLogsService,
-            ICachedWordsRepository cachedWordsRepository,
+            ICachedWordsService cachedWordsService,
             IAppConfig appConfig)
         {
             _wordsService = wordsService;
             _anagramsService = anagramsService;
             _phrasesService = phrasesService;
             _userLogsService = userLogsService;
-            _cachedWordsRepository = cachedWordsRepository;
+            _cachedWordsService = cachedWordsService;
             _appConfig = appConfig;
         }
 
@@ -45,7 +45,10 @@ namespace Implementation
 
             var phrase = _phrasesService.GetPhrase(word);
             if (phrase == null)
-                phrase = new Phrase { Text = word };
+            {
+                _phrasesService.AddPhrase(word);
+                phrase = _phrasesService.GetPhrase(word);
+            }
 
             var anagrams = _anagramsService.GetAnagrams(phrase);
             if (anagrams.Count() != 0)
@@ -67,7 +70,7 @@ namespace Implementation
                 != phrase.Text.Replace(" ", "").ToLower())
                 .ToList();
 
-            _cachedWordsRepository.AddCachedWord(phrase, anagrams);
+            _cachedWordsService.AddCachedWord(phrase, anagrams);
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;

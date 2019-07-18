@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Entities;
+using Contracts.DTO;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,12 +21,12 @@ namespace AnagramGenerator.RawSQL.Repositories
             { ConnectionString = _appConfig.GetConnectionString() };
         }
 
-        public void AddCachedWord(CachedWordEntity cachedWord)
+        public void AddCachedWord(CachedWord cachedWord)
         {
             throw new NotImplementedException();
         }
 
-        public void AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
+        public void AddCachedWord(int phraseId, IEnumerable<Anagram> anagrams)
         {
             var phraseInsertionQuery = "INSERT INTO Phrases(Phrase) VALUES(@phrase);";
             var cacheInsertionQuery = new StringBuilder()
@@ -40,7 +40,7 @@ namespace AnagramGenerator.RawSQL.Repositories
             using (var command = new SqlCommand(phraseInsertionQuery, _connection)
             { CommandType = CommandType.Text })
             {
-                command.Parameters.AddWithValue("@phrase", phrase.Phrase);
+                command.Parameters.AddWithValue("@phraseId", phraseId);
 
                 command.Connection.Open();
                 command.ExecuteNonQuery();
@@ -48,7 +48,7 @@ namespace AnagramGenerator.RawSQL.Repositories
                 command.CommandText = cacheInsertionQuery;
                 foreach (var anagram in anagrams)
                 {
-                    command.Parameters.AddWithValue("@anagram", anagram.Anagram);
+                    command.Parameters.AddWithValue("@anagram", anagram.Text);
                     command.ExecuteNonQuery();
                     command.Parameters.RemoveAt(command.Parameters.Count - 1);
                 }
@@ -56,17 +56,17 @@ namespace AnagramGenerator.RawSQL.Repositories
             }
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords()
+        public void DeleteCachedWord(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords(PhraseEntity phrase)
+        public CachedWord GetCachedWord(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords(AnagramEntity anagram)
+        public IList<CachedWord> GetCachedWords()
         {
             throw new NotImplementedException();
         }

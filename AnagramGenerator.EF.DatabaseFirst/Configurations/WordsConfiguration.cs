@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Configurations
 {
