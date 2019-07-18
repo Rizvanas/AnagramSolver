@@ -14,24 +14,23 @@ namespace Implementation
     {
 
         private readonly IWordsService _wordsService;
-        private readonly IAnagramsRepository _anagramsRepository;
-        private readonly IPhrasesRepository _phrasesRepository;
-        private readonly IUserLogsRepository _userLogsRepository;
+        private readonly IAnagramsService _anagramsService;
+        private readonly IPhrasesService _phrasesService;
+        private readonly IUserLogsService _userLogsService;
         private readonly ICachedWordsRepository _cachedWordsRepository;
-
         private readonly IAppConfig _appConfig;
 
         public AnagramSolver(IWordsService wordsService,
-            IAnagramsRepository anagramsRepository,
-            IPhrasesRepository phrasesRepository,
-            IUserLogsRepository userLogsRepository,
+            IAnagramsService anagramsService,
+            IPhrasesService phrasesService,
+            IUserLogsService userLogsService,
             ICachedWordsRepository cachedWordsRepository,
             IAppConfig appConfig)
         {
             _wordsService = wordsService;
-            _anagramsRepository = anagramsRepository;
-            _phrasesRepository = phrasesRepository;
-            _userLogsRepository = userLogsRepository;
+            _anagramsService = anagramsService;
+            _phrasesService = phrasesService;
+            _userLogsService = userLogsService;
             _cachedWordsRepository = cachedWordsRepository;
             _appConfig = appConfig;
         }
@@ -44,55 +43,55 @@ namespace Implementation
             if (word == null)
                 return new List<Anagram>();
 
-            var phrase = _phrasesRepository.GetPhrase(word);
+            var phrase = _phrasesService.GetPhrase(word);
             if (phrase == null)
                 phrase = new Phrase { Text = word };
 
-            var anagrams = _anagramsRepository.GetAnagrams(phrase);
+            var anagrams = _anagramsService.GetAnagrams(phrase);
             if (anagrams.Count() != 0)
             {
                 stopWatch.Stop();
                 timeElapsed = stopWatch.ElapsedMilliseconds;
-                LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
+                _userLogsService.LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
 
                 return anagrams;
             }
 
             var resultCount = 1000;
-            var words = _wordRepository.GetWordsForSearch(phrase).ToList();
+            var words = _wordsService.GetWordsForSearch(word);
 
-            anagrams = FindAnagrams(words, phrase.Phrase, new List<List<AnagramEntity>>())
+            anagrams = FindAnagrams(words, phrase.Text, new List<List<Anagram>>())
                 .Take(resultCount)
-                .Select(a => new AnagramEntity { Anagram = String.Join(' ', a.Select(t => t.Anagram)) })
-                .Where(a => a.Anagram.Replace(" ", "").ToLower() 
-                != phrase.Phrase.Replace(" ", "").ToLower())
+                .Select(a => new Anagram { Text = String.Join(' ', a.Select(t => t.Text)) })
+                .Where(a => a.Text.Replace(" ", "").ToLower() 
+                != phrase.Text.Replace(" ", "").ToLower())
                 .ToList();
 
             _cachedWordsRepository.AddCachedWord(phrase, anagrams);
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;
-            LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
+            _userLogsService.LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
 
             return anagrams;
         }
 
-        private List<List<AnagramEntity>> FindAnagrams(List<WordEntity> words, string searchWord, List<List<AnagramEntity>> results)
+        private List<List<Anagram>> FindAnagrams(IList<Word> words, string searchWord, List<List<Anagram>> results)
         {
-            var currentAnagram = new List<AnagramEntity>();
+            var currentAnagram = new List<Anagram>();
             string tempSearchWord = searchWord;
             string prevSearchWord = null;
 
             foreach(var word in words)
             {
                 prevSearchWord = tempSearchWord;
-                tempSearchWord = tempSearchWord.GetSearchWord(word.Word);
+                tempSearchWord = tempSearchWord.GetSearchWord(word.Text);
 
                 if (prevSearchWord != tempSearchWord)
-                    currentAnagram.Add(new AnagramEntity { Anagram = word.Word });
+                    currentAnagram.Add(new Anagram { Text = word.Text });
 
                 if (tempSearchWord.Length == 0 
-                    || word.Word.Length > tempSearchWord.Length)
+                    || word.Text.Length > tempSearchWord.Length)
                     break;
             }
 
@@ -106,17 +105,6 @@ namespace Implementation
             }
 
             return results;
-        }
-
-        private void LogUserInfo(PhraseEntity phrase, string ip, int searchTime)
-        {
-            _userLogsRepository.AddUserLog(new UserLogEntity
-            {
-                UserIp = ip,
-                SearchPhrase = phrase,
-                SearchPhraseId = phrase.Id,
-                SearchTime = searchTime
-            });
         }
     }
 }

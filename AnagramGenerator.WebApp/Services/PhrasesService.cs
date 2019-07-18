@@ -1,10 +1,8 @@
 ﻿using Contracts.DTO;
 using Contracts.Repositories;
 using Contracts.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AnagramGenerator.WebApp.Services
 {
@@ -17,9 +15,11 @@ namespace AnagramGenerator.WebApp.Services
             _phrasesRepository = phrasesRepository;
         }
 
-        public IList<Phrase> GetPhrases(string word)
+        public Phrase GetPhrase(string word)
         {
-
+            return _phrasesRepository
+                .GetPhrases()
+                .FirstOrDefault(p => p.Text == word);
         }
     }
 }

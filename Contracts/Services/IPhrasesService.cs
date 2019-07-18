@@ -7,6 +7,6 @@ namespace Contracts.Services
 {
     public interface IPhrasesService
     {
-        IList<Phrase> GetPhrases(string word);
+        Phrase GetPhrase(string word);
     }
 }
