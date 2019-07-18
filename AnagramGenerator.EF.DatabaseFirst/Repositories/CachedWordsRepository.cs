@@ -17,7 +17,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
+        public void AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
         {
             foreach(var anagram in anagrams)
             {
@@ -37,16 +37,12 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     }
                 });
             }
-
-            return true;
         }
 
-        public bool DeleteCachedWord(int id)
+        public void DeleteCachedWord(int id)
         {
             var cachedWordEntity = _wordsDBContext.CachedWords.FirstOrDefault(cw => cw.Id == id);
             var result = _wordsDBContext.CachedWords.Remove(cachedWordEntity);
-
-            return result.State == EntityState.Deleted;
         }
 
         public CachedWord GetCachedWord(int id)

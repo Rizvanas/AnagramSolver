@@ -19,18 +19,16 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public bool AddPhrase(Phrase phrase)
+        public void AddPhrase(Phrase phrase)
         {
             var result = _wordsDBContext.Phrases.Add(new PhraseEntity
             {
                 Id = phrase.Id,
                 Phrase = phrase.Text,
             });
-
-            return result.State == EntityState.Added;
         }
 
-        public bool AddPhrases(params Phrase[] phrases)
+        public void AddPhrases(params Phrase[] phrases)
         {
             _wordsDBContext.Phrases
                 .AddRange(phrases.Select(a => new PhraseEntity
@@ -38,16 +36,12 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     Id = a.Id,
                     Phrase = a.Text
                 }));
-
-            return true;
         }
 
-        public bool DeletePhrase(int id)
+        public void DeletePhrase(int id)
         {
             var phrase = _wordsDBContext.Phrases.FirstOrDefault(p => p.Id == id);
             var result = _wordsDBContext.Phrases.Remove(phrase);
-
-            return result.State == EntityState.Deleted;
         }
 
         public Phrase GetPhrase(int id)

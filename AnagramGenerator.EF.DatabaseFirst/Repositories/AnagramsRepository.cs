@@ -18,18 +18,16 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public bool AddAnagram(Anagram anagram)
+        public void AddAnagram(Anagram anagram)
         {
             var result = _wordsDBContext.Anagrams.Add(new AnagramEntity
             {
                 Id = anagram.Id,
                 Anagram =anagram.Text,
             });
-
-            return result.State == EntityState.Added;
         }
 
-        public bool AddAnagrams(params Anagram[] anagrams)
+        public void AddAnagrams(params Anagram[] anagrams)
         {
             _wordsDBContext.Anagrams
                 .AddRange(anagrams.Select(a => new AnagramEntity
@@ -37,16 +35,12 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     Id = a.Id,
                     Anagram = a.Text
                 }));
-
-            return true;
         }
 
-        public bool DeleteAnagram(int id)
+        public void DeleteAnagram(int id)
         {
             var anagram = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);
             var result = _wordsDBContext.Anagrams.Remove(anagram);
-
-            return result.State == EntityState.Deleted;
         }
 
         public Anagram GetAnagram(int id)

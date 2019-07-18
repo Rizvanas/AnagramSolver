@@ -19,18 +19,16 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public bool AddWord(Word word)
+        public void AddWord(Word word)
         {
             var result = _wordsDBContext.Words.Add(new WordEntity
             {
                 WordId = word.Id,
                 Word = word.Text
             });
-
-            return result.State == EntityState.Added;
         }
 
-        public bool AddWords(params Word[] words)
+        public void AddWords(params Word[] words)
         {
             _wordsDBContext.Words
                 .AddRange(words.Select(w => new WordEntity
@@ -38,16 +36,12 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     WordId = w.Id,
                     Word = w.Text
                 }));
-
-            return true;
         }
 
-        public bool DeleteWord(int id)
+        public void DeleteWord(int id)
         {
             var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
             var result = _wordsDBContext.Words.Remove(wordEntity);
-
-            return result.State == EntityState.Deleted;
         }
 
         public Word GetWord(int id)

@@ -7,8 +7,8 @@ namespace Contracts.Repositories
         {
         Anagram GetAnagram(int id);
         IList<Anagram> GetAnagrams();
-        bool AddAnagram(Anagram anagram);
-        bool AddAnagrams(params Anagram[] anagrams);
-        bool DeleteAnagram(int id);
+        void AddAnagram(Anagram anagram);
+        void AddAnagrams(params Anagram[] anagrams);
+        void DeleteAnagram(int id);
     }
 }

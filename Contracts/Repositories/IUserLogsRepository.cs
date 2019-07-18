@@ -7,8 +7,8 @@ namespace Contracts.Repositories
     {
         UserLog GetUserLog(int id);
         IList<UserLog> GetUserLogs();
-        bool AddUserLog(UserLog userLog);
-        bool AddUserLogs(params UserLog[] userLogs);
-        bool DeleteUserLog(int id);
+        void AddUserLog(UserLog userLog);
+        void AddUserLogs(params UserLog[] userLogs);
+        void DeleteUserLog(int id);
     }
 }

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
-using Contracts.Entities;
 using Contracts.Repositories;
 using Contracts.Extensions;
+using Contracts.DTO;
 
 namespace Implementation
 {
@@ -35,7 +35,7 @@ namespace Implementation
             _appConfig = appConfig;
         }
 
-        public IEnumerable<AnagramEntity> GetAnagrams(string word, string IpAdress)
+        public IList<Anagram> GetAnagrams(string word, string IpAdress)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;

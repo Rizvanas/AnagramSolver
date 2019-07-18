@@ -7,8 +7,8 @@ namespace Contracts.Repositories
     {
         Word GetWord(int id);
         IList<Word> GetWords();
-        bool AddWord(Word word);
-        bool AddWords(params Word[] words);
-        bool DeleteWord(int id);
+        void AddWord(Word word);
+        void AddWords(params Word[] words);
+        void DeleteWord(int id);
     }
 }

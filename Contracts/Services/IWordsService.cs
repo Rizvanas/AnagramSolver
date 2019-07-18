@@ -9,6 +9,6 @@ namespace Contracts.Services
     {
         IList<Word> GetWords(string word);
         IList<Word> GetWords(int? page, int pageSize);
-        bool AddWord(string word);
+        void AddWord(string word);
     }
 }

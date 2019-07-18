@@ -1,11 +1,8 @@
 ﻿using Contracts.DTO;
-using Contracts.Extensions;
 using Contracts.Repositories;
 using Contracts.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.WebApp.Services
 {
@@ -36,9 +33,9 @@ namespace AnagramGenerator.WebApp.Services
                 .ToList();
         }
 
-        public bool AddWord(string word)
+        public void AddWord(string word)
         {
-            return _wordsRepository.AddWord(new Word { Text = word });
+            _wordsRepository.AddWord(new Word { Text = word });
         }
     }
 }

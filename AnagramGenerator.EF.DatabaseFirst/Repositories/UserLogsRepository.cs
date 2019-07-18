@@ -16,7 +16,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext = wordsDBContext;
         }
 
-        public bool AddUserLog(UserLog userLog)
+        public void AddUserLog(UserLog userLog)
         {
             var result = _wordsDBContext.UserLog.Add(new UserLogEntity
             {
@@ -30,11 +30,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 },
                 SearchTime = userLog.SearchTime
             });
-
-            return result.State == EntityState.Added;
         }
 
-        public bool AddUserLogs(params UserLog[] userLogs)
+        public void AddUserLogs(params UserLog[] userLogs)
         {
             _wordsDBContext.UserLog
                 .AddRange(userLogs.Select(ul => new UserLogEntity
@@ -49,16 +47,12 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                     SearchTime = ul.SearchTime,
                     SearchPhraseId = ul.SearchPhrase.Id
                 }));
-
-            return true;
         }
 
-        public bool DeleteUserLog(int id)
+        public void DeleteUserLog(int id)
         {
             var userLogEntity = _wordsDBContext.UserLog.FirstOrDefault(ul => ul.Id == id);
             var result = _wordsDBContext.UserLog.Remove(userLogEntity);
-
-            return result.State == EntityState.Deleted;
         }
 
         public UserLog GetUserLog(int id)
