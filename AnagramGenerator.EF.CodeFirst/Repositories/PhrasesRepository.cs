@@ -17,6 +17,11 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             throw new NotImplementedException();
         }
 
+        public bool DeletePhrase(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Phrase GetPhrase(int id)
         {
             throw new NotImplementedException();

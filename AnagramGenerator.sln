@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.EF.Databas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.RawSQL", "AnagramGenerator.RawSQL\AnagramGenerator.RawSQL.csproj", "{96575F8E-4508-45EA-B8E8-8B91F3C8287F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramGenerator.EF.CodeFirst", "AnagramGenerator.EF.CodeFirst\AnagramGenerator.EF.CodeFirst.csproj", "{09832F96-A272-47DD-BCE2-4025F2E77FCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.EF.CodeFirst", "AnagramGenerator.EF.CodeFirst\AnagramGenerator.EF.CodeFirst.csproj", "{09832F96-A272-47DD-BCE2-4025F2E77FCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,7 +57,6 @@ Global
 		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09832F96-A272-47DD-BCE2-4025F2E77FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09832F96-A272-47DD-BCE2-4025F2E77FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09832F96-A272-47DD-BCE2-4025F2E77FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09832F96-A272-47DD-BCE2-4025F2E77FCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

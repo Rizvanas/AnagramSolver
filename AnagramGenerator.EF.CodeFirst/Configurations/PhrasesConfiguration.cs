@@ -9,7 +9,6 @@ namespace AnagramGenerator.EF.CodeFirst.Configurations
         public void Configure(EntityTypeBuilder<PhraseEntity> builder)
         {
             builder.HasIndex(e => e.Phrase)
-                .HasName("IX_Phrases")
                 .IsUnique();
 
             builder.Property(e => e.Phrase)

@@ -12,36 +12,33 @@ namespace AnagramGenerator.WebApp.Services
     public class WordsService : IWordsService
     {
         private readonly IWordsRepository _wordsRepository;
-        private readonly IPhrasesRepository _phrasesRepository;
-
-        public WordsService(IWordsRepository wordsRepository, IPhrasesRepository phrasesRepository)
+        public WordsService(IWordsRepository wordsRepository)
         {
             _wordsRepository = wordsRepository;
-            _phrasesRepository = phrasesRepository;
         }
 
-        public List<Word> GetWords(string word)
+        public IList<Word> GetWords(string word)
         {
-            var phrase = _phrasesRepository.GetPhrase(word);
-
-            var words = new List<WordEntity>();
-            if (phrase != null)
-                words = _wordsRepository.GetWords(phrase).ToList();
-
-            return words.ToWordsList();
+            return _wordsRepository
+                .GetWords()
+                .Where(w => w.Text.StartsWith(word))
+                .ToList();
         }
 
-        public List<Word> GetWords(int? page, int pageSize)
+        public IList<Word> GetWords(int? page, int pageSize)
         {
             var filter = new PaginationFilter { Page = (page < 1) ? 1 : page, PageSize = pageSize };
-            var words = _wordsRepository.GetWords(filter);
 
-            return words.ToWordsList();
+            return _wordsRepository
+                .GetWords()
+                .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToList();
         }
 
-        public void AddWord(string word)
+        public bool AddWord(string word)
         {
-            _wordsRepository.AddWord(new WordEntity { Word = word });
+            return _wordsRepository.AddWord(new Word { Text = word });
         }
     }
 }

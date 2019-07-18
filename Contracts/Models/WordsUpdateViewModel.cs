@@ -1,6 +1,4 @@
-﻿
-using Contracts.DTO;
-using Contracts.Entities;
+﻿using Contracts.DTO;
 
 namespace Contracts.Models
 {

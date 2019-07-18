@@ -7,12 +7,12 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class CachedWordsRepository : ICachedWordsRepository
     {
-        public bool AddCachedWord(CachedWord cachedWord)
+        public bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
         {
             throw new NotImplementedException();
         }
 
-        public bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
+        public bool DeleteCachedWord(int id)
         {
             throw new NotImplementedException();
         }

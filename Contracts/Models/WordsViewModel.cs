@@ -1,5 +1,4 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
 using System.Collections.Generic;
 
 namespace Contracts.Models
