@@ -1,4 +1,5 @@
-﻿using AnagramGenerator.EF.CodeFirst.Entities;
+﻿using AnagramGenerator.EF.CodeFirst.Configurations;
+using AnagramGenerator.EF.CodeFirst.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AnagramGenerator.EF.CodeFirst
@@ -18,11 +19,11 @@ namespace AnagramGenerator.EF.CodeFirst
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration();
-            modelBuilder.ApplyConfiguration();
-            modelBuilder.ApplyConfiguration();
-            modelBuilder.ApplyConfiguration();
-            modelBuilder.ApplyConfiguration();
+            modelBuilder.ApplyConfiguration(new AnagramsConfiguration());
+            modelBuilder.ApplyConfiguration(new CachedWordsConfiguration());
+            modelBuilder.ApplyConfiguration(new PhrasesConfiguration());
+            modelBuilder.ApplyConfiguration(new UserLogConfiguration());
+            modelBuilder.ApplyConfiguration(new WordsConfiguration());
         }
     }
 }
