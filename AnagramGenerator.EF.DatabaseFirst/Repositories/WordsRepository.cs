@@ -22,7 +22,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public void AddWord(Word word)
         {
             if (word == null)
-                throw new ArgumentNullException("Word parameter cannot be null");
+                throw new ArgumentNullException("Word cannot be null");
 
             var result = _wordsDBContext.Words.Add(new WordEntity
             {
@@ -49,7 +49,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
 
             if (wordEntity == null)
-                throw new KeyNotFoundException("Word not found");
+                throw new InvalidOperationException($"WordEntity with id:{id} was not found");
 
             var result = _wordsDBContext.Words.Remove(wordEntity);
         }

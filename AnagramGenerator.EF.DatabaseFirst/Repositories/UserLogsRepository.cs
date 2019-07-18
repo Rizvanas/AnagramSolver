@@ -2,6 +2,7 @@
 using Contracts.DTO;
 using Contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,6 +31,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 },
                 SearchTime = userLog.SearchTime
             });
+
+            if (result.State != EntityState.Added)
+                throw new InvalidOperationException("Failed to add UserLog");
         }
 
         public void AddUserLogs(params UserLog[] userLogs)
@@ -52,6 +56,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public void DeleteUserLog(int id)
         {
             var userLogEntity = _wordsDBContext.UserLog.FirstOrDefault(ul => ul.Id == id);
+
+            if (userLogEntity == null)
+                throw new InvalidOperationException($"UserLogEntity with id:{id} was not found");
+
             var result = _wordsDBContext.UserLog.Remove(userLogEntity);
         }
 
@@ -60,7 +68,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var userLogEntity = _wordsDBContext.UserLog.FirstOrDefault(w => w.Id == id);
 
             if (userLogEntity == null)
-                return null;
+                throw new InvalidOperationException($"UserLogEntity with id:{id} was not found");
 
             return new UserLog
             {

@@ -17,18 +17,9 @@ namespace AnagramGenerator.WebApp.Services
             _phrasesRepository = phrasesRepository;
         }
 
-        public IEnumerable<UserLog> GetUserLogs()
+        public IList<UserLog> GetUserLogs()
         {
-            var userLogs = _userLogsRepository.GetUserLogs()
-                .Join(_phrasesRepository.GetPhrases(), log => log.SearchPhraseId, phrase => phrase.Id, 
-                (log, phrase) => new UserLog
-                {
-                    UserIp = log.UserIp,
-                    SearchPhrase = phrase.Phrase,
-                    SearchTime = log.SearchTime,
-                    Anagram = ""
-                });
-
+            var userLogs = _userLogsRepository.GetUserLogs();
             return userLogs;
         }
     }
