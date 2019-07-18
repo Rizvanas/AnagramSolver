@@ -22,23 +22,47 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         {
             var result = _wordsDBContext.Anagrams.Add(new AnagramEntity
             {
-                Anagram =anagram.Text
+                Id = anagram.Id,
+                Anagram =anagram.Text,
             });
+
+            return result.State == EntityState.Added;
         }
 
         public bool AddAnagrams(params Anagram[] anagrams)
         {
-            throw new NotImplementedException();
+            _wordsDBContext.Anagrams
+                .AddRange(anagrams.Select(a => new AnagramEntity
+                {
+                    Id = a.Id,
+                    Anagram = a.Text
+                }));
+
+            return true;
         }
 
         public Anagram GetAnagram(int id)
         {
-            throw new NotImplementedException();
+            var anagramEntity = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);
+
+            if (anagramEntity == null)
+                return null;
+
+            return new Anagram
+            {
+                Id = anagramEntity.Id,
+                Text = anagramEntity.Anagram
+            };
         }
 
         public IList<Anagram> GetAnagrams()
         {
-            throw new NotImplementedException();
+            var anagrams = _wordsDBContext.Anagrams;
+            return anagrams.Select(ae => new Anagram
+            {
+                Id = ae.Id,
+                Text = ae.Anagram
+            }).ToList();
         }
     }
 }
