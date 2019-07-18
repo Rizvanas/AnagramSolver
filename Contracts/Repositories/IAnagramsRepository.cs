@@ -9,5 +9,6 @@ namespace Contracts.Repositories
         IList<Anagram> GetAnagrams();
         bool AddAnagram(Anagram anagram);
         bool AddAnagrams(params Anagram[] anagrams);
+        bool DeleteAnagram(int id);
     }
 }

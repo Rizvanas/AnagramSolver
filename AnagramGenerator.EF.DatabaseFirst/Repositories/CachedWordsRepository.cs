@@ -19,6 +19,11 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             throw new NotImplementedException();
         }
 
+        public bool DeleteCachedWord(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public CachedWord GetCachedWord(int id)
         {
             throw new NotImplementedException();

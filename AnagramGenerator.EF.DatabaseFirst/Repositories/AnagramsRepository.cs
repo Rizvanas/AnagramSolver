@@ -41,6 +41,14 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             return true;
         }
 
+        public bool DeleteAnagram(int id)
+        {
+            var anagram = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);
+            var result = _wordsDBContext.Anagrams.Remove(anagram);
+
+            return result.State == EntityState.Deleted;
+        }
+
         public Anagram GetAnagram(int id)
         {
             var anagramEntity = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);

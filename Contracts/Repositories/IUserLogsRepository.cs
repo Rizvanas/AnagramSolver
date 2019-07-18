@@ -9,5 +9,6 @@ namespace Contracts.Repositories
         IList<UserLog> GetUserLogs();
         bool AddUserLog(UserLog userLog);
         bool AddUserLogs(params UserLog[] userLogs);
+        bool DeleteUserLog(int id);
     }
 }

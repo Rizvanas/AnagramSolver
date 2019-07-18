@@ -10,5 +10,6 @@ namespace Contracts.Repositories
         Phrase GetPhrase(int id);
         bool AddPhrase(Phrase phrase);
         bool AddPhrases(params Phrase[] phrases);
+        bool DeletePhrase(int id);
     }
 }

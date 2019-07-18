@@ -9,5 +9,6 @@ namespace Contracts.Repositories
         IList<Word> GetWords();
         bool AddWord(Word word);
         bool AddWords(params Word[] words);
+        bool DeleteWord(int id);
     }
 }

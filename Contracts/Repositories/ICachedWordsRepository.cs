@@ -9,5 +9,6 @@ namespace Contracts.Repositories
         CachedWord GetCachedWord(int id);
         bool AddCachedWord(CachedWord cachedWord);
         bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams);
+        bool DeleteCachedWord(int id);
     }
 }
