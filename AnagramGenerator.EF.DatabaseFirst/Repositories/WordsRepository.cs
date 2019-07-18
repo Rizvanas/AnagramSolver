@@ -53,7 +53,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public Word GetWord(int id)
         {
             var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
-
+            
             if (wordEntity == null)
                 return null;
 

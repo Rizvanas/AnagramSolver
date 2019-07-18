@@ -2,10 +2,8 @@
 using Contracts.DTO;
 using Contracts.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
