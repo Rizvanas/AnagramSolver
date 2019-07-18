@@ -21,6 +21,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public void AddWord(Word word)
         {
+            if (word == null)
+                throw new ArgumentNullException("Word parameter cannot be null");
+
             var result = _wordsDBContext.Words.Add(new WordEntity
             {
                 WordId = word.Id,
@@ -30,6 +33,9 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public void AddWords(params Word[] words)
         {
+            if (words == null || words.Length == 0)
+                throw new ArgumentNullException("Words cannot be null");
+
             _wordsDBContext.Words
                 .AddRange(words.Select(w => new WordEntity
                 {
@@ -41,6 +47,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public void DeleteWord(int id)
         {
             var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
+
+            if (wordEntity == null)
+                throw new KeyNotFoundException("Word not found");
+
             var result = _wordsDBContext.Words.Remove(wordEntity);
         }
 
