@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Contracts.DTO
 {
     public class CachedWord
     {
-        public string Word { get; set; }
-
+        public int Id { get; set; }
+        public int PhraseId { get; set; }
+        public int AnagramId { get; set; }
+        public Anagram Anagram { get; set; }
+        public Phrase Phrase { get; set; }
     }
 }

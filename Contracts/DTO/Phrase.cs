@@ -6,6 +6,7 @@ namespace Contracts.DTO
 {
     public class Phrase
     {
+
         public string Text { get; set; }
     }
 }
