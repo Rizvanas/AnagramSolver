@@ -1,6 +1,9 @@
-﻿using Contracts.DTO;
+﻿using Contracts;
+using Contracts.DTO;
+using Contracts.Extensions;
 using Contracts.Repositories;
 using Contracts.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,8 +12,11 @@ namespace AnagramGenerator.WebApp.Services
     public class WordsService : IWordsService
     {
         private readonly IWordsRepository _wordsRepository;
-        public WordsService(IWordsRepository wordsRepository)
+        private readonly IAppConfig _appConfig;
+
+        public WordsService(IWordsRepository wordsRepository, IAppConfig appConfig)
         {
+            _appConfig = appConfig;
             _wordsRepository = wordsRepository;
         }
 
@@ -30,6 +36,20 @@ namespace AnagramGenerator.WebApp.Services
                 .GetWords()
                 .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
                 .Take(filter.PageSize)
+                .ToList();
+        }
+
+        public IList<Word> GetWordsForSearch(string phrase)
+        {
+            var minWordLen = Convert.ToInt32(_appConfig
+               .GetConfiguration()
+         .GetSection("ConstantValues")["MinWordLength"]);
+
+            return _wordsRepository.GetWords()
+                .Where(w => w.Text.Length <= phrase.Length
+                         && w.Text.Length >= minWordLen
+                         && phrase.GetSearchWord(w.Text) != phrase)
+                .OrderByDescending(w => w.Text.Length)
                 .ToList();
         }
 

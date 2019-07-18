@@ -8,8 +8,8 @@ namespace Contracts.Repositories
     {
         IList<Phrase> GetPhrases();
         Phrase GetPhrase(int id);
-        bool AddPhrase(Phrase phrase);
-        bool AddPhrases(params Phrase[] phrases);
-        bool DeletePhrase(int id);
+        void AddPhrase(Phrase phrase);
+        void AddPhrases(params Phrase[] phrases);
+        void DeletePhrase(int id);
     }
 }

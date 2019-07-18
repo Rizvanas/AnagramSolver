@@ -6,13 +6,14 @@ using System.Diagnostics;
 using Contracts.Repositories;
 using Contracts.Extensions;
 using Contracts.DTO;
+using Contracts.Services;
 
 namespace Implementation
 {
     public class AnagramSolver : IAnagramSolver
     {
 
-        private readonly IWordsRepository _wordRepository;
+        private readonly IWordsService _wordsService;
         private readonly IAnagramsRepository _anagramsRepository;
         private readonly IPhrasesRepository _phrasesRepository;
         private readonly IUserLogsRepository _userLogsRepository;
@@ -20,14 +21,14 @@ namespace Implementation
 
         private readonly IAppConfig _appConfig;
 
-        public AnagramSolver(IWordsRepository wordsRepository,
+        public AnagramSolver(IWordsService wordsService,
             IAnagramsRepository anagramsRepository,
             IPhrasesRepository phrasesRepository,
             IUserLogsRepository userLogsRepository,
             ICachedWordsRepository cachedWordsRepository,
             IAppConfig appConfig)
         {
-            _wordRepository = wordsRepository;
+            _wordsService = wordsService;
             _anagramsRepository = anagramsRepository;
             _phrasesRepository = phrasesRepository;
             _userLogsRepository = userLogsRepository;
@@ -41,11 +42,11 @@ namespace Implementation
             var timeElapsed = 0L;
             stopWatch.Start();
             if (word == null)
-                return new List<AnagramEntity>();
+                return new List<Anagram>();
 
             var phrase = _phrasesRepository.GetPhrase(word);
             if (phrase == null)
-                phrase = new PhraseEntity { Phrase = word };
+                phrase = new Phrase { Text = word };
 
             var anagrams = _anagramsRepository.GetAnagrams(phrase);
             if (anagrams.Count() != 0)
@@ -58,7 +59,7 @@ namespace Implementation
             }
 
             var resultCount = 1000;
-            var words = _wordRepository.GetSearchWords(phrase).ToList();
+            var words = _wordRepository.GetWordsForSearch(phrase).ToList();
 
             anagrams = FindAnagrams(words, phrase.Phrase, new List<List<AnagramEntity>>())
                 .Take(resultCount)

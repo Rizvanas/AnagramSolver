@@ -9,17 +9,16 @@ namespace AnagramGenerator.WebApp.Services
     public class UserLogsService : IUserLogsService
     {
         private readonly IUserLogsRepository _userLogsRepository;
-        private readonly IPhrasesRepository _phrasesRepository;
 
-        public UserLogsService(IUserLogsRepository userLogsRepository, IPhrasesRepository phrasesRepository)
+        public UserLogsService(IUserLogsRepository userLogsRepository)
         {
             _userLogsRepository = userLogsRepository;
-            _phrasesRepository = phrasesRepository;
         }
 
         public IList<UserLog> GetUserLogs()
         {
             var userLogs = _userLogsRepository.GetUserLogs();
+
             return userLogs;
         }
     }
