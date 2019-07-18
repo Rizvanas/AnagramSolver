@@ -1,4 +1,4 @@
-﻿using Contracts.Entities;
+﻿using Contracts.DTO;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,49 +9,24 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
     public class CachedWordsRepository : ICachedWordsRepository
     {
-        private readonly WordsDBContext _wordsDBContext;
-
-        public CachedWordsRepository (WordsDBContext wordsDBContext)
+        public bool AddCachedWord(CachedWord cachedWord)
         {
-            _wordsDBContext = wordsDBContext;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords()
+        public bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
         {
-            return _wordsDBContext.CachedWords;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords(PhraseEntity phrase)
+        public CachedWord GetCachedWord(int id)
         {
-            return _wordsDBContext.CachedWords
-                .Where(cw => cw.PhraseId == phrase.Id);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords(AnagramEntity anagram)
+        public IList<CachedWord> GetCachedWords()
         {
-            return _wordsDBContext.CachedWords
-                .Where(cw => cw.AnagramId == anagram.Id);
-        }
-
-        public void AddCachedWord(CachedWordEntity cachedWord)
-        {
-            _wordsDBContext.CachedWords.Add(cachedWord);
-            _wordsDBContext.SaveChanges();
-        }
-
-        public void AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
-        {
-            foreach(var anagram in anagrams)
-            {
-                _wordsDBContext.CachedWords.Add(new CachedWordEntity
-                {
-                    Phrase = phrase,
-                    PhraseId = phrase.Id,
-                    Anagram = anagram,
-                    AnagramId = anagram.Id,
-                });
-            }
-            _wordsDBContext.SaveChanges();
+            throw new NotImplementedException();
         }
     }
 }

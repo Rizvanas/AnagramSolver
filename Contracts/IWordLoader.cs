@@ -1,10 +1,10 @@
-﻿using Contracts.Entities;
+﻿using Contracts.DTO;
 using System.Collections.Generic;
 
 namespace Contracts
 {
     public interface IWordLoader
     {
-        IEnumerable<WordEntity> LoadFromFile(string filePath);
+        IList<Word> LoadFromFile(string filePath);
     }
 }

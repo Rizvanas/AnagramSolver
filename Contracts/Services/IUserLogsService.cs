@@ -7,6 +7,6 @@ namespace Contracts.Services
 {
     public interface IUserLogsService
     {
-        IEnumerable<UserLog> GetUserLogs();
+        IList<UserLog> GetUserLogs();
     }
 }

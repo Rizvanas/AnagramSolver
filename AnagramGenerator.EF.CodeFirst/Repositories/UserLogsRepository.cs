@@ -1,15 +1,18 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class UserLogsRepository : IUserLogsRepository
     {
-        public void AddUserLog(UserLog userLog)
+        public bool AddUserLog(UserLog userLog)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddUserLogs(params UserLog[] userLogs)
         {
             throw new NotImplementedException();
         }
@@ -19,7 +22,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserLog> GetUserLogs()
+        public IList<UserLog> GetUserLogs()
         {
             throw new NotImplementedException();
         }

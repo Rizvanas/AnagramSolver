@@ -5,7 +5,7 @@ namespace Contracts
 {
     public interface IPrinter
     {
-        void Print(List<IPrintable> Printables);
+        void Print(IList<IPrintable> Printables);
     }
 }
  

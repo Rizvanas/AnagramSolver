@@ -32,7 +32,7 @@ namespace Contracts.Extensions
 
         public static IEnumerable<Phrase> ToPhrasesList(this IEnumerable<PhraseEntity> phraseEntities)
         {
-            return phraseEntities.Select(p => p)
+            return phraseEntities.Select(p => p).
         }
     }
 }

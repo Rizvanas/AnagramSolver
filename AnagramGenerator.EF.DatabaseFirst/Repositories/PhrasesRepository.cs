@@ -1,6 +1,5 @@
 ﻿using Contracts;
 using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,40 +10,24 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
     public class PhrasesRepository : IPhrasesRepository
     {
-        private readonly WordsDBContext _wordsDBContext;
-
-        public PhrasesRepository(WordsDBContext wordsDBContext)
+        public bool AddPhrase(Phrase phrase)
         {
-            _wordsDBContext = wordsDBContext;
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Phrase> GetPhrases()
+        public bool AddPhrases(params Phrase[] phrases)
         {
-            return _wordsDBContext.Phrases;
+            throw new NotImplementedException();
         }
 
         public Phrase GetPhrase(int id)
         {
-            return _wordsDBContext.Phrases
-                .FirstOrDefault(phrase => phrase.Id == id);
+            throw new NotImplementedException();
         }
 
-        public Phrase GetPhrase(string phrase)
+        public IList<Phrase> GetPhrases()
         {
-            if (phrase == null)
-                return null;
-
-            var phrases = _wordsDBContext.Phrases
-                .FirstOrDefault(ph => ph.Phrase.ToLower()
-                == phrase.ToLower());
-
-            return phrases;
-        }
-
-        public void AddPhrase(Phrase phrase)
-        {
-            _wordsDBContext.Phrases.Add(phrase);
-            _wordsDBContext.SaveChanges();
+            throw new NotImplementedException();
         }
     }
 }

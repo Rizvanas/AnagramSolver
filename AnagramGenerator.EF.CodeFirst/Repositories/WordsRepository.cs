@@ -1,5 +1,4 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,12 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class WordsRepository : IWordsRepository
     {
-        public void AddWord(Word word)
+        public bool AddWord(Word word)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Word> GetSearchWords(Phrase phrase)
+        public bool AddWords(params Word[] words)
         {
             throw new NotImplementedException();
         }
@@ -24,22 +23,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             throw new NotImplementedException();
         }
 
-        public Word GetWord(string word)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Word> GetWords()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Word> GetWords(PaginationFilter filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Word> GetWords(Phrase phrase)
+        public IList<Word> GetWords()
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,4 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Extensions;
 using Contracts.Repositories;
 using Contracts.Services;

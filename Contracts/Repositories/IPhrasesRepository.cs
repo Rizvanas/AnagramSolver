@@ -1,16 +1,14 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Contracts.Repositories
 {
     public interface IPhrasesRepository
     {
-        IEnumerable<Phrase> GetPhrases();
+        IList<Phrase> GetPhrases();
         Phrase GetPhrase(int id);
-        Phrase GetPhrase(string phrase);
-        void AddPhrase(Phrase phrase);
+        bool AddPhrase(Phrase phrase);
+        bool AddPhrases(params Phrase[] phrases);
     }
 }

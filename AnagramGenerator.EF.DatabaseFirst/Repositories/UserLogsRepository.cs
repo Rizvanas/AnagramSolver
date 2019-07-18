@@ -1,5 +1,6 @@
-﻿using Contracts.Repositories;
-using Contracts.Entities;
+﻿using Contracts.DTO;
+using Contracts.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +10,24 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
     public class UserLogsRepository : IUserLogsRepository
     {
-        private readonly WordsDBContext _wordsDBContext;
-
-        public UserLogsRepository (WordsDBContext wordsDBContext)
+        public bool AddUserLog(UserLog userLog)
         {
-            _wordsDBContext = wordsDBContext;
+            throw new NotImplementedException();
         }
 
-        public UserLogEntity GetUserLog(int id)
+        public bool AddUserLogs(params UserLog[] userLogs)
         {
-            return _wordsDBContext.UserLog
-                .FirstOrDefault(userLog => userLog.Id == id);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<UserLogEntity> GetUserLogs()
+        public UserLog GetUserLog(int id)
         {
-            return _wordsDBContext.UserLog;
+            throw new NotImplementedException();
         }
 
-        public void AddUserLog(UserLogEntity userLog)
+        public IList<UserLog> GetUserLogs()
         {
-            _wordsDBContext.UserLog.Add(userLog);
-            _wordsDBContext.SaveChanges();
+            throw new NotImplementedException();
         }
     }
 }

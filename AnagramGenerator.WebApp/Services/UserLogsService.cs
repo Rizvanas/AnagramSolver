@@ -19,8 +19,7 @@ namespace AnagramGenerator.WebApp.Services
 
         public IEnumerable<UserLog> GetUserLogs()
         {
-            var userLogs = _userLogsRepository
-                .GetUserLogs()
+            var userLogs = _userLogsRepository.GetUserLogs()
                 .Join(_phrasesRepository.GetPhrases(), log => log.SearchPhraseId, phrase => phrase.Id, 
                 (log, phrase) => new UserLog
                 {

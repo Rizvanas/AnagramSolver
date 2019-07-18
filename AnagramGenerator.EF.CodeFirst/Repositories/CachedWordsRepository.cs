@@ -1,4 +1,4 @@
-﻿using Contracts.Entities;
+﻿using Contracts.DTO;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -7,27 +7,22 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class CachedWordsRepository : ICachedWordsRepository
     {
-        public void AddCachedWord(CachedWordEntity cachedWord)
+        public bool AddCachedWord(CachedWord cachedWord)
         {
             throw new NotImplementedException();
         }
 
-        public void AddCachedWord(PhraseEntity phrase, IEnumerable<AnagramEntity> anagrams)
+        public bool AddCachedWord(Phrase phrase, IEnumerable<Anagram> anagrams)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords()
+        public CachedWord GetCachedWord(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CachedWordEntity> GetCachedWords(PhraseEntity phrase)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<CachedWordEntity> GetCachedWords(AnagramEntity anagram)
+        public IList<CachedWord> GetCachedWords()
         {
             throw new NotImplementedException();
         }

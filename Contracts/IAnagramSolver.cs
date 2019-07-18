@@ -1,10 +1,10 @@
-﻿using Contracts.Entities;
+﻿using Contracts.DTO;
 using System.Collections.Generic;
 
 namespace Contracts
 {
     public interface IAnagramSolver
     {
-        IEnumerable<AnagramEntity> GetAnagrams(string word, string IpAddress);
+        IList<Anagram> GetAnagrams(string word, string IpAddress);
     }
 }

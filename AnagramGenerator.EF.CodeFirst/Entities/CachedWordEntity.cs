@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
 namespace AnagramGenerator.EF.CodeFirst.Entities
 {
     public partial class CachedWordEntity

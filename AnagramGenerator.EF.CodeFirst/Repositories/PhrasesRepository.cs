@@ -1,5 +1,4 @@
 ﻿using Contracts.DTO;
-using Contracts.Entities;
 using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,12 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
     public class PhrasesRepository : IPhrasesRepository
     {
-        public void AddPhrase(PhraseEntity phrase)
+        public bool AddPhrase(Phrase phrase)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AddPhrases(params Phrase[] phrases)
         {
             throw new NotImplementedException();
         }
@@ -18,12 +22,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             throw new NotImplementedException();
         }
 
-        public Phrase GetPhrase(string phrase)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Phrase> GetPhrases()
+        public IList<Phrase> GetPhrases()
         {
             throw new NotImplementedException();
         }
