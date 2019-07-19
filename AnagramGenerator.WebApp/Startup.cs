@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AnagramGenerator.EF.DatabaseFirst;
 using AnagramGenerator.EF.DatabaseFirst.Repositories;
 using Contracts.Services;
 using AnagramGenerator.WebApp.Services;
@@ -58,7 +57,6 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IUserLogsService, UserLogsService>();
             services.AddScoped<IWordsService, WordsService>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

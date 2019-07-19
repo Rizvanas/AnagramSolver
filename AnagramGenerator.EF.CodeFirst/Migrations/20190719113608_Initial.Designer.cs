@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnagramGenerator.EF.CodeFirst.Migrations
 {
     [DbContext(typeof(WordsDB_CFContext))]
-    [Migration("20190718214017_Initial")]
+    [Migration("20190719113608_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -132,7 +132,7 @@ namespace AnagramGenerator.EF.CodeFirst.Migrations
             modelBuilder.Entity("AnagramGenerator.EF.CodeFirst.Entities.UserLogEntity", b =>
                 {
                     b.HasOne("AnagramGenerator.EF.CodeFirst.Entities.PhraseEntity", "SearchPhrase")
-                        .WithMany("UserLog")
+                        .WithMany("UserLogs")
                         .HasForeignKey("SearchPhraseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

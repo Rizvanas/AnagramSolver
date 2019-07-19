@@ -130,7 +130,7 @@ namespace AnagramGenerator.EF.CodeFirst.Migrations
             modelBuilder.Entity("AnagramGenerator.EF.CodeFirst.Entities.UserLogEntity", b =>
                 {
                     b.HasOne("AnagramGenerator.EF.CodeFirst.Entities.PhraseEntity", "SearchPhrase")
-                        .WithMany("UserLog")
+                        .WithMany("UserLogs")
                         .HasForeignKey("SearchPhraseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -1,9 +1,6 @@
 ﻿using AnagramGenerator.EF.CodeFirst.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AnagramGenerator.EF.CodeFirst.Configurations
 {
@@ -17,7 +14,7 @@ namespace AnagramGenerator.EF.CodeFirst.Configurations
                 .IsUnicode(false);
 
             builder.HasOne(d => d.SearchPhrase)
-                .WithMany(p => p.UserLog)
+                .WithMany(p => p.UserLogs)
                 .HasForeignKey(d => d.SearchPhraseId);
         }
     }

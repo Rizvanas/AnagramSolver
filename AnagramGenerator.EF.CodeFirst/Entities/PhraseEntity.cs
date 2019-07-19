@@ -2,18 +2,11 @@
 
 namespace AnagramGenerator.EF.CodeFirst.Entities
 {
-    public partial class PhraseEntity
+    public class PhraseEntity
     {
-        public PhraseEntity()
-        {
-            CachedWords = new HashSet<CachedWordEntity>();
-            UserLog = new HashSet<UserLogEntity>();
-        }
-
         public int Id { get; set; }
         public string Phrase { get; set; }
-
-        public virtual ICollection<CachedWordEntity> CachedWords { get; set; }
-        public virtual ICollection<UserLogEntity> UserLog { get; set; }
+        public List<CachedWordEntity> CachedWords { get; set; }
+        public List<UserLogEntity> UserLogs { get; set; }
     }
 }

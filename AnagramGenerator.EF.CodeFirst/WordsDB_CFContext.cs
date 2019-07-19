@@ -19,11 +19,11 @@ namespace AnagramGenerator.EF.CodeFirst
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new AnagramsConfiguration());
-            modelBuilder.ApplyConfiguration(new CachedWordsConfiguration());
-            modelBuilder.ApplyConfiguration(new PhrasesConfiguration());
-            modelBuilder.ApplyConfiguration(new UserLogConfiguration());
             modelBuilder.ApplyConfiguration(new WordsConfiguration());
+            modelBuilder.ApplyConfiguration(new AnagramsConfiguration());
+            modelBuilder.ApplyConfiguration(new PhrasesConfiguration());
+            modelBuilder.ApplyConfiguration(new CachedWordsConfiguration());
+            modelBuilder.ApplyConfiguration(new UserLogConfiguration());
         }
     }
 }
