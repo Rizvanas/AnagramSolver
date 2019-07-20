@@ -30,11 +30,15 @@ namespace AnagramGenerator.WebApp.Services
 
         public IList<Word> GetWords(int? page, int pageSize)
         {
-            var filter = new PaginationFilter { Page = (page < 1) ? 1 : page, PageSize = pageSize };
+            var filter = new PaginationFilter
+            {
+                Page = (page < 1 || page == null) ? 1 : page,
+                PageSize = pageSize
+            };
 
             return _wordsRepository
                 .GetWords()
-                .Skip((filter.Page ?? 1 - 1) * filter.PageSize)
+                .Skip((filter.Page.Value - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToList();
         }

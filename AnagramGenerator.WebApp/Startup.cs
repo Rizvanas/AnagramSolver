@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AnagramGenerator.EF.DatabaseFirst.Repositories;
+using AnagramGenerator.EF.CodeFirst.Repositories;
 using Contracts.Services;
 using AnagramGenerator.WebApp.Services;
 using AnagramGenerator.EF.CodeFirst;

@@ -33,7 +33,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 });
 
                 if (result.State != EntityState.Added)
-                    throw new InvalidOperationException("Failed to add CahcedWords");
+                    throw new InvalidOperationException("Failed to add CachedWords");
             }
 
             _wordsDBContext.SaveChanges();
