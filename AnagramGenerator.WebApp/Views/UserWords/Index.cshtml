@@ -13,7 +13,7 @@
 </style>
 
 <div class="text-center">
-    @using (Html.BeginForm("Search", "Words"))
+    @using (Html.BeginForm("Search", "UserWords"))
     {
         <form class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
@@ -26,6 +26,23 @@
     @if (Model.UserWords.Count == 0)
     {
         <p>Žodžių sąraše nėra</p>
+        <table class="table">
+            <tbody>
+                <tr class="list-group-flush">
+                    <td class="list-inline-item">
+                        @using (Html.BeginForm("UpdateList", "UserWords"))
+                        {
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <input class="form-control" placeholder="Įveskite naują reikšmę" type="text" id="ss" name="word" />
+                                </div>
+                                <button type="submit" class="btn btn-dark mb-2">Pridėti</button>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     }
     else
     {
@@ -33,36 +50,57 @@
             <tbody>
                 @foreach (var word in Model.UserWords)
                 {
-                <tr>
-                    <td class="list-group-flush">
-                        @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
-
-                    </td>
-                    <td class="list-group-flush">
-                        <button type="submit" class="btn btn-dark mb-2">Pakeisti</button>
-                        <button type="button" class="close" aria-label="Close">
-                            <%= Html.ActionLink(
-                            "Delete",
-                            "Delete",
-                            new { id = item.storyId },
-                            new { onclick = "return confirm('Are you sure you wish to delete this article?');" })
-                            %>
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <tr class="list-group-flush">
+                        <td class="list-inline-item">
+                            @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
+                        </td>
+                        <td class="list-inline-item">
+                            @using (Html.BeginForm("Change", "UserWords", new { wordId = word.Id }))
+                            {
+                                <div class="form-inline">
+                                    <div class="form-group mx-sm-3 mb-2">
+                                        <input class="form-control" placeholder="Įveskite naują reikšmę" type="text" id="ss" name="word" />
+                                    </div>
+                                    <button type="submit" class="btn btn-dark mb-2">Pakeisti</button>
+                                </div>
+                            }
+                        </td>
+                        <td class="list-inline-item">
+                            @using (Html.BeginForm("Remove", "UserWords", new { word = word.Text }))
+                            {
+                                <button type="submit" class="close mx-sm-3 mb-2" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+                <tr class="list-group-flush">
+                    <td class="list-inline-item">
+                        @using (Html.BeginForm("UpdateList", "UserWords"))
+                        {
+                            <div class="form-inline">
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <input class="form-control" placeholder="Įveskite naują reikšmę" type="text" id="ss" name="word" />
+                                </div>
+                                <button type="submit" class="btn btn-dark mb-2">Pridėti</button>
+                            </div>
+                        }
                     </td>
                 </tr>
-                }
             </tbody>
         </table>
     }
 
-    <ul class="pagination footeris">
+
+
+    <ul style="z-index:200" class="pagination footeris">
         <li class="page-item">
-            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100},  null)">Previous</a>
+            <a class="page-link" href="@Url.Action("Index", "UserWords", new { page=Model.Page-=1, pageSize=100},  null)">Previous</a>
         </li>
 
         <li class="page-item">
-            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
+            <a class="page-link" href="@Url.Action("Index", "UserWords", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
         </li>
     </ul>
 </div>

@@ -4,6 +4,8 @@ using System;
 using System.Linq;
 using Contracts.Services;
 using Contracts.Extensions;
+using Contracts.DTO;
+using System.Collections.Generic;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -35,33 +37,19 @@ namespace AnagramGenerator.WebApp.Controllers
             });
         }
 
-        [HttpGet("words/update")]
-        public IActionResult Update()
-        {
-            return View(new WordsUpdateViewModel
-            {
-                GotUpdated = true,
-                Word = null
-            });
-        }
-
-        [HttpPost("words/update")]
-        public IActionResult UpdateList(string word)
-        {
-            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            _userWordsService.AddUserWord(word, ipAddress);
-
-            return View("Update", new WordsUpdateViewModel
-            {
-                GotUpdated = true,
-                Word = word.ToWordModel()
-            });
-        }
-
         [HttpPost("words/search")]
         public IActionResult Search(string searchPhrase)
         {
-            var words = _wordsService.GetWords(searchPhrase).ToList();
+            var words = new List<Word>();
+            try
+            {
+                words = _wordsService.GetWords(searchPhrase).ToList();
+            }
+            catch
+            {
+                return Redirect($"/words?pageSize=100");
+            }
+
             return View("Index", new WordsViewModel { Words = words });
         }
 

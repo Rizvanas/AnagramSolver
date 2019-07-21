@@ -79,5 +79,10 @@ namespace AnagramGenerator.WebApp.Services
                 .Where(w => w.Text.StartsWith(word))
                 .ToList();
         }
+
+        public void UpdateUserWord(int id, string newValue)
+        {
+            _userWordsRepository.UpdateUserWord(id, newValue);
+        }
     }
 }

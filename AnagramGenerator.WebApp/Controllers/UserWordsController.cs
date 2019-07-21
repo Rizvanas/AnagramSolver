@@ -1,4 +1,5 @@
-﻿using Contracts.Models;
+﻿using Contracts.DTO;
+using Contracts.Models;
 using Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -50,20 +51,46 @@ namespace AnagramGenerator.WebApp.Controllers
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             _userWordsService.AddUserWord(word, ipAddress);
 
-            return View("Update", new UserWordsUpdateViewModel
-            {
-                GotUpdated = true,
-                UserWord = _userWordsService.GetUserWord(word)
-            });
+            return Redirect($"/userWords?pageSize=100");
         }
 
         [HttpPost("userWords/remove")]
         public IActionResult Remove(string word)
         {
-            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             _userWordsService.RemoveUserWord(word);
 
-            return Redirect("userWords");
+            return Redirect($"/userWords?pageSize=100");
+        }
+
+        [HttpPost("userWords/search")]
+        public IActionResult Search(string searchPhrase)
+        {
+            var words = new List<UserWord>();
+            try
+            {
+                words = _userWordsService.GetUserWords(searchPhrase).ToList();
+            }
+            catch
+            {
+                return Redirect($"/userWords?pageSize=100");
+            }
+
+            return View("Index", new UserWordsViewModel { UserWords = words });
+        }
+
+        [HttpPost("userWords/change")]
+        public IActionResult Change(int wordId, string word)
+        {
+            try
+            {
+                _userWordsService.UpdateUserWord(wordId, word);
+            }
+            catch
+            {
+
+            }
+
+            return Redirect($"/userWords?pageSize=100");
         }
 
         private void SetPagingCookie(int? page)
