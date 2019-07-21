@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnagramGenerator.EF.CodeFirst.Migrations
 {
     [DbContext(typeof(WordsDB_CFContext))]
-    [Migration("20190719113608_Initial")]
+    [Migration("20190720182403_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,8 +52,7 @@ namespace AnagramGenerator.EF.CodeFirst.Migrations
 
                     b.HasIndex("AnagramId");
 
-                    b.HasIndex("PhraseId")
-                        .IsUnique();
+                    b.HasIndex("PhraseId");
 
                     b.ToTable("CachedWords");
                 });

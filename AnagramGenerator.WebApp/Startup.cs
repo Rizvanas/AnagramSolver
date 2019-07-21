@@ -13,6 +13,7 @@ using AnagramGenerator.EF.CodeFirst.Repositories;
 using Contracts.Services;
 using AnagramGenerator.WebApp.Services;
 using AnagramGenerator.EF.CodeFirst;
+using DatabaseSeeder;
 
 namespace AnagramGenerator.WebApp
 {

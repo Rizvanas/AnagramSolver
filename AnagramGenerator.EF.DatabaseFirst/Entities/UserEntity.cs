@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Entities
 {
-    public partial class AnagramEntity
+    public partial class UserEntity
     {
-        public AnagramEntity()
+        public UserEntity()
         {
-            CachedWords = new HashSet<CachedWordEntity>();
             UserLogs = new HashSet<UserLogEntity>();
+            UserWords = new HashSet<UserWordEntity>();
         }
 
         public int Id { get; set; }
-        public string Anagram { get; set; }
+        public string Ip { get; set; }
 
-        public virtual ICollection<CachedWordEntity> CachedWords { get; set; }
         public virtual ICollection<UserLogEntity> UserLogs { get; set; }
+        public virtual ICollection<UserWordEntity> UserWords { get; set; }
     }
 }

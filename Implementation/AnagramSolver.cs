@@ -14,21 +14,18 @@ namespace Implementation
     {
 
         private readonly IWordsService _wordsService;
-        private readonly IAnagramsService _anagramsService;
         private readonly IPhrasesService _phrasesService;
         private readonly IUserLogsService _userLogsService;
         private readonly ICachedWordsService _cachedWordsService;
         private readonly IAppConfig _appConfig;
 
         public AnagramSolver(IWordsService wordsService,
-            IAnagramsService anagramsService,
             IPhrasesService phrasesService,
             IUserLogsService userLogsService,
             ICachedWordsService cachedWordsService,
             IAppConfig appConfig)
         {
             _wordsService = wordsService;
-            _anagramsService = anagramsService;
             _phrasesService = phrasesService;
             _userLogsService = userLogsService;
             _cachedWordsService = cachedWordsService;
@@ -50,7 +47,7 @@ namespace Implementation
                 phrase = _phrasesService.GetPhrase(word);
             }
 
-            var anagrams = _anagramsService.GetAnagrams(phrase);
+            var anagrams = _cachedWordsService.GetAnagrams(phrase);
             if (anagrams.Count() != 0)
             {
                 stopWatch.Stop();

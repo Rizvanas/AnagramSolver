@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
-    public class CachedWordsRepository : ICachedWordsRepository
+    class CachedWordsRepository : ICachedWordsRepository
     {
         private readonly WordsDBContext _wordsDBContext;
+
         public CachedWordsRepository(WordsDBContext wordsDBContext)
         {
             _wordsDBContext = wordsDBContext;
@@ -19,7 +19,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public void AddCachedWord(int phraseId, IEnumerable<Anagram> anagrams)
         {
-            foreach(var anagram in anagrams)
+            foreach (var anagram in anagrams)
             {
                 var result = _wordsDBContext.CachedWords.Add(new CachedWordEntity
                 {

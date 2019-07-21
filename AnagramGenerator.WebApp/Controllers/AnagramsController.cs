@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnagramGenerator.WebApp.Controllers
@@ -6,11 +6,11 @@ namespace AnagramGenerator.WebApp.Controllers
     [Route("anagrams")]
     public class AnagramsController : ControllerBase
     {
-        private readonly IAnagramSolver _anagramSolver;
+        private readonly IAnagramsService _anagramsService;
 
-        public AnagramsController(IAnagramSolver anagramSolver)
+        public AnagramsController(IAnagramsService anagramsService)
         {
-            _anagramSolver = anagramSolver;
+            _anagramsService = anagramsService;
         }
         
         [HttpGet]
@@ -20,7 +20,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 return BadRequest();
 
             var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
-            return Ok(_anagramSolver.GetAnagrams(word, IpAdress));
+            return Ok(_anagramsService.GetAnagrams(word, IpAdress));
         }
     }
 }

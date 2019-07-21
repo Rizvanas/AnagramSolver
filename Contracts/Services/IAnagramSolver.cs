@@ -1,7 +1,7 @@
 ﻿using Contracts.DTO;
 using System.Collections.Generic;
 
-namespace Contracts
+namespace Contracts.Services
 {
     public interface IAnagramSolver
     {

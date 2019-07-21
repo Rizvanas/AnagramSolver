@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Contracts.DTO;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Contracts.Extensions
 {
@@ -14,6 +16,22 @@ namespace Contracts.Extensions
                 if (seenKeys.Add(keySelector(element)))
                     yield return element;
             }
+        }
+
+        public static int GetUserAddedWordsCount(this IEnumerable<UserWord> userWords, User user)
+        {
+            return userWords
+                .Where(u => u.UserId == user.Id)
+                .ToList()
+                .Count;
+        }
+
+        public static int GetUserSearchedWordsCount(this IEnumerable<UserLog> userLogs, User user)
+        {
+                 return userLogs
+                .Where(u => u.User.Id == user.Id)
+                .ToList()
+                .Count;
         }
     }
 }

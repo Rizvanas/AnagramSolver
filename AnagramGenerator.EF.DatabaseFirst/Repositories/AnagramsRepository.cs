@@ -1,11 +1,9 @@
 ﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
 using Contracts.DTO;
 using Contracts.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
@@ -20,26 +18,28 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public void AddAnagram(Anagram anagram)
         {
-            var result = _wordsDBContext.Anagrams.Add(new AnagramEntity
+            if (anagram == null)
+                throw new ArgumentNullException("argument anagram is null");
+
+            _wordsDBContext.Anagrams.Add(new AnagramEntity
             {
                 Id = anagram.Id,
-                Anagram = anagram.Text,
+                Anagram = anagram.Text
             });
-
-            if (result.State != EntityState.Added)
-                throw new InvalidOperationException("Anagram was not added");
 
             _wordsDBContext.SaveChanges();
         }
 
         public void AddAnagrams(params Anagram[] anagrams)
         {
-            _wordsDBContext.Anagrams
-                .AddRange(anagrams.Select(a => new AnagramEntity
-                {
-                    Id = a.Id,
-                    Anagram = a.Text
-                }));
+            if (anagrams == null || anagrams.Length == 0)
+                throw new ArgumentNullException("Argument anagrams is null or empty");
+
+            _wordsDBContext.Anagrams.AddRange(anagrams.Select(a => new AnagramEntity
+            {
+                Id = a.Id,
+                Anagram = a.Text
+            }));
 
             _wordsDBContext.SaveChanges();
         }
@@ -49,9 +49,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var anagramEntity = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);
 
             if (anagramEntity == null)
-                throw new InvalidOperationException($"AnagramEntity with id:{id} was not found");
+                throw new ArgumentException($"anagram by id of {id} not found");
 
             _wordsDBContext.Anagrams.Remove(anagramEntity);
+
             _wordsDBContext.SaveChanges();
         }
 
@@ -60,7 +61,7 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var anagramEntity = _wordsDBContext.Anagrams.FirstOrDefault(a => a.Id == id);
 
             if (anagramEntity == null)
-                throw new InvalidOperationException($"AnagramEntity with id:{id} was not found");
+                throw new ArgumentException($"anagram by id of {id} not found");
 
             return new Anagram
             {
@@ -71,11 +72,11 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public IList<Anagram> GetAnagrams()
         {
-            var anagrams = _wordsDBContext.Anagrams;
-            return anagrams.Select(ae => new Anagram
+            var anagramEntities = _wordsDBContext.Anagrams;
+            return anagramEntities.Select(a => new Anagram
             {
-                Id = ae.Id,
-                Text = ae.Anagram
+                Id = a.Id,
+                Text = a.Anagram
             }).ToList();
         }
     }

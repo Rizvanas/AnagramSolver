@@ -8,8 +8,6 @@ namespace AnagramGenerator.EF.DatabaseFirst.Configurations
     {
         public void Configure(EntityTypeBuilder<WordEntity> builder)
         {
-            builder.HasKey(e => e.WordId);
-
             builder.HasIndex(e => e.Word)
                 .HasName("IX_Words")
                 .IsUnique();

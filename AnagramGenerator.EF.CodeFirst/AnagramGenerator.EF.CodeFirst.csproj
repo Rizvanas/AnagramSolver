@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190719113725_Next.cs" />
     <Compile Remove="Migrations\20190719113725_Next.Designer.cs" />
+    <Compile Remove="Migrations\20190720173305_Seed.cs" />
+    <Compile Remove="Migrations\20190720173305_Seed.Designer.cs" />
+    <Compile Remove="Migrations\20190720181420_RemoveUniquePhraseConstraint.cs" />
+    <Compile Remove="Migrations\20190720181420_RemoveUniquePhraseConstraint.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +29,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\DbSeeder\DbSeeder.csproj" />
+    <ProjectReference Include="..\Implementation\Implementation.csproj" />
   </ItemGroup>
 
 </Project>

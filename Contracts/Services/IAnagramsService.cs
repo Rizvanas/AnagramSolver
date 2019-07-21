@@ -5,6 +5,6 @@ namespace Contracts.Services
 {
     public interface IAnagramsService
     {
-        IList<Anagram> GetAnagrams(Phrase phrase);
+        IList<Anagram> GetAnagrams(string word, string ipAddress);
     }
 }

@@ -21,5 +21,16 @@ namespace AnagramGenerator.WebApp.Services
         {
             _cachedWordsRepository.AddCachedWord(phrase.Id, anagrams);
         }
+
+        public IList<Anagram> GetAnagrams(Phrase phrase)
+        {
+            return _cachedWordsRepository.GetCachedWords()
+                .Where(p => p.Phrase.Id == phrase.Id)
+                .Select(p => new Anagram
+                {
+                    Id = p.AnagramId,
+                    Text = p.Anagram.Text,
+                }).ToList();
+        }
     }
 }

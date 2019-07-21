@@ -6,25 +6,28 @@ using Contracts.Models;
 using Contracts;
 using Contracts.Extensions;
 using System.Linq;
+using Contracts.Services;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IAnagramSolver _anagramSolver;
-
-        public HomeController(IAnagramSolver anagramSolver)
+        private readonly IAnagramsService _anagramsService;
+        private readonly ISeeder _seeder;
+        public HomeController(IAnagramsService anagramsService)
         {
-            _anagramSolver = anagramSolver;
+            _anagramsService = anagramsService;
         }
+
 
         [HttpGet("{words?}")]
         public IActionResult Index(string words)
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+
             return View(new AnagramsViewModel
             {
-                Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToList(),
+                Anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList(),
                 Phrase = words.ToPhraseModel() 
             });; 
         }
@@ -40,7 +43,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 "Index",
                 new AnagramsViewModel
                 {
-                    Anagrams = _anagramSolver.GetAnagrams(words, ipAddress).ToList(),
+                    Anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList(),
                     Phrase = words.ToPhraseModel()
                 });
                 

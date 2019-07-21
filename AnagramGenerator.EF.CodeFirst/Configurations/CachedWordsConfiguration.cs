@@ -8,9 +8,6 @@ namespace AnagramGenerator.EF.CodeFirst.Configurations
     {
         public void Configure(EntityTypeBuilder<CachedWordEntity> builder)
         {
-            builder.HasIndex(e => e.PhraseId)
-                .IsUnique();
-
             builder.HasOne(d => d.Anagram)
                 .WithMany(p => p.CachedWords)
                 .HasForeignKey(d => d.AnagramId);

@@ -8,15 +8,21 @@ namespace AnagramGenerator.EF.DatabaseFirst.Configurations
     {
         public void Configure(EntityTypeBuilder<UserLogEntity> builder)
         {
-            builder.Property(e => e.UserIp)
-                .IsRequired()
-                .HasMaxLength(15)
-                .IsUnicode(false);
+            builder.HasOne(d => d.Anagram)
+                .WithMany(p => p.UserLogs)
+                .HasForeignKey(d => d.AnagramId)
+                .HasConstraintName("FK_UserLogs_Anagrams");
 
-            builder.HasOne(d => d.SearchPhrase)
-                .WithMany(p => p.UserLog)
-                .HasForeignKey(d => d.SearchPhraseId)
-                .HasConstraintName("FK_UserLog_Phrases");
+            builder.HasOne(d => d.Phrase)
+                .WithMany(p => p.UserLogs)
+                .HasForeignKey(d => d.PhraseId)
+                .HasConstraintName("FK_UserLogs_Phrases");
+
+            builder.HasOne(d => d.User)
+                .WithMany(p => p.UserLogs)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UserLogs_Users");
         }
     }
 }

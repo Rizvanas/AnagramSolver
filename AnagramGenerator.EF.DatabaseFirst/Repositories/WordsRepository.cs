@@ -1,9 +1,6 @@
 ﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
-using Contracts;
 using Contracts.DTO;
-using Contracts.Extensions;
 using Contracts.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +19,11 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public void AddWord(Word word)
         {
             if (word == null)
-                throw new ArgumentNullException("Word cannot be null");
+                throw new ArgumentNullException("argument word is null");
 
-            var result = _wordsDBContext.Words.Add(new WordEntity
+            _wordsDBContext.Words.Add(new WordEntity
             {
-                WordId = word.Id,
+                Id = word.Id,
                 Word = word.Text
             });
 
@@ -36,24 +33,23 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
         public void AddWords(params Word[] words)
         {
             if (words == null || words.Length == 0)
-                throw new ArgumentNullException("Words cannot be null");
+                throw new ArgumentNullException("Argument words is null or empty");
 
-            _wordsDBContext.Words
-                .AddRange(words.Select(w => new WordEntity
-                {
-                    WordId = w.Id,
-                    Word = w.Text
-                }));
+            _wordsDBContext.Words.AddRange(words.Select(w => new WordEntity
+            {
+                Id = w.Id,
+                Word = w.Text
+            }));
 
             _wordsDBContext.SaveChanges();
         }
 
         public void DeleteWord(int id)
         {
-            var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
+            var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.Id == id);
 
             if (wordEntity == null)
-                throw new InvalidOperationException($"WordEntity with id:{id} was not found");
+                throw new ArgumentException($"word by id of {id} not found");
 
             _wordsDBContext.Words.Remove(wordEntity);
 
@@ -62,27 +58,28 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public Word GetWord(int id)
         {
-            var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.WordId == id);
-            
+            var wordEntity = _wordsDBContext.Words.FirstOrDefault(w => w.Id == id);
+
             if (wordEntity == null)
-                return null;
+                throw new ArgumentException($"word by id of {id} not found");
 
             return new Word
             {
-                Id = wordEntity.WordId,
+                Id = wordEntity.Id,
                 Text = wordEntity.Word
             };
         }
 
         public IList<Word> GetWords()
         {
-            var words = _wordsDBContext.Words;
-
-            return words.Select(we => new Word
-            {
-                Id = we.WordId,
-                Text = we.Word
-            }).ToList();
+            var wordEntities = _wordsDBContext.Words;
+            return wordEntities
+                .Select(w => new Word
+                {
+                    Id = w.Id,
+                    Text = w.Word
+                }).ToList();
         }
     }
 }
+

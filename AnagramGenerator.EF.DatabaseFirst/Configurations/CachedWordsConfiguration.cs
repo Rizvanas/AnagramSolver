@@ -8,9 +8,6 @@ namespace AnagramGenerator.EF.DatabaseFirst.Configurations
     {
         public void Configure(EntityTypeBuilder<CachedWordEntity> builder)
         {
-            builder.HasIndex(e => e.PhraseId)
-                .HasName("IX_CachedWords");
-
             builder.HasOne(d => d.Anagram)
                 .WithMany(p => p.CachedWords)
                 .HasForeignKey(d => d.AnagramId)

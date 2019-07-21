@@ -1,12 +1,9 @@
 ﻿using AnagramGenerator.EF.DatabaseFirst.Entities;
-using Contracts;
 using Contracts.DTO;
 using Contracts.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
@@ -14,32 +11,35 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
     {
         private readonly WordsDBContext _wordsDBContext;
 
-        public PhrasesRepository (WordsDBContext wordsDBContext)
+        public PhrasesRepository(WordsDBContext wordsDBContext)
         {
             _wordsDBContext = wordsDBContext;
         }
 
         public void AddPhrase(Phrase phrase)
         {
-            var result = _wordsDBContext.Phrases.Add(new PhraseEntity
+            if (phrase == null)
+                throw new ArgumentNullException("argument phrase is null");
+
+            _wordsDBContext.Phrases.Add(new PhraseEntity
             {
                 Id = phrase.Id,
-                Phrase = phrase.Text,
+                Phrase = phrase.Text
             });
 
-            if (result.State != EntityState.Added)
-                throw new InvalidOperationException("Phrase was not added");
             _wordsDBContext.SaveChanges();
         }
 
         public void AddPhrases(params Phrase[] phrases)
         {
-            _wordsDBContext.Phrases
-                .AddRange(phrases.Select(a => new PhraseEntity
-                {
-                    Id = a.Id,
-                    Phrase = a.Text
-                }));
+            if (phrases == null || phrases.Length == 0)
+                throw new ArgumentNullException("Argument anagrams is null or empty");
+
+            _wordsDBContext.Phrases.AddRange(phrases.Select(p => new PhraseEntity
+            {
+                Id = p.Id,
+                Phrase = p.Text
+            }));
 
             _wordsDBContext.SaveChanges();
         }
@@ -49,19 +49,19 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             var phraseEntity = _wordsDBContext.Phrases.FirstOrDefault(p => p.Id == id);
 
             if (phraseEntity == null)
-                throw new InvalidOperationException($"PhraseEntity with id:{id} was not found");
+                throw new ArgumentException($"phrase by id of {id} not found");
 
-            var result = _wordsDBContext.Phrases.Remove(phraseEntity);
+            _wordsDBContext.Phrases.Remove(phraseEntity);
 
             _wordsDBContext.SaveChanges();
         }
 
         public Phrase GetPhrase(int id)
         {
-            var phraseEntity = _wordsDBContext.Phrases.FirstOrDefault(p => p.Id == id);
+            var phraseEntity = _wordsDBContext.Phrases.FirstOrDefault(a => a.Id == id);
 
             if (phraseEntity == null)
-                return null;
+                throw new ArgumentException($"phrase by id of {id} not found");
 
             return new Phrase
             {
@@ -72,9 +72,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 
         public IList<Phrase> GetPhrases()
         {
-            var phrases = _wordsDBContext.Phrases;
-
-            return phrases.Select(p => new Phrase
+            var phraseEntities = _wordsDBContext.Phrases;
+            return phraseEntities.Select(p => new Phrase
             {
                 Id = p.Id,
                 Text = p.Phrase

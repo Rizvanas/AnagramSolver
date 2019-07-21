@@ -107,8 +107,7 @@ namespace AnagramGenerator.EF.CodeFirst.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CachedWords_PhraseId",
                 table: "CachedWords",
-                column: "PhraseId",
-                unique: true);
+                column: "PhraseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Phrases_Phrase",
