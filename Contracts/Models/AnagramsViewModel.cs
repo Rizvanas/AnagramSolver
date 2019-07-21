@@ -7,5 +7,6 @@ namespace Contracts.Models
     {
         public Phrase Phrase { get; set; }
         public List<Anagram> Anagrams { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

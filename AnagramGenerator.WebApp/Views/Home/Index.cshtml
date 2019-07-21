@@ -12,19 +12,26 @@
                 <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
             </form>
         }
-        @if (Model.Anagrams.Count != 0)
+        @if (Model.ErrorMessage != null)
         {
-            <h2>Sakinys: @Model.Phrase.Text</h2>
-            <h3>Anagramos</h3>
-            <ul class="list-group">
-                @foreach (var anagram in Model.Anagrams)
-                {
-                    <li class="list-group-item">@anagram.Text</li>
-                }
-            </ul>
+            <p>Jūs viršijote leistinų paieškų limitą, jeigu norite daugiau paieškų, prašome įterpti naują žodį</p>
         }
-        else if (Model.Phrase != null)
+        else
         {
-            <p>Jūsų įvestas sąkinys [@Model.Phrase.Text] anagramų neturi</p>
+            @if (Model.Anagrams.Count != 0)
+            {
+                <h2>Sakinys: @Model.Phrase.Text</h2>
+                <h3>Anagramos</h3>
+                <ul class="list-group">
+                    @foreach (var anagram in Model.Anagrams)
+                    {
+                        <li class="list-group-item">@anagram.Text</li>
+                    }
+                </ul>
+            }
+            else if (Model.Phrase != null)
+            {
+                <p>Jūsų įvestas sąkinys [@Model.Phrase.Text] anagramų neturi</p>
+            }
         }
     </div>

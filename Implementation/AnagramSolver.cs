@@ -32,7 +32,7 @@ namespace Implementation
             _appConfig = appConfig;
         }
 
-        public IList<Anagram> GetAnagrams(string word, string IpAdress)
+        public IList<Anagram> GetAnagrams(string word, User user)
         {
             var stopWatch = new Stopwatch();
             var timeElapsed = 0L;
@@ -47,12 +47,12 @@ namespace Implementation
                 phrase = _phrasesService.GetPhrase(word);
             }
 
-            var anagrams = _cachedWordsService.GetAnagrams(phrase);
+            var anagrams = _cachedWordsService.GetAnagrams(phrase).ToList();
             if (anagrams.Count() != 0)
             {
                 stopWatch.Stop();
                 timeElapsed = stopWatch.ElapsedMilliseconds;
-                _userLogsService.LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
+               _userLogsService.LogUserInfo(phrase, user, anagrams, Convert.ToInt32(timeElapsed));
 
                 return anagrams;
             }
@@ -68,10 +68,11 @@ namespace Implementation
                 .ToList();
 
             _cachedWordsService.AddCachedWord(phrase, anagrams);
+            anagrams = _cachedWordsService.GetAnagrams(phrase).ToList();
 
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;
-            _userLogsService.LogUserInfo(phrase, IpAdress, Convert.ToInt32(timeElapsed));
+            _userLogsService.LogUserInfo(phrase, user, anagrams, Convert.ToInt32(timeElapsed));
 
             return anagrams;
         }

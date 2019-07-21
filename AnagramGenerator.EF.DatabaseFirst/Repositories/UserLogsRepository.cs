@@ -42,7 +42,6 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 Id = ul.Id,
                 UserId = ul.User.Id,
                 PhraseId = ul.Phrase.Id,
-                AnagramId = ul.Anagram.Id,
                 SearchTime = ul.SearchTime,
             }));
 

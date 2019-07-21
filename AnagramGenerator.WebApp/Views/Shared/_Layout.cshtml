@@ -33,11 +33,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="@Url.Action("Index", "Words", new { pageSize=100})">
-                                Žodžių sąrašas
+                                Žodžiai
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="@Url.Action("Update", "Words", null)">
+                            <a class="nav-link text-dark" href="@Url.Action("Index", "UserWords", new { pageSize=100})">
+                                Vartotojų žodžiai
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="@Url.Action("Update", "UserWords", null)">
                                 Pridėti naują žodį
                             </a>
                         </li>

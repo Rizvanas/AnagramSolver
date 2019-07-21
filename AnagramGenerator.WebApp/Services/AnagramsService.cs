@@ -40,6 +40,14 @@ namespace AnagramGenerator.WebApp.Services
                 .GetUsers()
                 .FirstOrDefault(u => u.Ip == ipAddress);
 
+            if (user == null)
+            {
+                _usersRepository.AddUser(new User { Ip = ipAddress });
+                user = _usersRepository
+                    .GetUsers()
+                    .FirstOrDefault(u => u.Ip == ipAddress);
+            }
+
             var userSearchedWordsCount = _userLogsRepository
                 .GetUserLogs()
                 .GetUserSearchedWordsCount(user);
@@ -49,7 +57,7 @@ namespace AnagramGenerator.WebApp.Services
                 .GetUserAddedWordsCount(user);
 
             if (userSearchedWordsCount < userAddedWordsCount + freeSearchesCount)
-                return _anagramSolver.GetAnagrams(word, ipAddress);
+                return _anagramSolver.GetAnagrams(word, user);
 
             throw new Exception("You exceeded free searched limit, please add new word");
         }

@@ -1,24 +1,23 @@
 ﻿using Contracts.Models;
+using Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Contracts.Services;
-using Contracts.Extensions;
+using System.Threading.Tasks;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
-    public class WordsController : Controller
+    public class UserWordsController : Controller
     {
-        private readonly IWordsService _wordsService;
         private readonly IUserWordsService _userWordsService;
 
-        public WordsController(IWordsService wordsService, IUserWordsService userWordsService)
+        public UserWordsController(IUserWordsService userWordsService)
         {
-            _wordsService = wordsService;
             _userWordsService = userWordsService;
         }
 
-        [HttpGet("words")]
+        [HttpGet("userWords")]
         public IActionResult Index(int? page, int pageSize)
         {
             var cookie = Request.Cookies["CurrentPage"];
@@ -28,41 +27,43 @@ namespace AnagramGenerator.WebApp.Controllers
                 : page;
 
             SetPagingCookie(page);
-            return View(new WordsViewModel
+            return View(new UserWordsViewModel
             {
-                Words = _wordsService.GetWords(page, pageSize).ToList(),
+                UserWords = _userWordsService.GetUserWords(page, pageSize).ToList(),
                 Page = page
             });
         }
 
-        [HttpGet("words/update")]
+        [HttpGet("userWords/update")]
         public IActionResult Update()
         {
-            return View(new WordsUpdateViewModel
+            return View(new UserWordsUpdateViewModel
             {
                 GotUpdated = true,
-                Word = null
+                UserWord = null
             });
         }
 
-        [HttpPost("words/update")]
+        [HttpPost("userWords/update")]
         public IActionResult UpdateList(string word)
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             _userWordsService.AddUserWord(word, ipAddress);
 
-            return View("Update", new WordsUpdateViewModel
+            return View("Update", new UserWordsUpdateViewModel
             {
                 GotUpdated = true,
-                Word = word.ToWordModel()
+                UserWord = _userWordsService.GetUserWord(word)
             });
         }
 
-        [HttpPost("words/search")]
-        public IActionResult Search(string searchPhrase)
+        [HttpPost("userWords/remove")]
+        public IActionResult Remove(string word)
         {
-            var words = _wordsService.GetWords(searchPhrase).ToList();
-            return View("Index", new WordsViewModel { Words = words });
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            _userWordsService.RemoveUserWord(word);
+
+            return Redirect("userWords");
         }
 
         private void SetPagingCookie(int? page)

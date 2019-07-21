@@ -1,0 +1,21 @@
+﻿@model Contracts.Models.UserWordsUpdateViewModel
+
+<div class="text-center">
+    <h1>Pridėti naują žodį</h1>
+    @using (Html.BeginForm("UpdateList", "UserWords"))
+    {
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" type="text" id="ss" name="word" aria-describedby="formHelper" />
+                @if (!Model.GotUpdated)
+                {
+                    <small id="formHelper" class="form-text text-muted">
+                        Žodžio @Model.UserWord.Text pridėti nepavyko
+                    </small>
+                }
+            </div>
+            <button type="submit" class="btn btn-dark mb-2">Pridėti</button>
+        </form>
+    }
+
+</div>

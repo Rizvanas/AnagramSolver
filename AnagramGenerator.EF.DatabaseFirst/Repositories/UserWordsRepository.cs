@@ -46,6 +46,14 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             _wordsDBContext.SaveChanges();
         }
 
+        public void UpdateUserWord(int id, string text)
+        {
+            var userWordEntity = _wordsDBContext.UserWords.FirstOrDefault(w => w.Id == id);
+            userWordEntity.Word = text;
+
+            _wordsDBContext.SaveChanges();
+        }
+
         public void DeleteUserWord(int id)
         {
             var userWordEntity = _wordsDBContext.UserWords.FirstOrDefault(w => w.Id == id);

@@ -22,20 +22,16 @@ namespace AnagramGenerator.WebApp.Services
             return userLogs;
         }
 
-        public void LogUserInfo(Phrase phrase, string ip, int searchTime)
+        public void LogUserInfo(Phrase phrase, User user, List<Anagram> anagrams, int searchTime)
         {
-            try
+            foreach(var anagram in anagrams)
             {
                 _userLogsRepository.AddUserLog(new UserLog
-                {
-                    UserIp = ip,
-                    SearchPhrase = phrase,
-                    SearchTime = searchTime,
+                { Phrase = phrase,
+                    User = user,
+                    Anagram = anagram,
+                    SearchTime = searchTime
                 });
-            }
-            catch (System.InvalidOperationException)
-            {
-                throw;
             }
         }
     }

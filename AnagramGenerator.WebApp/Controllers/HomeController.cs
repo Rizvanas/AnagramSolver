@@ -7,13 +7,14 @@ using Contracts;
 using Contracts.Extensions;
 using System.Linq;
 using Contracts.Services;
+using Contracts.DTO;
+using System.Collections.Generic;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IAnagramsService _anagramsService;
-        private readonly ISeeder _seeder;
         public HomeController(IAnagramsService anagramsService)
         {
             _anagramsService = anagramsService;
@@ -24,10 +25,25 @@ namespace AnagramGenerator.WebApp.Controllers
         public IActionResult Index(string words)
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            var anagrams = new List<Anagram>();
+
+            try
+            {
+                anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList();
+            }
+            catch (Exception e)
+            {
+                return View("Index",
+                    new AnagramsViewModel
+                    {
+                        ErrorMessage = e.Message
+                    });
+            }
 
             return View(new AnagramsViewModel
             {
-                Anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList(),
+                ErrorMessage = null,
+                Anagrams = anagrams,
                 Phrase = words.ToPhraseModel() 
             });; 
         }
@@ -39,11 +55,25 @@ namespace AnagramGenerator.WebApp.Controllers
                 return NoContent();
 
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            var anagrams = new List<Anagram>();
+
+            try
+            {
+                anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList();
+            }
+            catch (Exception e)
+            {
+                return View("Index",
+                    new AnagramsViewModel
+                    {
+                        ErrorMessage = e.Message
+                    });
+            }
             return View(
                 "Index",
                 new AnagramsViewModel
                 {
-                    Anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList(),
+                    Anagrams = anagrams,
                     Phrase = words.ToPhraseModel()
                 });
                 

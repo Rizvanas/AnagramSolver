@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace AnagramGenerator.EF.DatabaseFirst.Repositories
 {
-    class CachedWordsRepository : ICachedWordsRepository
+    public class CachedWordsRepository : ICachedWordsRepository
     {
         private readonly WordsDBContext _wordsDBContext;
 

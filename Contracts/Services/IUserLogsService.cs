@@ -8,6 +8,6 @@ namespace Contracts.Services
     public interface IUserLogsService
     {
         IList<UserLog> GetUserLogs();
-        void LogUserInfo(Phrase phrase, string ip, int searchTime);
+        void LogUserInfo(Phrase phrase, User user, List<Anagram> anagrams, int searchTime);
     }
 }

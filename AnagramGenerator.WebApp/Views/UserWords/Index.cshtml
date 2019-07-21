@@ -1,0 +1,68 @@
+﻿
+@model Contracts.Models.UserWordsViewModel
+
+<style>
+    .footeris {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        margin-left: 15px
+    }
+</style>
+
+<div class="text-center">
+    @using (Html.BeginForm("Search", "Words"))
+    {
+        <form class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" placeholder="Įveskite žodį" type="text" id="ss" name="searchPhrase" />
+            </div>
+            <button type="submit" class="btn btn-dark mb-2">Ieškoti</button>
+        </form>
+    }
+    <h1>Vartotojų Žodžiai</h1>
+    @if (Model.UserWords.Count == 0)
+    {
+        <p>Žodžių sąraše nėra</p>
+    }
+    else
+    {
+        <table class="table">
+            <tbody>
+                @foreach (var word in Model.UserWords)
+                {
+                <tr>
+                    <td class="list-group-flush">
+                        @Html.ActionLink(word.Text, "Index", "Home", new { words = word.Text }, null)
+
+                    </td>
+                    <td class="list-group-flush">
+                        <button type="submit" class="btn btn-dark mb-2">Pakeisti</button>
+                        <button type="button" class="close" aria-label="Close">
+                            <%= Html.ActionLink(
+                            "Delete",
+                            "Delete",
+                            new { id = item.storyId },
+                            new { onclick = "return confirm('Are you sure you wish to delete this article?');" })
+                            %>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    <ul class="pagination footeris">
+        <li class="page-item">
+            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page-=1, pageSize=100},  null)">Previous</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link" href="@Url.Action("Index", "Words", new { page=Model.Page+=2, pageSize=100}, null)">Next</a>
+        </li>
+    </ul>
+</div>

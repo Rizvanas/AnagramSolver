@@ -42,9 +42,42 @@ namespace AnagramGenerator.WebApp.Services
             });
         }
 
-        public List<UserWord> GetUserWords()
+        public void RemoveUserWord(string word)
         {
-            return _userWordsRepository.GetUserWords().ToList();
+            var wordToRemove = _userWordsRepository
+                .GetUserWords()
+                .FirstOrDefault(uw => uw.Text.Trim().ToLower() == word.Trim().ToLower());
+
+            if (wordToRemove == null)
+                throw new ArgumentException("The word you are trying to delete doensn't exist");
+
+            _userWordsRepository.DeleteUserWord(wordToRemove.Id);
+        }
+
+        public List<UserWord> GetUserWords(int? page, int pageSize)
+        {
+            page = (page < 1 || page == null) ? 1 : page;
+
+            return _userWordsRepository
+                .GetUserWords()
+                .Skip((page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+
+        public UserWord GetUserWord(string word)
+        {
+            return _userWordsRepository
+                .GetUserWords()
+                .SingleOrDefault(uw => uw.Text.Trim().ToLower() == word.Trim().ToLower());
+        }
+
+        public IList<UserWord> GetUserWords(string word)
+        {
+            return _userWordsRepository
+                .GetUserWords()
+                .Where(w => w.Text.StartsWith(word))
+                .ToList();
         }
     }
 }
