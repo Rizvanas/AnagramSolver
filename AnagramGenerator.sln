@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.EF.CodeFir
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbSeeder", "DbSeeder\DbSeeder.csproj", "{29E2A41C-7E13-4354-9E98-458E64D43B3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnagramGenerator.WebApi", "AnagramGenerator.WebApi\AnagramGenerator.WebApi.csproj", "{B57C063E-D641-4C75-B367-C513F9E2E70D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +66,10 @@ Global
 		{29E2A41C-7E13-4354-9E98-458E64D43B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29E2A41C-7E13-4354-9E98-458E64D43B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29E2A41C-7E13-4354-9E98-458E64D43B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B57C063E-D641-4C75-B367-C513F9E2E70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B57C063E-D641-4C75-B367-C513F9E2E70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B57C063E-D641-4C75-B367-C513F9E2E70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B57C063E-D641-4C75-B367-C513F9E2E70D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
