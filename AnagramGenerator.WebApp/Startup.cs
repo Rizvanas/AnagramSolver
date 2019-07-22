@@ -62,7 +62,7 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IWordsService, WordsService>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
-           // services.AddScoped<ISeeder, WordsSeeder>();
+            services.AddScoped<ISeeder, WordsSeeder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

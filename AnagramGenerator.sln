@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.RawSQL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnagramGenerator.EF.CodeFirst", "AnagramGenerator.EF.CodeFirst\AnagramGenerator.EF.CodeFirst.csproj", "{09832F96-A272-47DD-BCE2-4025F2E77FCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbSeeder", "DbSeeder\DbSeeder.csproj", "{29E2A41C-7E13-4354-9E98-458E64D43B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbSeeder", "DbSeeder\DbSeeder.csproj", "{29E2A41C-7E13-4354-9E98-458E64D43B3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,7 +55,6 @@ Global
 		{B79CA8DF-2D48-4C20-B4BF-FDB8DF498E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B79CA8DF-2D48-4C20-B4BF-FDB8DF498E18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96575F8E-4508-45EA-B8E8-8B91F3C8287F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09832F96-A272-47DD-BCE2-4025F2E77FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

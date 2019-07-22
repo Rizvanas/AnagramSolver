@@ -29,7 +29,6 @@ namespace AnagramGenerator.WebApp.Controllers
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var anagrams = new List<Anagram>();
-            //_seeder.Seed();
             try
             {
                 anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList();
