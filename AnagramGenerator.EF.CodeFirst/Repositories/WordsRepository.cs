@@ -4,7 +4,6 @@ using Contracts.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.EF.CodeFirst.Repositories
 {
@@ -24,7 +23,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
             _wordsDB_CFContext.Words.Add(new WordEntity
             {
-                WordId = word.Id,
+                Id = word.Id,
                 Word = word.Text
             });
 
@@ -38,7 +37,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
             _wordsDB_CFContext.Words.AddRange(words.Select(w => new WordEntity
             {
-                WordId = w.Id,
+                Id = w.Id,
                 Word = w.Text
             }));
 
@@ -47,7 +46,7 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public void DeleteWord(int id)
         {
-            var wordEntity = _wordsDB_CFContext.Words.FirstOrDefault(w => w.WordId == id);
+            var wordEntity = _wordsDB_CFContext.Words.FirstOrDefault(w => w.Id == id);
 
             if (wordEntity == null)
                 throw new ArgumentException($"word by id of {id} not found");
@@ -59,14 +58,14 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public Word GetWord(int id)
         {
-            var wordEntity = _wordsDB_CFContext.Words.FirstOrDefault(w => w.WordId == id);
+            var wordEntity = _wordsDB_CFContext.Words.FirstOrDefault(w => w.Id == id);
 
             if (wordEntity == null)
                 throw new ArgumentException($"word by id of {id} not found");
 
             return new Word
             {
-                Id = wordEntity.WordId,
+                Id = wordEntity.Id,
                 Text = wordEntity.Word
             };
         }
@@ -77,9 +76,10 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             return wordEntities
                 .Select(w => new Word
                 {
-                    Id = w.WordId,
+                    Id = w.Id,
                     Text = w.Word
                 }).ToList();
         }
     }
 }
+

@@ -15,8 +15,11 @@ namespace AnagramGenerator.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly IAnagramsService _anagramsService;
-        public HomeController(IAnagramsService anagramsService)
+        private readonly ISeeder _seeder;
+
+        public HomeController(IAnagramsService anagramsService, ISeeder seeder)
         {
+            _seeder = seeder;
             _anagramsService = anagramsService;
         }
 
@@ -26,7 +29,7 @@ namespace AnagramGenerator.WebApp.Controllers
         {
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
             var anagrams = new List<Anagram>();
-
+            //_seeder.Seed();
             try
             {
                 anagrams = _anagramsService.GetAnagrams(words, ipAddress).ToList();

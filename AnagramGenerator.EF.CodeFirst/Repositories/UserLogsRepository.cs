@@ -19,11 +19,12 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public void AddUserLog(UserLog userLog)
         {
-            var result = _wordsDB_CFContext.UserLog.Add(new UserLogEntity
+            var result = _wordsDB_CFContext.UserLogs.Add(new UserLogEntity
             {
                 Id = userLog.Id,
-                UserIp = userLog.UserIp,
-                SearchPhraseId = userLog.SearchPhrase.Id,
+                UserId = userLog.User.Id,
+                PhraseId = userLog.Phrase.Id,
+                AnagramId = userLog.Anagram.Id,
                 SearchTime = userLog.SearchTime
             });
 
@@ -35,18 +36,13 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public void AddUserLogs(params UserLog[] userLogs)
         {
-            _wordsDB_CFContext.UserLog.AddRange(userLogs.Select(ul => 
+            _wordsDB_CFContext.UserLogs.AddRange(userLogs.Select(ul =>
             new UserLogEntity
             {
                 Id = ul.Id,
-                UserIp = ul.UserIp,
-                SearchPhrase = new PhraseEntity
-                {
-                    Id = ul.SearchPhrase.Id,
-                    Phrase = ul.SearchPhrase.Text
-                },
+                UserId = ul.User.Id,
+                PhraseId = ul.Phrase.Id,
                 SearchTime = ul.SearchTime,
-                SearchPhraseId = ul.SearchPhrase.Id
             }));
 
             _wordsDB_CFContext.SaveChanges();
@@ -54,19 +50,19 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public void DeleteUserLog(int id)
         {
-            var userLogEntity = _wordsDB_CFContext.UserLog.FirstOrDefault(ul => ul.Id == id);
+            var userLogEntity = _wordsDB_CFContext.UserLogs.FirstOrDefault(ul => ul.Id == id);
 
             if (userLogEntity == null)
                 throw new InvalidOperationException($"UserLogEntity with id:{id} was not found");
 
-            _wordsDB_CFContext.UserLog.Remove(userLogEntity);
+            _wordsDB_CFContext.UserLogs.Remove(userLogEntity);
 
             _wordsDB_CFContext.SaveChanges();
         }
 
         public UserLog GetUserLog(int id)
         {
-            var userLogEntity = _wordsDB_CFContext.UserLog.FirstOrDefault(w => w.Id == id);
+            var userLogEntity = _wordsDB_CFContext.UserLogs.FirstOrDefault(ul => ul.Id == id);
 
             if (userLogEntity == null)
                 throw new InvalidOperationException($"UserLogEntity with id:{id} was not found");
@@ -74,11 +70,20 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
             return new UserLog
             {
                 Id = userLogEntity.Id,
-                UserIp = userLogEntity.UserIp,
-                SearchPhrase = new Phrase
+                User = new User
                 {
-                    Id = userLogEntity.SearchPhrase.Id,
-                    Text = userLogEntity.SearchPhrase.Phrase
+                    Id = userLogEntity.UserId,
+                    Ip = userLogEntity.User.Ip
+                },
+                Phrase = new Phrase
+                {
+                    Id = userLogEntity.Phrase.Id,
+                    Text = userLogEntity.Phrase.Phrase
+                },
+                Anagram = new Anagram
+                {
+                    Id = userLogEntity.AnagramId,
+                    Text = userLogEntity.Anagram.Anagram
                 },
                 SearchTime = userLogEntity.SearchTime
             };
@@ -86,16 +91,25 @@ namespace AnagramGenerator.EF.CodeFirst.Repositories
 
         public IList<UserLog> GetUserLogs()
         {
-            var logEntities = _wordsDB_CFContext.UserLog;
+            var logEntities = _wordsDB_CFContext.UserLogs;
 
             return logEntities.Select(ul => new UserLog
             {
                 Id = ul.Id,
-                UserIp = ul.UserIp,
-                SearchPhrase = new Phrase
+                User = new User
                 {
-                    Id = ul.SearchPhrase.Id,
-                    Text = ul.SearchPhrase.Phrase
+                    Id = ul.UserId,
+                    Ip = ul.User.Ip
+                },
+                Phrase = new Phrase
+                {
+                    Id = ul.Phrase.Id,
+                    Text = ul.Phrase.Phrase
+                },
+                Anagram = new Anagram
+                {
+                    Id = ul.AnagramId,
+                    Text = ul.Anagram.Anagram
                 },
                 SearchTime = ul.SearchTime
             }).ToList();

@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AnagramGenerator.EF.CodeFirst.Configurations
 {
-    public class WordsConfiguration : IEntityTypeConfiguration<WordEntity>
+    public class UsersConfiguration : IEntityTypeConfiguration<UserEntity>
     {
-        public void Configure(EntityTypeBuilder<WordEntity> builder)
+        public void Configure(EntityTypeBuilder<UserEntity> builder)
         {
-            builder.HasIndex(e => e.Word)
+            builder.HasIndex(e => e.Ip)
                 .IsUnique();
 
-            builder.Property(e => e.Word)
+            builder.Property(e => e.Ip)
                 .IsRequired()
-                .HasMaxLength(255);
+                .HasMaxLength(15);
         }
     }
 }

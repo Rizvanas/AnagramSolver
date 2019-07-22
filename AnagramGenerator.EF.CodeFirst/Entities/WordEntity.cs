@@ -1,13 +1,11 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AnagramGenerator.EF.CodeFirst.Entities
 {
-    public class WordEntity
+    public partial class WordEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int WordId { get; set; }
-
+        public int Id { get; set; }
         public string Word { get; set; }
     }
 }

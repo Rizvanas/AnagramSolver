@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using AnagramGenerator.EF.DatabaseFirst.Repositories;
+using AnagramGenerator.EF.CodeFirst.Repositories;
 using Contracts.Services;
 using AnagramGenerator.WebApp.Services;
 using DatabaseSeeder;
-using AnagramGenerator.EF.DatabaseFirst;
+using AnagramGenerator.EF.CodeFirst;
 
 namespace AnagramGenerator.WebApp
 {
@@ -37,11 +37,11 @@ namespace AnagramGenerator.WebApp
                 options.Cookie.SameSite = SameSiteMode.Lax;
             });
 
-            services.AddDbContext<WordsDBContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));
+/*            services.AddDbContext<WordsDBContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB")));*/
 
-/*            services.AddDbContext<WordsDB_CFContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB_CF")));*/
+            services.AddDbContext<WordsDB_CFContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("WordsDB_CF")));
 
             services.AddScoped<IAppConfig, AppConfig>();
             services.AddScoped<IWordLoader, FileLoader>();
@@ -62,7 +62,7 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IWordsService, WordsService>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 
-            //services.AddScoped<ISeeder, WordsSeeder>();
+           // services.AddScoped<ISeeder, WordsSeeder>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

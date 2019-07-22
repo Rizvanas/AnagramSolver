@@ -1,16 +1,15 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AnagramGenerator.EF.CodeFirst.Entities
 {
-    public class CachedWordEntity
+    public partial class CachedWordEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public int PhraseId { get; set; }
         public int AnagramId { get; set; }
-        public AnagramEntity Anagram { get; set; }
-        public PhraseEntity Phrase { get; set; }
+
+        public virtual AnagramEntity Anagram { get; set; }
+        public virtual PhraseEntity Phrase { get; set; }
     }
 }
