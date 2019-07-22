@@ -16,7 +16,7 @@
                     @foreach (var log in Model.UserLogs)
                     {
                     <tr>
-                        <td class="list-group-flush">@log.User</td>
+                        <td class="list-group-flush">@log.User.Ip</td>
                         <td class="list-group-flush">@log.SearchTime ms.</td>
                         <td class="list-group-flush">@log.Phrase.Text</td>
                     </tr>

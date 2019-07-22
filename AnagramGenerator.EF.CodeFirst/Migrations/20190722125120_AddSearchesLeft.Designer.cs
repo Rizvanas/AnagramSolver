@@ -3,14 +3,16 @@ using AnagramGenerator.EF.CodeFirst;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AnagramGenerator.EF.CodeFirst.Migrations
 {
     [DbContext(typeof(WordsDB_CFContext))]
-    partial class WordsDB_CFContextModelSnapshot : ModelSnapshot
+    [Migration("20190722125120_AddSearchesLeft")]
+    partial class AddSearchesLeft
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

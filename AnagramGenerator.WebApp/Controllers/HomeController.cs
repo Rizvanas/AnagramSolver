@@ -46,7 +46,7 @@ namespace AnagramGenerator.WebApp.Controllers
                 ErrorMessage = null,
                 Anagrams = anagrams,
                 Phrase = words.ToPhraseModel() 
-            });; 
+            });
         }
 
         [HttpPost("/")]

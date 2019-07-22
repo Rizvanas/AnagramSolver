@@ -18,6 +18,10 @@ namespace AnagramGenerator.EF.DatabaseFirst.Configurations
             builder.Property(e => e.Ip)
                 .IsRequired()
                 .HasMaxLength(15);
+
+            builder.Property(e => e.SearchesLeft)
+                .IsRequired()
+                .HasDefaultValue(5);
         }
     }
 }

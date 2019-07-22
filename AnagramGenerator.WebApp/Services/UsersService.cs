@@ -27,5 +27,10 @@ namespace AnagramGenerator.WebApp.Services
 
             return _usersRepository.GetUser(userWord.UserId);
         }
+
+        public void UpdateUserSearchesCount(int id, int searchesCount)
+        {
+            _usersRepository.UpdateUser(new User {  Id = id, SearchesLeft = searchesCount });
+        }
     }
 }

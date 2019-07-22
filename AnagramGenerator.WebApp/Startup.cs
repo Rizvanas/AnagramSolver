@@ -59,6 +59,7 @@ namespace AnagramGenerator.WebApp
             services.AddScoped<IPhrasesService, PhrasesService>();
             services.AddScoped<IUserLogsService, UserLogsService>();
             services.AddScoped<IUserWordsService, UserWordsService>();
+            services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IWordsService, WordsService>();
             services.AddScoped<IAnagramSolver, AnagramSolver>();
 

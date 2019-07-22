@@ -28,11 +28,12 @@ namespace Contracts.Extensions
 
         public static int GetUserSearchedWordsCount(this IEnumerable<UserLog> userLogs, User user)
         {
-            return userLogs
+            var userSearchedWords = userLogs
                 .Where(ul => ul.User.Id == user.Id)
-                .GroupBy(ul => ul.Phrase.Id)
-                .ToList()
-                .Count;
+                .GroupBy(ul => ul.Phrase.Id).GroupBy(gr => gr.Select(g => g).Select(a => a.Anagram))
+                .ToList();
+
+            return userSearchedWords.Count;
         }
     }
 }

@@ -66,7 +66,8 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
             return new User
             {
                 Id = userEntity.Id,
-                Ip = userEntity.Ip
+                Ip = userEntity.Ip,
+                SearchesLeft = userEntity.SearchesLeft
             };
         }
 
@@ -77,8 +78,21 @@ namespace AnagramGenerator.EF.DatabaseFirst.Repositories
                 .Select(u => new User
                 {
                     Id = u.Id,
-                    Ip = u.Ip
+                    Ip = u.Ip,
+                    SearchesLeft = u.SearchesLeft
                 }).ToList();
+        }
+
+        public void UpdateUser(User user)
+        {
+            var userEntity = _wordsDBContext.Users.FirstOrDefault(u => u.Id == user.Id);
+
+            if (userEntity == null)
+                throw new ArgumentException($"user by id of {user.Id} not found");
+
+            userEntity.SearchesLeft = user.SearchesLeft;
+
+            _wordsDBContext.SaveChanges();
         }
     }
 }

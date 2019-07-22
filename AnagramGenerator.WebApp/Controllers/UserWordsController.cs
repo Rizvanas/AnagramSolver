@@ -57,7 +57,8 @@ namespace AnagramGenerator.WebApp.Controllers
         [HttpPost("userWords/remove")]
         public IActionResult Remove(string word)
         {
-            _userWordsService.RemoveUserWord(word);
+            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            _userWordsService.RemoveUserWord(word, ipAddress);
 
             return Redirect($"/userWords?pageSize=100");
         }
@@ -83,7 +84,8 @@ namespace AnagramGenerator.WebApp.Controllers
         {
             try
             {
-                _userWordsService.UpdateUserWord(wordId, word);
+                var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                _userWordsService.UpdateUserWord(wordId, word, ipAddress);
             }
             catch
             {

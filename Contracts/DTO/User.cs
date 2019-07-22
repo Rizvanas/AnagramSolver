@@ -8,5 +8,6 @@ namespace Contracts.DTO
     {
         public int Id { get; set; }
         public string Ip { get; set; }
+        public int SearchesLeft { get; set; }
     }
 }

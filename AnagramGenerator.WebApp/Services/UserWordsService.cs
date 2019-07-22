@@ -16,16 +16,19 @@ namespace AnagramGenerator.WebApp.Services
         private readonly IUserLogsRepository _userLogsRepository;
         private readonly IUsersRepository _usersRepository;
         private readonly IAppConfig _appConfig;
+        private readonly IUsersService _usersService;
 
         public UserWordsService(
-            IUserWordsRepository userWordsRepository, 
-            IUserLogsRepository userLogsRepository, 
+            IUserWordsRepository userWordsRepository,
+            IUserLogsRepository userLogsRepository,
             IUsersRepository usersRepository,
+            IUsersService usersService,
             IAppConfig appConfig)
         {
             _userWordsRepository = userWordsRepository;
             _userLogsRepository = userLogsRepository;
             _usersRepository = usersRepository;
+            _usersService = usersService;
             _appConfig = appConfig;
         }
 
@@ -40,9 +43,11 @@ namespace AnagramGenerator.WebApp.Services
                 Text = word,
                 UserId = user.Id
             });
+
+            _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft + 1);
         }
 
-        public void RemoveUserWord(string word)
+        public void RemoveUserWord(string word, string userIp)
         {
             var wordToRemove = _userWordsRepository
                 .GetUserWords()
@@ -51,7 +56,12 @@ namespace AnagramGenerator.WebApp.Services
             if (wordToRemove == null)
                 throw new ArgumentException("The word you are trying to delete doensn't exist");
 
+            var user = _usersRepository
+                .GetUsers()
+                .FirstOrDefault(u => u.Ip == userIp);
+
             _userWordsRepository.DeleteUserWord(wordToRemove.Id);
+            _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft - 1);
         }
 
         public List<UserWord> GetUserWords(int? page, int pageSize)
@@ -80,9 +90,14 @@ namespace AnagramGenerator.WebApp.Services
                 .ToList();
         }
 
-        public void UpdateUserWord(int id, string newValue)
+        public void UpdateUserWord(int id, string newValue, string userIp)
         {
+            var user = _usersRepository
+               .GetUsers()
+               .FirstOrDefault(u => u.Ip == userIp);
+
             _userWordsRepository.UpdateUserWord(id, newValue);
+            _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft + 1);
         }
     }
 }

@@ -16,18 +16,21 @@ namespace Implementation
         private readonly IWordsService _wordsService;
         private readonly IPhrasesService _phrasesService;
         private readonly IUserLogsService _userLogsService;
+        private readonly IUsersService _usersService;
         private readonly ICachedWordsService _cachedWordsService;
         private readonly IAppConfig _appConfig;
 
         public AnagramSolver(IWordsService wordsService,
             IPhrasesService phrasesService,
             IUserLogsService userLogsService,
+            IUsersService usersService,
             ICachedWordsService cachedWordsService,
             IAppConfig appConfig)
         {
             _wordsService = wordsService;
             _phrasesService = phrasesService;
             _userLogsService = userLogsService;
+            _usersService = usersService;
             _cachedWordsService = cachedWordsService;
             _appConfig = appConfig;
         }
@@ -52,7 +55,8 @@ namespace Implementation
             {
                 stopWatch.Stop();
                 timeElapsed = stopWatch.ElapsedMilliseconds;
-               _userLogsService.LogUserInfo(phrase, user, anagrams, Convert.ToInt32(timeElapsed));
+                _userLogsService.LogUserInfo(phrase, user, anagrams, Convert.ToInt32(timeElapsed));
+                _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft + 1);
 
                 return anagrams;
             }
@@ -73,6 +77,7 @@ namespace Implementation
             stopWatch.Stop();
             timeElapsed = stopWatch.ElapsedMilliseconds;
             _userLogsService.LogUserInfo(phrase, user, anagrams, Convert.ToInt32(timeElapsed));
+            _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft - 1);
 
             return anagrams;
         }

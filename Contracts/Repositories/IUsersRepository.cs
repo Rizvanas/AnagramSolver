@@ -12,5 +12,6 @@ namespace Contracts.Repositories
         void DeleteUser(int id);
         User GetUser(int id);
         IList<User> GetUsers();
+        void UpdateUser(User user);
     }
 }
