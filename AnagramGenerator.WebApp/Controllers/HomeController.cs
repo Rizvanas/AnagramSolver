@@ -3,7 +3,6 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Contracts.Models;
-using Contracts;
 using Contracts.Extensions;
 using System.Linq;
 using Contracts.Services;
