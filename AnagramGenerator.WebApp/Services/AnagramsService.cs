@@ -14,20 +14,17 @@ namespace AnagramGenerator.WebApp.Services
     {
         private readonly IAnagramSolver _anagramSolver;
         private readonly IUserWordsRepository _userWordsRepository;
-        private readonly IUserLogsRepository _userLogsRepository;
         private readonly IUsersRepository _usersRepository;
         private readonly IAppConfig _appConfig;
 
         public AnagramsService(
             IAnagramSolver anagramSolver, 
             IUserWordsRepository userWordsRepository,
-            IUserLogsRepository userLogsRepository,
             IUsersRepository usersRepository,
             IAppConfig appConfig)
         {
             _anagramSolver = anagramSolver;
             _userWordsRepository = userWordsRepository;
-            _userLogsRepository = userLogsRepository;
             _usersRepository = usersRepository;
             _appConfig = appConfig;
         }

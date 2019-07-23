@@ -56,10 +56,5 @@ namespace AnagramGenerator.WebApp.Services
                 .OrderByDescending(w => w.Text.Length)
                 .ToList();
         }
-
-        public void AddWord(string word)
-        {
-            _wordsRepository.AddWord(new Word { Text = word });
-        }
     }
 }

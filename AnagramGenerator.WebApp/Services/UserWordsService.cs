@@ -13,23 +13,17 @@ namespace AnagramGenerator.WebApp.Services
     public class UserWordsService : IUserWordsService
     {
         private readonly IUserWordsRepository _userWordsRepository;
-        private readonly IUserLogsRepository _userLogsRepository;
         private readonly IUsersRepository _usersRepository;
-        private readonly IAppConfig _appConfig;
         private readonly IUsersService _usersService;
 
         public UserWordsService(
             IUserWordsRepository userWordsRepository,
-            IUserLogsRepository userLogsRepository,
             IUsersRepository usersRepository,
-            IUsersService usersService,
-            IAppConfig appConfig)
+            IUsersService usersService)
         {
             _userWordsRepository = userWordsRepository;
-            _userLogsRepository = userLogsRepository;
             _usersRepository = usersRepository;
             _usersService = usersService;
-            _appConfig = appConfig;
         }
 
         public void AddUserWord(string word, string userIp)
@@ -54,7 +48,7 @@ namespace AnagramGenerator.WebApp.Services
                 .FirstOrDefault(uw => uw.Text.Trim().ToLower() == word.Trim().ToLower());
 
             if (wordToRemove == null)
-                throw new ArgumentException("The word you are trying to delete doensn't exist");
+                throw new ArgumentException("The word you are trying to delete doesn't exist");
 
             var user = _usersRepository
                 .GetUsers()
