@@ -69,8 +69,9 @@ namespace AnagramGenerator.WebApp.Tests.Services
             var anagramsResult = _cachedWordsService.GetAnagrams(phrase);
 
             _cachedWordsRepository.Received(1).GetCachedWords();
-
-            anagramsResult.Count.ShouldBe(3);
+            anagramsResult.Count.ShouldBe(2);
+            anagramsResult.First().Text.ShouldBe("rizvanas");
+            anagramsResult.Last().Text.ShouldBe("vanas riz");
         }
     }
 }

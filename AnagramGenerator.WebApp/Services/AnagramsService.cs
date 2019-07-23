@@ -13,18 +13,15 @@ namespace AnagramGenerator.WebApp.Services
     public class AnagramsService : IAnagramsService
     {
         private readonly IAnagramSolver _anagramSolver;
-        private readonly IUserWordsRepository _userWordsRepository;
         private readonly IUsersRepository _usersRepository;
         private readonly IAppConfig _appConfig;
 
         public AnagramsService(
             IAnagramSolver anagramSolver, 
-            IUserWordsRepository userWordsRepository,
             IUsersRepository usersRepository,
             IAppConfig appConfig)
         {
             _anagramSolver = anagramSolver;
-            _userWordsRepository = userWordsRepository;
             _usersRepository = usersRepository;
             _appConfig = appConfig;
         }
@@ -44,10 +41,6 @@ namespace AnagramGenerator.WebApp.Services
                     .GetUsers()
                     .FirstOrDefault(u => u.Ip == ipAddress);
             }
-
-            var userAddedWordsCount = _userWordsRepository
-                .GetUserWords()
-                .GetUserAddedWordsCount(user);
 
             if (user.SearchesLeft > 0)
                 return _anagramSolver.GetAnagrams(word, user);
