@@ -18,7 +18,6 @@ namespace AnagramGenerator.WebApp.Tests.Services
         private IPhrasesRepository _phrasesRepository;
         private IPhrasesService _phrasesService;
 
-
         [SetUp]
         public void Setup()
         {
@@ -36,6 +35,7 @@ namespace AnagramGenerator.WebApp.Tests.Services
                 new Phrase { Id = 3, Text = "Rizvanai" },
                 new Phrase { Id = 4, Text = "Chalilovai" }
             });
+
 
             var phraseResult = _phrasesService.GetPhrase("rizvanai");
             phraseResult.ShouldNotBeNull();

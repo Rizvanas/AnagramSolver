@@ -56,6 +56,8 @@ namespace AnagramGenerator.WebApp.Tests.Services
         [Test]
         public void UpdateUserSearchesCount_UpdatesUsersInfo()
         {
+            _usersService.UpdateUserSearchesCount(1, 5);
+            _usersRepository.Received().UpdateUser(Arg.Any<User>());
         }
     }
 }

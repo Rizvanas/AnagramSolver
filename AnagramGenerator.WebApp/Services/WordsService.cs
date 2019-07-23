@@ -24,7 +24,7 @@ namespace AnagramGenerator.WebApp.Services
         {
             return _wordsRepository
                 .GetWords()
-                .Where(w => w.Text.StartsWith(word))
+                .Where(w => w.Text.ToLower().StartsWith(word.ToLower()))
                 .ToList();
         }
 

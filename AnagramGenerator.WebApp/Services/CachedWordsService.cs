@@ -29,7 +29,7 @@ namespace AnagramGenerator.WebApp.Services
                 .Select(p => new Anagram
                 {
                     Id = p.AnagramId,
-                    Text = p.Anagram.Text,
+                    Text = p.Anagram.Text
                 }).ToList();
         }
     }

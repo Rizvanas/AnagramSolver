@@ -4,10 +4,8 @@ using Contracts.Repositories;
 using NSubstitute;
 using NUnit.Framework;
 using Shouldly;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AnagramGenerator.WebApp.Tests.Services
 {
@@ -78,9 +76,8 @@ namespace AnagramGenerator.WebApp.Tests.Services
             var searchTime = 200;
 
             _userLogsService.LogUserInfo(phrase, user, anagrams, searchTime);
-            _userLogsRepository.Received().AddUserLog(Arg.Any<UserLog>());
             _userLogsRepository.ReceivedCalls().ShouldNotBeEmpty();
-            _userLogsRepository.ReceivedCalls().ToList().Count.ShouldBe(3);
+            _userLogsRepository.Received(3).AddUserLog(Arg.Any<UserLog>());
         }
     }
 }
