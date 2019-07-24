@@ -21,7 +21,7 @@ namespace AnagramGenerator.WebApp.Controllers
         }
 
         [HttpGet("words")]
-        public IActionResult Index(int? page, int pageSize)
+        public ViewResult Index(int? page, int pageSize)
         {
             var cookie = Request.Cookies["CurrentPage"];
 

@@ -14,11 +14,9 @@ namespace AnagramGenerator.WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly IAnagramsService _anagramsService;
-        private readonly ISeeder _seeder;
 
-        public HomeController(IAnagramsService anagramsService, ISeeder seeder)
+        public HomeController(IAnagramsService anagramsService)
         {
-            _seeder = seeder;
             _anagramsService = anagramsService;
         }
 

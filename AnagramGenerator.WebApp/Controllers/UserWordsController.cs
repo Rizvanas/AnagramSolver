@@ -89,7 +89,7 @@ namespace AnagramGenerator.WebApp.Controllers
             }
             catch
             {
-
+                return NoContent();
             }
 
             return Redirect($"/userWords?pageSize=100");
