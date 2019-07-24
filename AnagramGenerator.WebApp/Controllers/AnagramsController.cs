@@ -1,5 +1,7 @@
 ﻿using Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace AnagramGenerator.WebApp.Controllers
 {
@@ -14,9 +16,9 @@ namespace AnagramGenerator.WebApp.Controllers
         }
         
         [HttpGet]
-        public ActionResult<string> GetAnagrams([FromHeader]string word)
+        public ActionResult<List<string>> GetAnagrams([FromHeader]string word)
         {
-            if (word == null)
+            if (String.IsNullOrWhiteSpace(word))
                 return BadRequest();
 
             var IpAdress = HttpContext.Connection.RemoteIpAddress.ToString();
