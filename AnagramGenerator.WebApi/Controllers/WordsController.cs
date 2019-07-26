@@ -38,8 +38,7 @@ namespace AnagramGenerator.WebApi.Controllers
             if (String.IsNullOrWhiteSpace(phrase))
                 return BadRequest(new { errorMessage = "Search phrase is required" } );
 
-            var words = _wordsService.GetWords(phrase).ToList();
-            return Ok(new { Words = words.ToList() });
+            return Ok(new { Words = _wordsService.GetWords(phrase).ToList() });
         }
 
         private void SetPagingCookie(int? page)
