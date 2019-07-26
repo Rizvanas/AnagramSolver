@@ -1,27 +1,29 @@
 ﻿using Contracts.DTO;
-using Contracts.Models;
 using Contracts.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnagramGenerator.WebApi.Controllers
 {
-    [EnableCors("AllowAnyOriginPolicy")]
-    [Route("api/words")]
-    public class WordsController : ControllerBase
-    {
-        private readonly IWordsService _wordsService;
 
-        public WordsController(IWordsService wordsService)
+    [Route("api/anagrams")]
+    [EnableCors("AllowAnyOriginPolicy")]
+    [ApiController]
+    public class UserWordsController : ControllerBase
+    {
+        private readonly IUserWordsService _userWordsService;
+
+        public UserWordsController(IUserWordsService userWordsService)
         {
-            _wordsService = wordsService;
+            _userWordsService = userWordsService;
         }
 
         [HttpPost]
-        public ActionResult<List<Word>> GetWords(int? page, int pageSize)
+        public ActionResult<IList<UserWord>> GetUserWords(int? page, int pageSize)
         {
             var cookie = Request.Cookies["CurrentPage"];
             page = (!String.IsNullOrEmpty(cookie) && page == null)
@@ -29,17 +31,17 @@ namespace AnagramGenerator.WebApi.Controllers
                 : page;
 
             SetPagingCookie(page);
-            return Ok(new { words = _wordsService.GetWords(page, pageSize) });
+            return Ok(new { words = _userWordsService.GetUserWords(page, pageSize) });
         }
 
         [HttpPost("search")]
         public ActionResult<List<Word>> GetSearchedWords(string phrase)
         {
             if (String.IsNullOrWhiteSpace(phrase))
-                return BadRequest(new { errorMessage = "Search phrase is required" } );
+                return BadRequest(new { errorMessage = "Search phrase is required" });
 
-            var words = _wordsService.GetWords(phrase).ToList();
-            return Ok(new { Words = words.ToList() });
+            var words = _userWordsService.GetUserWords(phrase).ToList();
+            return Ok(new { words = words.ToList() });
         }
 
         private void SetPagingCookie(int? page)

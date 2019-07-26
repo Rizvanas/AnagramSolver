@@ -68,6 +68,7 @@ namespace AnagramGenerator.WebApp.Controllers
                         ErrorMessage = e.Message
                     });
             }
+
             return View(
                 "Index",
                 new AnagramsViewModel
