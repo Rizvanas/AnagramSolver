@@ -89,6 +89,7 @@ namespace AnagramGenerator.WebApi
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseCors("AllowAnyOriginPolicy");
             app.UseMvc();
         }

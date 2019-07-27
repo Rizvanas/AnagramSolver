@@ -12,6 +12,7 @@ namespace Contracts.Services
         UserWord GetUserWord(string word);
         IList<UserWord> GetUserWords(string word);
         void RemoveUserWord(string word, string userIp);
+        void RemoveUserWord(int id, string userIp);
         void UpdateUserWord(int id, string newValue, string userIp);
     }
 }

@@ -22,7 +22,7 @@ namespace AnagramGenerator.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<IList<Anagram>> GetAnagrams(string word)
+        public ActionResult<IList<Anagram>> GetAnagrams([FromBody] string word)
         {
             if (String.IsNullOrWhiteSpace(word))
                 return BadRequest(new { errorMessage = "Word is required" });

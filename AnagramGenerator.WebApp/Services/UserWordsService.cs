@@ -58,6 +58,24 @@ namespace AnagramGenerator.WebApp.Services
             _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft - 1);
         }
 
+        public void RemoveUserWord(int id, string userIp)
+        {
+            try
+            {
+                _userWordsRepository.DeleteUserWord(id);
+            }
+            catch
+            {
+                throw;
+            }
+
+            var user = _usersRepository
+                .GetUsers()
+                .FirstOrDefault(u => u.Ip == userIp);
+
+            _usersService.UpdateUserSearchesCount(user.Id, user.SearchesLeft - 1);
+        }
+
         public List<UserWord> GetUserWords(int? page, int pageSize)
         {
             page = (page < 1 || page == null) ? 1 : page;

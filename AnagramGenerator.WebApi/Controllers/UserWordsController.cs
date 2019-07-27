@@ -9,7 +9,7 @@ using System.Linq;
 namespace AnagramGenerator.WebApi.Controllers
 {
 
-    [Route("api/anagrams")]
+    [Route("api/userWords")]
     [EnableCors("AllowAnyOriginPolicy")]
     [ApiController]
     public class UserWordsController : ControllerBase
@@ -22,54 +22,71 @@ namespace AnagramGenerator.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<IList<UserWord>> GetUserWords(int? page, int pageSize)
+        public ActionResult<IList<UserWord>> GetUserWords([FromBody] PaginationFilter filter)
         {
             var cookie = Request.Cookies["CurrentPage"];
-            page = (!String.IsNullOrEmpty(cookie) && page == null)
+            filter.Page = (!String.IsNullOrEmpty(cookie) && filter.Page == null)
                 ? Convert.ToInt32(cookie)
-                : page;
+                : filter.Page;
 
-            SetPagingCookie(page);
-            return Ok(new { userWors = _userWordsService.GetUserWords(page, pageSize) });
+            SetPagingCookie(filter.Page);
+            return Ok(new { userWors = _userWordsService.GetUserWords(filter.Page, filter.PageSize) });
         }
 
         [HttpPost("search")]
-        public ActionResult<List<UserWord>> GetSearchedUserWords(string phrase)
+        public ActionResult<IList<UserWord>> GetSearchedUserWords([FromBody] Phrase phrase)
         {
-            if (String.IsNullOrWhiteSpace(phrase))
+            if (String.IsNullOrWhiteSpace(phrase.Text))
                 return BadRequest(new { errorMessage = "Search phrase is required" });
 
-            return Ok(new { userWors = _userWordsService.GetUserWords(phrase).ToList() });
+            return Ok(new { userWors = _userWordsService.GetUserWords(phrase.Text).ToList() });
         }
 
-        [HttpPost("add")]
-        public ActionResult AddUserWord(string word)
+        [HttpPost("new")]
+        public ActionResult AddUserWord([FromBody] UserWord word)
         {
-            if (String.IsNullOrWhiteSpace(word))
+            if (String.IsNullOrWhiteSpace(word.Text))
                 return BadRequest(new { errorMessage = "word is required" });
 
             var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            _userWordsService.AddUserWord(word, ipAddress);
+            _userWordsService.AddUserWord(word.Text, ipAddress);
 
             return Ok();
         }
 
-        [HttpPut]
-        public ActionResult UpdateUserWord(int id, string word)
+        [HttpPut("edit/{id}")]
+        public ActionResult UpdateUserWord([FromBody] UserWord word)
         {
-            if (id < 0 || String.IsNullOrWhiteSpace(word))
-                return NotFound(new { errorMessage = $"word with id {id} could not be found" });
+            if (word.Id < 0 || String.IsNullOrWhiteSpace(word.Text))
+                return NotFound(new { errorMessage = $"word with id of {word.Id} could not be found" });
 
-            var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-            _userWordsService.UpdateUserWord(id, word, ipAddress);
+            try
+            {
+                var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                _userWordsService.UpdateUserWord(word.Id, word.Text, ipAddress);
+            }
+            catch
+            {
+                return NotFound(new { errorMessage = $"word with id of {word.Id} could not be found" });
+            }
 
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("delete/{id}")]
         public ActionResult DeleteUserWord(int id)
         {
+            try
+            {
+                var ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                _userWordsService.RemoveUserWord(id, ipAddress);
+            }
+            catch
+            {
+                return NotFound(new { errorMessage = $"word with id of {id} could not be found" });
+            }
 
+            return Ok();
         }
 
         [HttpPost]

@@ -11,6 +11,7 @@ namespace AnagramGenerator.WebApi.Controllers
 {
     [EnableCors("AllowAnyOriginPolicy")]
     [Route("api/words")]
+    [ApiController]
     public class WordsController : ControllerBase
     {
         private readonly IWordsService _wordsService;
@@ -21,24 +22,24 @@ namespace AnagramGenerator.WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<List<Word>> GetWords(int? page, int pageSize)
+        public ActionResult<IList<Word>> GetWords([FromBody] PaginationFilter filter)
         {
             var cookie = Request.Cookies["CurrentPage"];
-            page = (!String.IsNullOrEmpty(cookie) && page == null)
+            filter.Page = (!String.IsNullOrEmpty(cookie) && filter.Page == null)
                 ? Convert.ToInt32(cookie)
-                : page;
+                : filter.Page;
 
-            SetPagingCookie(page);
-            return Ok(new { words = _wordsService.GetWords(page, pageSize) });
+            SetPagingCookie(filter.Page);
+            return Ok(new { words = _wordsService.GetWords(filter.Page, filter.PageSize) });
         }
 
         [HttpPost("search")]
-        public ActionResult<List<Word>> GetSearchedWords(string phrase)
+        public ActionResult<IList<Word>> GetSearchedWords([FromBody] Phrase phrase)
         {
-            if (String.IsNullOrWhiteSpace(phrase))
+            if (String.IsNullOrWhiteSpace(phrase.Text))
                 return BadRequest(new { errorMessage = "Search phrase is required" } );
 
-            return Ok(new { Words = _wordsService.GetWords(phrase).ToList() });
+            return Ok(new { Words = _wordsService.GetWords(phrase.Text).ToList() });
         }
 
         private void SetPagingCookie(int? page)
