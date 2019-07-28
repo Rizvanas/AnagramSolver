@@ -1,0 +1,15 @@
+{
+  "name": "anagramgenerator.frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rizvan Chalilovas",
+  "license": "MIT",
+  "devDependencies": {
+    "lite-server": "^2.5.3"
+  }
+}

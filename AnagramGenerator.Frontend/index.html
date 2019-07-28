@@ -18,56 +18,81 @@
   </head>
   <body class="bg-light">
     <div class="container-fluid">
-          <header class="text-center">
-              <img
-                class="img-fluid"
-                src="./VismaLogo.png"
-                alt="Visma"
-                width="132"
-                height="70"
-              />
-          </header>
-          <div class="row">
-              <div class="col-md-4 mb-3"></div>
-            <div class="col-md-4 mb-3">
-                <form class="py-5 text-left">
-                    <div class="form-group">
-                      <label for="searchInput"><h3>Anagramų paieška</h3></label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="searchInput"
-                        aria-describedby="searchPhraseHelp"
-                        placeholder="Įveskite žodį"
-                        autofocus
-                      />
-                      <small id="searchPhraseHelp" class="form-text text-muted"
-                        >Šis laukas yra privalomas</small
-                      >
-                    </div>
-                    <button type="submit" class="btn btn-lg btn-primary btn-block btn-dark">Ieškoti</button>
-                  </form>
-                  <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <p class="text-muted">Anagramos</p>
-                  </h4>
-                  <ul class="list-group md-3 mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">Anagrama1</li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">Anagrama2</li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">Anagrama3</li>
-                    <li class="list-group-item d-flex justify-content-between lh-condensed">Anagrama4</li>
-                  </ul>
-            </div>
-            <div class="col-md-4 mb-3">
-            </div>
-
+      <header class="text-center">
+        <img
+          class="img-fluid"
+          src="./VismaLogo.png"
+          alt="Visma"
+          width="132"
+          height="70"
+        />
+      </header>
+      <main id="app">
+        <div class="row">
+          <div class="col-md-4 mb-3"></div>
+          <div class="col-md-4 mb-3">
+            <form class="py-5 text-left">
+              <div class="form-group">
+                <label for="searchInput"><h3>Anagramų paieška</h3></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="searchInput"
+                  aria-describedby="searchPhraseHelp"
+                  placeholder="Įveskite žodį"
+                  autofocus
+                />
+                <small id="searchPhraseHelp" class="form-text text-muted"
+                  >Šis laukas yra privalomas</small
+                >
+              </div>
+              <button
+                type="submit"
+                class="btn btn-lg btn-primary btn-block btn-dark"
+              >
+                Ieškoti
+              </button>
+            </form>
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+              <a href="#/words">
+                <p class="text-muted">Anagramos</p>
+              </a>
+            </h4>
+            <ul class="list-group md-3 mb-3">
+              <li
+                class="list-group-item d-flex justify-content-between lh-condensed"
+              >
+                Anagrama1
+              </li>
+            </ul>
           </div>
-
-        <footer></footer>
+          <div class="col-md-4 mb-3"></div>
+        </div>
+      </main>
+      <footer></footer>
     </div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
- </body>
+    <script src="app/lib/fetchHelpers.js" charset="utf-8"></script>
+    <script src="app/lib/api.js" charset="utf-8"></script>
+    <script src="app/lib/app.js" charset="utf-8"></script>
+    <script src="app/lib/router.js" charset="utf-8"></script>
+    <script src="app/lib/shared.js" charset="utf-8"></script>
+    <script src="app/main.js" charset="utf-8"></script>
+    <script src="app/components/words.js" charset="utf-8"></script>
   </body>
 </html>
